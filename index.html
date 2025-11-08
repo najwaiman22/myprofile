@@ -4,23 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nawa's Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
   
   <!-- Particles.js library -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle at 30% 30%, #01162b, #000); /* subtle galaxy gradient */
+      background: radial-gradient(circle at 30% 30%, #01162b, #000);
       color: #6a90b4;
       font-family: "Poppins", sans-serif;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       flex-direction: column;
       position: relative;
     }
@@ -77,7 +81,7 @@
       animation: bounce 1.4s infinite ease-in-out both;
     }
 
-    .dot:nth-child(1) { animation-delay: -0.10s; }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
     .dot:nth-child(2) { animation-delay: -0.16s; }
 
     @keyframes bounce {
@@ -93,6 +97,8 @@
       text-align: center;
       z-index: 1;
       position: relative;
+      padding: 20px;
+      max-width: 90%;
     }
 
     #main-content.visible {
@@ -108,6 +114,7 @@
       letter-spacing: 3px;
       transition: 0.4s ease;
       cursor: pointer;
+      font-family: "Archivo Black", sans-serif;
     }
 
     #main-content h1:hover {
@@ -119,7 +126,7 @@
     #main-content p {
       color: #a7c7e7;
       font-size: 1.3em;
-      margin: 0;
+      margin: 0 0 50px 0;
       transition: 0.4s ease;
       cursor: pointer;
     }
@@ -132,9 +139,10 @@
 
     /* --- Stand-out Button Style --- */
     .button {
+      display: inline-block;
       height: 50px;
-      width: 200px;
-      position: relative;
+      min-width: 200px;
+      padding: 0 30px;
       background-color: #638ECB;
       border: 2px solid #638ECB;
       color: #fff;
@@ -144,8 +152,10 @@
       letter-spacing: 4px;
       font-family: "Poppins", sans-serif;
       transition: all 0.3s ease;
-      margin-top: 50px;
       box-shadow: 0 0 10px rgba(99,140,203,0.6);
+      text-decoration: none;
+      line-height: 46px;
+      text-align: center;
     }
 
     .button:hover {
@@ -154,19 +164,99 @@
       background-color: #8AAEE0;
     }
 
+    .button:focus {
+      outline: 2px solid #a7c7e7;
+      outline-offset: 4px;
+    }
+
     .btn-txt {
+      position: relative;
       z-index: 1;
+    }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 768px) {
+      #counter {
+        font-size: 3em;
+      }
+
+      #main-content h1 {
+        font-size: 2em;
+        letter-spacing: 2px;
+      }
+
+      #main-content p {
+        font-size: 1.1em;
+        margin-bottom: 40px;
+      }
+
+      .button {
+        height: 45px;
+        min-width: 180px;
+        font-size: 0.9em;
+        letter-spacing: 3px;
+        line-height: 41px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #counter {
+        font-size: 2.5em;
+      }
+
+      #main-content h1 {
+        font-size: 1.5em;
+        letter-spacing: 1px;
+      }
+
+      #main-content p {
+        font-size: 1em;
+        margin-bottom: 30px;
+      }
+
+      .button {
+        height: 40px;
+        min-width: 160px;
+        font-size: 0.8em;
+        letter-spacing: 2px;
+        line-height: 36px;
+        padding: 0 20px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    /* Skip to content link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #638ECB;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 0;
     }
   </style>
 </head>
 <body>
+  <!-- Accessibility: Skip to main content -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Particles Background -->
-  <div id="particles-js"></div>
+  <div id="particles-js" aria-hidden="true"></div>
 
   <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div id="counter">0%</div>
-    <div class="loader">
+  <div id="loading-screen" role="status" aria-live="polite">
+    <div id="counter" aria-label="Loading progress">0%</div>
+    <div class="loader" aria-label="Loading">
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
@@ -174,13 +264,13 @@
   </div>
 
   <!-- Main Content -->
-  <div id="main-content">
+  <main id="main-content">
     <h1>Welcome to my profile!</h1>
     <p>Built on dreams, shaped by purpose.</p>
-    <button class="button" onclick="location.href='page2.html'">
-      <span class="btn-txt">Click Here</span>
-    </button>
-  </div>
+    <a href="page2.html" class="button" aria-label="Navigate to next page">
+      <span class="btn-txt">ENTER</span>
+    </a>
+  </main>
 
   <script>
     const counter = document.getElementById("counter");
@@ -189,58 +279,88 @@
     const mainContent = document.getElementById("main-content");
 
     let count = 0;
+    let pageLoaded = false;
+
+    // Check if page is fully loaded
+    window.addEventListener('load', () => {
+      pageLoaded = true;
+    });
 
     const interval = setInterval(() => {
       if (count < 100) {
         count++;
         counter.innerText = count + "%";
+        counter.setAttribute('aria-label', `Loading progress ${count} percent`);
       } else {
         clearInterval(interval);
-        counter.style.display = "none";
-        loader.style.display = "flex";
+        
+        // Wait for page to be fully loaded before proceeding
+        const checkAndProceed = () => {
+          if (pageLoaded) {
+            counter.style.display = "none";
+            loader.style.display = "flex";
 
-        setTimeout(() => {
-          loadingScreen.style.opacity = "0";
-          setTimeout(() => {
-            loadingScreen.style.display = "none";
-            document.body.style.overflow = "auto";
-            mainContent.classList.add("visible");
-          }, 800);
-        }, 1500);
+            setTimeout(() => {
+              loadingScreen.style.opacity = "0";
+              loadingScreen.setAttribute('aria-hidden', 'true');
+              
+              setTimeout(() => {
+                loadingScreen.style.display = "none";
+                mainContent.classList.add("visible");
+                mainContent.focus(); // Focus management for accessibility
+              }, 500);
+            }, 1500);
+          } else {
+            setTimeout(checkAndProceed, 100);
+          }
+        };
+        
+        checkAndProceed();
       }
     }, 20);
 
     // --- Initialize Particles ---
     particlesJS("particles-js", {
       "particles": {
-        "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+        "number": { 
+          "value": 100, 
+          "density": { "enable": true, "value_area": 800 } 
+        },
         "color": { "value": "#ffffff" },
         "shape": { "type": "circle" },
-        "opacity": { "value": 0.8, "random": true },
-        "size": { "value": 2, "random": true },
+        "opacity": { 
+          "value": 0.8, 
+          "random": true,
+          "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3 }
+        },
+        "size": { 
+          "value": 2, 
+          "random": true,
+          "anim": { "enable": true, "speed": 2, "size_min": 0.3 }
+        },
         "line_linked": { "enable": false },
-        "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+        "move": { 
+          "enable": true, 
+          "speed": 0.5, 
+          "direction": "none", 
+          "random": true, 
+          "straight": false, 
+          "out_mode": "out" 
+        }
       },
       "interactivity": {
         "detect_on": "canvas",
-        "events": { "onhover": { "enable": true, "mode": "repulse" } }
+        "events": { 
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "repulse": { "distance": 100, "duration": 0.4 },
+          "push": { "particles_nb": 4 }
+        }
       },
       "retina_detect": true
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
