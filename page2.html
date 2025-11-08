@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+  <!-- Particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at 30% 30%, #01162b, #000);
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #6a90b4;
+      position: relative;
+    }
+
+    /* --- Particle Background --- */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* --- Main Content --- */
+    #main-content {
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    #main-content h1 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      color: #6a90b4;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+
+    #main-content h1:hover {
+      color: #a7c7e7;
+      transform: scale(1.08);
+      text-shadow: 0 0 15px rgba(167,199,231,0.6);
+    }
+
+    #main-content p {
+      color: #a7c7e7;
+      font-size: 1.3em;
+      margin: 0;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+
+    #main-content p:hover {
+      color: #c7e3ff;
+      transform: scale(1.05);
+      text-shadow: 0 0 10px rgba(199,227,255,0.6);
+    }
+
+    /* --- Glowing Button --- */
+    .button {
+      height: 50px;
+      width: 200px;
+      position: relative;
+      background-color: #638ECB;
+      border: 2px solid #638ECB;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 30px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      font-family: "Poppins", sans-serif;
+      transition: all 0.3s ease;
+      margin-top: 50px;
+      box-shadow: 0 0 10px rgba(99,140,203,0.6);
+    }
+
+    .button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(99,140,203,0.9);
+      background-color: #8AAEE0;
+    }
+
+    .btn-txt {
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <h1>Welcome to the Second Page!</h1>
+    <p>Here is more content for your cosmic profile.</p>
+    <button class="button" onclick="location.href='index.html'">
+      <span class="btn-txt">Go Back</span>
+    </button>
+  </div>
+
+  <script>
+    // --- Initialize Particles ---
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.8, "random": true },
+        "size": { "value": 2, "random": true },
+        "line_linked": { "enable": false },
+        "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": { "onhover": { "enable": true, "mode": "repulse" } }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>
