@@ -3,135 +3,630 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homepage</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-
-  <!-- Particles.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
+  <title>About Me - Nawa's Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle at 30% 30%, #01162b, #000);
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: "Poppins", sans-serif;
-      overflow: hidden;
+      background: linear-gradient(135deg, #001a33 0%, #01162b 100%);
+      color: #a7c7e7;
+      overflow-x: hidden;
+    }
+
+    /* NAVIGATION MENU - Right Side */
+    .nav-menu {
+      position: fixed;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-label {
+      background: rgba(99, 142, 203, 0.2);
+      color: #a7c7e7;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.9em;
+      font-weight: 500;
+      border: 2px solid transparent;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover .nav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .nav-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: rgba(99, 142, 203, 0.5);
+      border: 2px solid #638ECB;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item:hover .nav-dot,
+    .nav-item.active .nav-dot {
+      background: #638ECB;
+      box-shadow: 0 0 15px rgba(99, 142, 203, 0.8);
+      transform: scale(1.3);
+    }
+
+    .nav-item.active .nav-label {
+      opacity: 1;
+      transform: translateX(0);
+      background: #638ECB;
+      color: white;
+      border-color: #8AAEE0;
+    }
+
+    /* SCROLL BUTTONS - Bottom Right */
+    .scroll-controls {
+      position: fixed;
+      right: 40px;
+      bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .scroll-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(99, 142, 203, 0.3);
+      border: 2px solid #638ECB;
+      color: #8AAEE0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .scroll-btn:hover {
+      background: #638ECB;
+      color: white;
+      transform: scale(1.15);
+      box-shadow: 0 0 20px rgba(99, 142, 203, 0.8);
+    }
+
+    /* PAGE NAVIGATION - Left & Right */
+    .prev-btn {
+      position: fixed;
+      left: 30px;
+      top: 30px;
+      z-index: 100;
+    }
+
+    .next-btn {
+      position: fixed;
+      right: 30px;
+      top: 30px;
+      z-index: 100;
+    }
+
+    .page-nav-btn {
+      background: rgba(99, 142, 203, 0.3);
+      border: 2px solid #638ECB;
+      color: #a7c7e7;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 0.95em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .page-nav-btn:hover {
+      background: #638ECB;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(99, 142, 203, 0.6);
+    }
+
+    .page-nav-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* MAIN CONTENT - Split Screen */
+    .container {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      min-height: 100vh;
+    }
+
+    /* LEFT SIDE - Profile */
+    .left-panel {
+      background: rgba(99, 142, 203, 0.05);
+      border-right: 2px solid #638ECB;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 60px 40px;
+      position: sticky;
+      top: 0;
       height: 100vh;
-      color: #6a90b4;
+    }
+
+    .profile-circle {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6a90b4, #638ECB);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      box-shadow: 0 0 40px rgba(99, 142, 203, 0.6);
+      border: 5px solid rgba(138, 174, 224, 0.3);
+      transition: all 0.3s ease;
+      overflow: hidden;
       position: relative;
     }
 
-    /* --- Particle Background --- */
-    #particles-js {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .profile-circle img {
       width: 100%;
       height: 100%;
-      z-index: -1;
+      object-fit: cover;
     }
 
-    /* --- Main Content --- */
-    #main-content {
-      text-align: center;
-      z-index: 1;
-      position: relative;
+    .profile-circle .placeholder {
+      font-size: 6em;
     }
 
-    #main-content h1 {
-      font-size: 3em;
-      margin-bottom: 15px;
-      color: #6a90b4;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      transition: 0.4s ease;
-      cursor: pointer;
-    }
-
-    #main-content h1:hover {
-      color: #a7c7e7;
-      transform: scale(1.08);
-      text-shadow: 0 0 15px rgba(167,199,231,0.6);
-    }
-
-    #main-content p {
-      color: #a7c7e7;
-      font-size: 1.3em;
-      margin: 0;
-      transition: 0.4s ease;
-      cursor: pointer;
-    }
-
-    #main-content p:hover {
-      color: #c7e3ff;
+    .profile-circle:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 10px rgba(199,227,255,0.6);
+      box-shadow: 0 0 60px rgba(99, 142, 203, 0.9);
     }
 
-    /* --- Glowing Button --- */
-    .button {
-      height: 50px;
-      width: 200px;
-      position: relative;
-      background-color: #638ECB;
+    .left-panel h1 {
+      font-family: "Archivo Black", sans-serif;
+      color: #6a90b4;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .left-panel .title {
+      color: #8AAEE0;
+      font-size: 1.1em;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .left-panel .subtitle {
+      color: #a7c7e7;
+      text-align: center;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .social-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(99, 142, 203, 0.2);
       border: 2px solid #638ECB;
-      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3em;
       cursor: pointer;
-      border-radius: 30px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      font-family: "Poppins", sans-serif;
       transition: all 0.3s ease;
-      margin-top: 50px;
-      box-shadow: 0 0 10px rgba(99,140,203,0.6);
     }
 
-    .button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 25px rgba(99,140,203,0.9);
-      background-color: #8AAEE0;
+    .social-icon:hover {
+      background: #638ECB;
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(99, 142, 203, 0.6);
     }
 
-    .btn-txt {
-      z-index: 1;
+    /* RIGHT SIDE - Content */
+    .right-panel {
+      padding: 120px 80px 80px;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    .content-section {
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-section h2 {
+      color: #6a90b4;
+      font-family: "Archivo Black", sans-serif;
+      font-size: 2em;
+      margin-bottom: 20px;
+      border-left: 5px solid #638ECB;
+      padding-left: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .content-section p {
+      color: #a7c7e7;
+      line-height: 1.8;
+      font-size: 1.05em;
+      margin-bottom: 20px;
+    }
+
+    .content-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .content-section li {
+      color: #a7c7e7;
+      padding: 12px 0;
+      padding-left: 30px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .content-section li::before {
+      content: "▸";
+      color: #638ECB;
+      font-size: 1.2em;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .stat-box {
+      background: rgba(99, 142, 203, 0.15);
+      border: 2px solid #638ECB;
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+      background: rgba(99, 142, 203, 0.25);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(99, 142, 203, 0.4);
+    }
+
+    .stat-box h3 {
+      color: #6a90b4;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      font-family: "Archivo Black", sans-serif;
+    }
+
+    .stat-box p {
+      color: #8AAEE0;
+      font-size: 0.95em;
+      margin: 0;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: rgba(99, 142, 203, 0.1);
+      border-left: 4px solid #638ECB;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+
+    .highlight-box h3 {
+      color: #8AAEE0;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .left-panel {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid #638ECB;
+      }
+
+      .right-panel {
+        padding: 60px 40px;
+        max-height: none;
+      }
+
+      .nav-menu {
+        right: 20px;
+      }
+
+      .scroll-controls {
+        right: 20px;
+        bottom: 20px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .page-nav {
+        top: 20px;
+      }
+
+      .prev-btn {
+        left: 15px;
+        top: 15px;
+      }
+
+      .next-btn {
+        right: 15px;
+        top: 15px;
+      }
+
+      .page-nav-btn {
+        padding: 10px 20px;
+        font-size: 0.85em;
+      }
+
+      .profile-circle {
+        width: 180px;
+        height: 180px;
+        font-size: 4em;
+      }
+
+      .left-panel h1 {
+        font-size: 2em;
+      }
+
+      .right-panel {
+        padding: 40px 20px;
+      }
+
+      .content-section h2 {
+        font-size: 1.5em;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Particles Background -->
-  <div id="particles-js"></div>
+  
+  <!-- PAGE NAVIGATION - Left & Right -->
+  <button class="page-nav-btn prev-btn" onclick="location.href='index.html'">
+    ← Previous
+  </button>
+  <button class="page-nav-btn next-btn" onclick="location.href='page3.html'">
+    Next →
+  </button>
 
-  <!-- Main Content -->
-  <div id="main-content">
-    <h1>Welcome to the Second Page!</h1>
-    <p>Here is more content for your cosmic profile.</p>
-    <button class="button" onclick="location.href='index.html'">
-      <span class="btn-txt">Go Back</span>
-    </button>
+  <!-- NAVIGATION MENU - Right Side -->
+  <nav class="nav-menu">
+    <div class="nav-item" onclick="location.href='index.html'">
+      <span class="nav-label">Homepage</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item active" onclick="location.href='page2.html'">
+      <span class="nav-label">About Me</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="location.href='page3.html'">
+      <span class="nav-label">Hobbies</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="location.href='page4.html'">
+      <span class="nav-label">Experience</span>
+      <div class="nav-dot"></div>
+    </div>
+    <div class="nav-item" onclick="location.href='page5.html'">
+      <span class="nav-label">Contact Me</span>
+      <div class="nav-dot"></div>
+    </div>
+  </nav>
+
+  <!-- SCROLL CONTROLS - Bottom Right -->
+  <div class="scroll-controls">
+    <div class="scroll-btn" onclick="scrollToTop()" title="Scroll to top">
+      ↑
+    </div>
+    <div class="scroll-btn" onclick="scrollToBottom()" title="Scroll to bottom">
+      ↓
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT - Split Screen -->
+  <div class="container">
+    
+    <!-- LEFT PANEL - Profile -->
+    <div class="left-panel">
+      <div class="profile-circle">
+        <!-- CARA 1: Guna gambar dari folder -->
+        <!-- <img src="images/profile.jpg" alt="Nawa"> -->
+        
+        <!-- CARA 2: Guna gambar dari link/URL -->
+        <!-- <img src="https://your-image-url.com/photo.jpg" alt="Nawa"> -->
+        
+        <!-- Placeholder (delete this when you add image) -->
+        <div class="placeholder">👤</div>
+      </div>
+      <h1>NAWA</h1>
+      <p class="title">Information Management Student</p>
+      <p class="subtitle">Writer • Volunteer • Change Maker</p>
+      
+      <div class="social-links">
+        <div class="social-icon" title="Instagram">📷</div>
+        <div class="social-icon" title="Wattpad">📚</div>
+        <div class="social-icon" title="LinkedIn">💼</div>
+        <div class="social-icon" title="Email">📧</div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL - Content -->
+    <div class="right-panel" id="scrollContent">
+      
+      <div class="content-section">
+        <h2>Who Am I?</h2>
+        <p>
+          Hi! Saya Nawa, seorang pelajar Diploma in Information Management yang berusia 20 tahun. Saya bukan sekadar pelajar biasa - saya percaya dalam menggunakan teknologi untuk membuat perubahan positif dalam masyarakat.
+        </p>
+        <p>
+          Perjalanan saya dalam dunia Information Management bukan hanya tentang coding dan data - ia tentang bagaimana teknologi boleh menjadi alat untuk memberi impak kepada kehidupan orang lain.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <h3>20+</h3>
+          <p>Volunteer Events</p>
+        </div>
+        <div class="stat-box">
+          <h3>5+</h3>
+          <p>Stories Published</p>
+        </div>
+        <div class="stat-box">
+          <h3>3</h3>
+          <p>Active Clubs</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2>My Journey</h2>
+        <p>
+          Aktif dalam association clubs dan Gerakan luar kampus, saya telah mengorganisir dan menyertai pelbagai program komuniti yang memberi impak kepada masyarakat sekeliling. Setiap program mengajar saya nilai kepimpinan, empati, dan tanggungjawab sosial.
+        </p>
+        
+        <div class="highlight-box">
+          <h3>🎯 My Mission</h3>
+          <p>
+            To use technology and storytelling as tools to inspire change, connect communities, and create meaningful impact in people's lives.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2>What Drives Me</h2>
+        <ul>
+          <li><strong>Technology for Good:</strong> Menggunakan Information Management untuk menyelesaikan masalah sebenar dalam masyarakat</li>
+          <li><strong>Storytelling:</strong> Berkongsi cerita-cerita yang memberi inspirasi melalui penulisan di Wattpad</li>
+          <li><strong>Community Leadership:</strong> Memimpin dan mengorganisir program-program yang memberi impak positif</li>
+          <li><strong>Continuous Learning:</strong> Sentiasa mencari peluang untuk berkembang dan belajar perkara baharu</li>
+          <li><strong>Creativity in Action:</strong> Menggabungkan kreativiti dengan teknologi untuk hasilkan sesuatu yang bermakna</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <h2>My Values</h2>
+        <p>
+          Saya percaya dalam <strong>authenticity</strong> - menjadi diri sendiri sambil terus berkembang. Saya juga percaya dalam <strong>service</strong> - memberi kembali kepada komuniti adalah bukan pilihan, tetapi tanggungjawab. Dan yang paling penting, saya percaya dalam <strong>impact</strong> - setiap tindakan kecil boleh membawa perubahan besar.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <h3>💡 Fun Facts About Me</h3>
+        <ul>
+          <li>I can spend hours perfecting a single paragraph in my stories</li>
+          <li>My favorite way to de-stress is cooking elaborate meals</li>
+          <li>I've volunteered at over 20 different community events</li>
+          <li>I believe the best ideas come during late-night writing sessions</li>
+        </ul>
+      </div>
+
+    </div>
   </div>
 
   <script>
-    // --- Initialize Particles ---
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.8, "random": true },
-        "size": { "value": 2, "random": true },
-        "line_linked": { "enable": false },
-        "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": { "onhover": { "enable": true, "mode": "repulse" } }
-      },
-      "retina_detect": true
+    function scrollToTop() {
+      const content = document.getElementById('scrollContent');
+      if (content) {
+        content.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    function scrollToBottom() {
+      const content = document.getElementById('scrollContent');
+      if (content) {
+        content.scrollTo({
+          top: content.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateX(-5px)';
+      });
+      item.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateX(0)';
+      });
     });
   </script>
+
 </body>
 </html>
+
