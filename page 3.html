@@ -1,289 +1,670 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-export default function CatchDreamsGame() {
-  const [gameState, setGameState] = useState('menu'); // menu, playing, gameover
-  const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
-  const [playerX, setPlayerX] = useState(50);
-  const [fallingItems, setFallingItems] = useState([]);
-  const [highScore, setHighScore] = useState(0);
-  const gameRef = useRef(null);
-  const animationRef = useRef(null);
-
-  const items = [
-    { emoji: '📚', type: 'good', name: 'Book', points: 10 },
-    { emoji: '🍳', type: 'good', name: 'Food', points: 10 },
-    { emoji: '❤️', type: 'good', name: 'Heart', points: 10 },
-    { emoji: '⛈️', type: 'bad', name: 'Storm', points: -5 },
-    { emoji: '💤', type: 'bad', name: 'Sleep', points: -5 },
-  ];
-
-  // Start game
-  const startGame = () => {
-    setGameState('playing');
-    setScore(0);
-    setLives(3);
-    setPlayerX(50);
-    setFallingItems([]);
-  };
-
-  // Game over
-  const gameOver = () => {
-    setGameState('gameover');
-    if (score > highScore) {
-      setHighScore(score);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catch The Dreams - Nawa's Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
     }
-  };
 
-  // Move player with mouse
-  useEffect(() => {
-    if (gameState !== 'playing') return;
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
 
-    const handleMouseMove = (e) => {
-      if (gameRef.current) {
-        const rect = gameRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        setPlayerX(Math.max(10, Math.min(90, x)));
+    /* NAVIGATION - Top Center */
+    .nav-menu {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 15px;
+      background: rgba(1, 22, 43, 0.9);
+      padding: 10px 20px;
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(99, 142, 203, 0.3);
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(99, 142, 203, 0.5);
+      border: 2px solid #638ECB;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-dot:hover,
+    .nav-dot.active {
+      background: #638ECB;
+      box-shadow: 0 0 10px rgba(99, 142, 203, 0.8);
+      transform: scale(1.2);
+    }
+
+    .nav-dot.active {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* PAGE NAVIGATION */
+    .prev-btn {
+      position: fixed;
+      left: 25px;
+      top: 25px;
+      z-index: 99;
+    }
+
+    .next-btn {
+      position: fixed;
+      right: 25px;
+      top: 25px;
+      z-index: 99;
+    }
+
+    .page-nav-btn {
+      background: rgba(99, 142, 203, 0.3);
+      border: 2px solid #638ECB;
+      color: #a7c7e7;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-size: 0.8em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .page-nav-btn:hover {
+      background: #638ECB;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6);
+    }
+
+    /* SCREENS */
+    .screen {
+      display: none;
+      text-align: center;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    /* MENU SCREEN */
+    .menu-screen {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      padding: 50px;
+      border-radius: 30px;
+      border: 2px solid rgba(99, 142, 203, 0.3);
+    }
+
+    .game-title {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 3.5em;
+      color: #60a5fa;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    }
+
+    .game-subtitle {
+      font-size: 1.3em;
+      color: #93c5fd;
+      margin-bottom: 40px;
+    }
+
+    .instructions {
+      background: rgba(30, 58, 138, 0.5);
+      padding: 30px;
+      border-radius: 20px;
+      margin: 30px auto;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .instructions h3 {
+      color: #93c5fd;
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .instruction-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 15px 0;
+      font-size: 1.1em;
+    }
+
+    .instruction-item .emoji {
+      font-size: 2em;
+    }
+
+    .good-item {
+      color: #93c5fd;
+    }
+
+    .bad-item {
+      color: #fca5a5;
+    }
+
+    .high-score {
+      font-size: 1.5em;
+      color: #fcd34d;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border: none;
+      color: white;
+      font-family: "Archivo Black", sans-serif;
+      font-size: 1.5em;
+      padding: 15px 50px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(59, 130, 246, 0.5);
+      margin-top: 20px;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.7);
+    }
+
+    /* GAME SCREEN */
+    .game-info {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(99, 142, 203, 0.3);
+    }
+
+    .score-display {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #60a5fa;
+    }
+
+    .score-display .number {
+      color: #fcd34d;
+    }
+
+    .lives-display {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #f87171;
+    }
+
+    .game-area {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(30, 58, 138, 0.9));
+      border-radius: 30px;
+      overflow: hidden;
+      border: 4px solid rgba(96, 165, 250, 0.5);
+      cursor: none;
+    }
+
+    .falling-item {
+      position: absolute;
+      font-size: 3em;
+      transition: none;
+      pointer-events: none;
+    }
+
+    .player {
+      position: absolute;
+      bottom: 20px;
+      font-size: 4em;
+      transition: left 0.1s ease;
+      transform: translateX(-50%);
+    }
+
+    .control-hint {
+      text-align: center;
+      color: #93c5fd;
+      margin-top: 15px;
+      font-size: 0.9em;
+    }
+
+    /* GAME OVER SCREEN */
+    .gameover-screen {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      padding: 50px;
+      border-radius: 30px;
+      border: 2px solid rgba(99, 142, 203, 0.3);
+    }
+
+    .gameover-title {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 3em;
+      color: #f87171;
+      margin-bottom: 20px;
+    }
+
+    .final-score {
+      font-size: 2.5em;
+      color: #fcd34d;
+      font-weight: bold;
+      margin: 30px 0;
+    }
+
+    .achievement-icon {
+      font-size: 5em;
+      margin: 20px 0;
+    }
+
+    .achievement-text {
+      font-size: 1.3em;
+      color: #93c5fd;
+      margin: 20px 0;
+    }
+
+    .new-highscore {
+      font-size: 1.5em;
+      color: #4ade80;
+      font-weight: bold;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .menu-btn {
+      background: rgba(71, 85, 105, 0.8);
+      border: none;
+      color: #93c5fd;
+      font-family: "Poppins", sans-serif;
+      font-size: 1em;
+      padding: 12px 35px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+
+    .menu-btn:hover {
+      background: rgba(71, 85, 105, 1);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .game-title {
+        font-size: 2.5em;
       }
-    };
 
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft') {
-        setPlayerX(prev => Math.max(10, prev - 5));
-      } else if (e.key === 'ArrowRight') {
-        setPlayerX(prev => Math.min(90, prev + 5));
+      .menu-screen, .gameover-screen {
+        padding: 30px 20px;
       }
-    };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('keydown', handleKeyDown);
+      .game-area {
+        height: 400px;
+      }
 
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [gameState]);
+      .nav-menu {
+        padding: 8px 15px;
+        gap: 10px;
+      }
 
-  // Game loop
-  useEffect(() => {
-    if (gameState !== 'playing') return;
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+      }
 
+      .prev-btn, .next-btn {
+        top: 80px;
+      }
+
+      .prev-btn {
+        left: 10px;
+      }
+
+      .next-btn {
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE NAVIGATION -->
+  <button class="page-nav-btn prev-btn" onclick="location.href='page2.html'">
+    ← Previous
+  </button>
+  <button class="page-nav-btn next-btn" onclick="location.href='page4.html'">
+    Next →
+  </button>
+
+  <!-- NAVIGATION MENU -->
+  <nav class="nav-menu">
+    <div class="nav-dot" onclick="location.href='index.html'"></div>
+    <div class="nav-dot" onclick="location.href='page2.html'"></div>
+    <div class="nav-dot active"></div>
+    <div class="nav-dot" onclick="location.href='page4.html'"></div>
+    <div class="nav-dot" onclick="location.href='page5.html'"></div>
+  </nav>
+
+  <div class="container">
+
+    <!-- MENU SCREEN -->
+    <div id="menuScreen" class="screen active menu-screen">
+      <h1 class="game-title">✨ Catch The Dreams ✨</h1>
+      <p class="game-subtitle">Built on dreams, shaped by purpose</p>
+
+      <div class="instructions">
+        <h3>How to Play</h3>
+        <div class="instruction-item good-item">
+          <span class="emoji">📚</span>
+          <span>Catch books = +10 points (Writing)</span>
+        </div>
+        <div class="instruction-item good-item">
+          <span class="emoji">🍳</span>
+          <span>Catch food = +10 points (Cooking)</span>
+        </div>
+        <div class="instruction-item good-item">
+          <span class="emoji">❤️</span>
+          <span>Catch hearts = +10 points (Volunteering)</span>
+        </div>
+        <div class="instruction-item bad-item">
+          <span class="emoji">⛈️</span>
+          <span>Avoid storms = -1 life</span>
+        </div>
+        <div class="instruction-item bad-item">
+          <span class="emoji">💤</span>
+          <span>Avoid distractions = -1 life</span>
+        </div>
+      </div>
+
+      <div id="highScoreDisplay" class="high-score"></div>
+
+      <button class="start-btn" onclick="startGame()">START GAME</button>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="gameScreen" class="screen">
+      <div class="game-info">
+        <div class="score-display">
+          Score: <span class="number" id="scoreDisplay">0</span>
+        </div>
+        <div class="lives-display" id="livesDisplay">
+          ❤️ ❤️ ❤️
+        </div>
+      </div>
+
+      <div class="game-area" id="gameArea">
+        <div class="player" id="player">🧺</div>
+      </div>
+
+      <p class="control-hint">Move mouse or use ← → arrow keys</p>
+    </div>
+
+    <!-- GAME OVER SCREEN -->
+    <div id="gameoverScreen" class="screen gameover-screen">
+      <h1 class="gameover-title">Game Over!</h1>
+      
+      <div class="achievement-icon" id="achievementIcon">💫</div>
+      
+      <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+      
+      <div id="newHighScore" class="new-highscore" style="display: none;">
+        🎉 NEW HIGH SCORE! 🎉
+      </div>
+      
+      <p class="achievement-text" id="achievementText"></p>
+
+      <button class="start-btn" onclick="startGame()">PLAY AGAIN</button>
+      <button class="menu-btn" onclick="backToMenu()">Back to Menu</button>
+    </div>
+
+  </div>
+
+  <script>
+    let gameState = 'menu';
+    let score = 0;
+    let lives = 3;
+    let highScore = parseInt(localStorage.getItem('highScore')) || 0;
+    let playerX = 50;
+    let fallingItems = [];
     let itemIdCounter = 0;
+    let gameLoop;
+    let spawnInterval;
 
-    // Spawn items
-    const spawnInterval = setInterval(() => {
+    const items = [
+      { emoji: '📚', type: 'good', points: 10 },
+      { emoji: '🍳', type: 'good', points: 10 },
+      { emoji: '❤️', type: 'good', points: 10 },
+      { emoji: '⛈️', type: 'bad', points: -5 },
+      { emoji: '💤', type: 'bad', points: -5 },
+    ];
+
+    // Display high score on menu
+    if (highScore > 0) {
+      document.getElementById('highScoreDisplay').textContent = `🏆 High Score: ${highScore}`;
+    }
+
+    function showScreen(screenName) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenName + 'Screen').classList.add('active');
+    }
+
+    function startGame() {
+      gameState = 'playing';
+      score = 0;
+      lives = 3;
+      playerX = 50;
+      fallingItems = [];
+      itemIdCounter = 0;
+
+      updateScore();
+      updateLives();
+      showScreen('game');
+
+      // Start spawning items
+      spawnInterval = setInterval(spawnItem, 1500);
+      
+      // Start game loop
+      gameLoop = setInterval(updateGame, 30);
+    }
+
+    function spawnItem() {
       const randomItem = items[Math.floor(Math.random() * items.length)];
       const newItem = {
         ...randomItem,
         id: itemIdCounter++,
         x: Math.random() * 80 + 10,
-        y: -10,
-        speed: 0.8 + Math.random() * 0.5, // Slower speed
+        y: -5,
+        speed: 0.8 + Math.random() * 0.5,
+        element: null,
+        caught: false
       };
-      setFallingItems(prev => [...prev, newItem]);
-    }, 1500); // Spawn less frequently (was 1000)
 
-    // Update items position
-    const updateLoop = () => {
-      setFallingItems(prev => {
-        const updated = prev.map(item => ({
-          ...item,
-          y: item.y + item.speed,
-        }));
+      // Create DOM element
+      const itemEl = document.createElement('div');
+      itemEl.className = 'falling-item';
+      itemEl.textContent = newItem.emoji;
+      itemEl.style.left = newItem.x + '%';
+      itemEl.style.top = newItem.y + '%';
+      document.getElementById('gameArea').appendChild(itemEl);
 
-        // Check collisions
-        updated.forEach(item => {
-          if (item.y > 75 && item.y < 85) {
-            const distance = Math.abs(item.x - playerX);
-            if (distance < 8 && !item.caught) {
-              item.caught = true;
-              if (item.type === 'good') {
-                setScore(s => s + item.points);
-              } else {
-                setLives(l => l - 1);
+      newItem.element = itemEl;
+      fallingItems.push(newItem);
+    }
+
+    function updateGame() {
+      if (gameState !== 'playing') return;
+
+      // Update falling items
+      fallingItems.forEach(item => {
+        item.y += item.speed;
+        item.element.style.top = item.y + '%';
+
+        // Check collision with player
+        if (item.y > 75 && item.y < 85 && !item.caught) {
+          const distance = Math.abs(item.x - playerX);
+          if (distance < 8) {
+            item.caught = true;
+            item.element.style.filter = 'brightness(2)';
+            
+            if (item.type === 'good') {
+              score += item.points;
+              updateScore();
+            } else {
+              lives--;
+              updateLives();
+              if (lives <= 0) {
+                endGame();
               }
             }
-          }
-        });
 
-        // Remove items that are off screen
-        return updated.filter(item => item.y < 100);
+            setTimeout(() => {
+              if (item.element && item.element.parentNode) {
+                item.element.remove();
+              }
+            }, 200);
+          }
+        }
+
+        // Remove if off screen
+        if (item.y > 105) {
+          if (item.element && item.element.parentNode) {
+            item.element.remove();
+          }
+        }
       });
 
-      animationRef.current = requestAnimationFrame(updateLoop);
-    };
-
-    updateLoop();
-
-    return () => {
-      clearInterval(spawnInterval);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [gameState, playerX]);
-
-  // Check game over
-  useEffect(() => {
-    if (lives <= 0 && gameState === 'playing') {
-      gameOver();
+      // Clean up off-screen items
+      fallingItems = fallingItems.filter(item => item.y < 105);
     }
-  }, [lives, gameState]);
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-4">
-      <div className="w-full max-w-2xl">
-        
-        {/* Menu Screen */}
-        {gameState === 'menu' && (
-          <div className="text-center space-y-6 bg-slate-800/50 backdrop-blur-lg p-12 rounded-3xl border-2 border-blue-500/30">
-            <h1 className="text-6xl font-black text-blue-400 mb-4">
-              ✨ Catch The Dreams ✨
-            </h1>
-            <p className="text-xl text-blue-200 mb-6">
-              Built on dreams, shaped by purpose
-            </p>
-            
-            <div className="space-y-4 text-left max-w-md mx-auto bg-slate-700/50 p-6 rounded-2xl">
-              <h3 className="text-2xl font-bold text-blue-300 text-center mb-4">How to Play</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">📚</span>
-                  <span className="text-blue-200">Catch books = +10 points (Writing)</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">🍳</span>
-                  <span className="text-blue-200">Catch food = +10 points (Cooking)</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">❤️</span>
-                  <span className="text-blue-200">Catch hearts = +10 points (Volunteering)</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">⛈️</span>
-                  <span className="text-red-300">Avoid storms = -1 life</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">💤</span>
-                  <span className="text-red-300">Avoid distractions = -1 life</span>
-                </div>
-              </div>
-            </div>
+    function updateScore() {
+      document.getElementById('scoreDisplay').textContent = score;
+    }
 
-            {highScore > 0 && (
-              <p className="text-2xl text-yellow-300 font-bold">
-                🏆 High Score: {highScore}
-              </p>
-            )}
+    function updateLives() {
+      const hearts = '❤️ '.repeat(lives);
+      document.getElementById('livesDisplay').textContent = hearts.trim();
+    }
 
-            <button
-              onClick={startGame}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-2xl px-12 py-4 rounded-full shadow-lg transform hover:scale-105 transition-all"
-            >
-              START GAME
-            </button>
-          </div>
-        )}
+    function endGame() {
+      gameState = 'gameover';
+      clearInterval(gameLoop);
+      clearInterval(spawnInterval);
 
-        {/* Game Screen */}
-        {gameState === 'playing' && (
-          <div>
-            {/* Score & Lives */}
-            <div className="flex justify-between items-center mb-4 bg-slate-800/50 backdrop-blur-lg p-4 rounded-2xl border-2 border-blue-500/30">
-              <div className="text-2xl font-bold text-blue-400">
-                Score: <span className="text-yellow-300">{score}</span>
-              </div>
-              <div className="text-2xl font-bold text-red-400">
-                Lives: {Array(lives).fill('❤️').join(' ')}
-              </div>
-            </div>
+      // Clear all items
+      fallingItems.forEach(item => {
+        if (item.element && item.element.parentNode) {
+          item.element.remove();
+        }
+      });
+      fallingItems = [];
 
-            {/* Game Area */}
-            <div
-              ref={gameRef}
-              className="relative w-full h-[500px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-3xl overflow-hidden border-4 border-blue-500/50 cursor-none"
-            >
-              {/* Falling Items */}
-              {fallingItems.map(item => (
-                <div
-                  key={item.id}
-                  className="absolute text-5xl transition-none"
-                  style={{
-                    left: `${item.x}%`,
-                    top: `${item.y}%`,
-                    transform: 'translate(-50%, -50%)',
-                    filter: item.caught ? 'brightness(2)' : 'none',
-                  }}
-                >
-                  {item.emoji}
-                </div>
-              ))}
+      // Update high score
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore', highScore);
+        document.getElementById('newHighScore').style.display = 'block';
+      } else {
+        document.getElementById('newHighScore').style.display = 'none';
+      }
 
-              {/* Player Basket */}
-              <div
-                className="absolute bottom-4 text-6xl transition-all duration-100"
-                style={{
-                  left: `${playerX}%`,
-                  transform: 'translateX(-50%)',
-                }}
-              >
-                🧺
-              </div>
-            </div>
+      // Set achievement
+      let icon = '💫';
+      let text = '💪 Keep practicing your dreams!';
+      
+      if (score >= 100) {
+        icon = '🏆';
+        text = '🌟 Dream Achiever! Amazing!';
+      } else if (score >= 50) {
+        icon = '⭐';
+        text = '✨ Dream Chaser! Keep going!';
+      }
 
-            <p className="text-center text-blue-300 mt-4 text-sm">
-              Move mouse or use ← → arrow keys
-            </p>
-          </div>
-        )}
+      document.getElementById('achievementIcon').textContent = icon;
+      document.getElementById('achievementText').textContent = text;
+      document.getElementById('finalScore').textContent = score;
 
-        {/* Game Over Screen */}
-        {gameState === 'gameover' && (
-          <div className="text-center space-y-6 bg-slate-800/50 backdrop-blur-lg p-12 rounded-3xl border-2 border-blue-500/30">
-            <h1 className="text-5xl font-black text-red-400 mb-4">
-              Game Over!
-            </h1>
-            
-            <div className="text-6xl mb-6">
-              {score >= 100 ? '🏆' : score >= 50 ? '⭐' : '💫'}
-            </div>
+      showScreen('gameover');
+    }
 
-            <p className="text-3xl text-yellow-300 font-bold">
-              Final Score: {score}
-            </p>
+    function backToMenu() {
+      gameState = 'menu';
+      clearInterval(gameLoop);
+      clearInterval(spawnInterval);
+      
+      if (highScore > 0) {
+        document.getElementById('highScoreDisplay').textContent = `🏆 High Score: ${highScore}`;
+      }
+      
+      showScreen('menu');
+    }
 
-            {score >= highScore && score > 0 && (
-              <p className="text-2xl text-green-400 font-bold animate-pulse">
-                🎉 NEW HIGH SCORE! 🎉
-              </p>
-            )}
+    // Mouse movement
+    const gameArea = document.getElementById('gameArea');
+    const player = document.getElementById('player');
 
-            <div className="text-xl text-blue-200">
-              {score >= 100 && "🌟 Dream Achiever! Amazing!"}
-              {score >= 50 && score < 100 && "✨ Dream Chaser! Keep going!"}
-              {score < 50 && "💪 Keep practicing your dreams!"}
-            </div>
+    gameArea.addEventListener('mousemove', (e) => {
+      if (gameState !== 'playing') return;
+      const rect = gameArea.getBoundingClientRect();
+      playerX = ((e.clientX - rect.left) / rect.width) * 100;
+      playerX = Math.max(10, Math.min(90, playerX));
+      player.style.left = playerX + '%';
+    });
 
-            <button
-              onClick={startGame}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-xl px-10 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all"
-            >
-              PLAY AGAIN
-            </button>
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (gameState !== 'playing') return;
+      
+      if (e.key === 'ArrowLeft') {
+        playerX = Math.max(10, playerX - 3);
+        player.style.left = playerX + '%';
+      } else if (e.key === 'ArrowRight') {
+        playerX = Math.min(90, playerX + 3);
+        player.style.left = playerX + '%';
+      }
+    });
 
-            <button
-              onClick={() => setGameState('menu')}
-              className="block mx-auto bg-slate-700 hover:bg-slate-600 text-blue-300 font-semibold px-8 py-2 rounded-full transition-all"
-            >
-              Back to Menu
-            </button>
-          </div>
-        )}
+    // Initialize player position
+    player.style.left = playerX + '%';
+  </script>
 
-      </div>
-    </div>
+</body>
+</html>
   );
 }
