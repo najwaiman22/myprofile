@@ -1,0 +1,289 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+export default function CatchDreamsGame() {
+  const [gameState, setGameState] = useState('menu'); // menu, playing, gameover
+  const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(3);
+  const [playerX, setPlayerX] = useState(50);
+  const [fallingItems, setFallingItems] = useState([]);
+  const [highScore, setHighScore] = useState(0);
+  const gameRef = useRef(null);
+  const animationRef = useRef(null);
+
+  const items = [
+    { emoji: '📚', type: 'good', name: 'Book', points: 10 },
+    { emoji: '🍳', type: 'good', name: 'Food', points: 10 },
+    { emoji: '❤️', type: 'good', name: 'Heart', points: 10 },
+    { emoji: '⛈️', type: 'bad', name: 'Storm', points: -5 },
+    { emoji: '💤', type: 'bad', name: 'Sleep', points: -5 },
+  ];
+
+  // Start game
+  const startGame = () => {
+    setGameState('playing');
+    setScore(0);
+    setLives(3);
+    setPlayerX(50);
+    setFallingItems([]);
+  };
+
+  // Game over
+  const gameOver = () => {
+    setGameState('gameover');
+    if (score > highScore) {
+      setHighScore(score);
+    }
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+  };
+
+  // Move player with mouse
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    const handleMouseMove = (e) => {
+      if (gameRef.current) {
+        const rect = gameRef.current.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        setPlayerX(Math.max(10, Math.min(90, x)));
+      }
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        setPlayerX(prev => Math.max(10, prev - 5));
+      } else if (e.key === 'ArrowRight') {
+        setPlayerX(prev => Math.min(90, prev + 5));
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [gameState]);
+
+  // Game loop
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    let itemIdCounter = 0;
+
+    // Spawn items
+    const spawnInterval = setInterval(() => {
+      const randomItem = items[Math.floor(Math.random() * items.length)];
+      const newItem = {
+        ...randomItem,
+        id: itemIdCounter++,
+        x: Math.random() * 80 + 10,
+        y: -10,
+        speed: 0.8 + Math.random() * 0.5, // Slower speed
+      };
+      setFallingItems(prev => [...prev, newItem]);
+    }, 1500); // Spawn less frequently (was 1000)
+
+    // Update items position
+    const updateLoop = () => {
+      setFallingItems(prev => {
+        const updated = prev.map(item => ({
+          ...item,
+          y: item.y + item.speed,
+        }));
+
+        // Check collisions
+        updated.forEach(item => {
+          if (item.y > 75 && item.y < 85) {
+            const distance = Math.abs(item.x - playerX);
+            if (distance < 8 && !item.caught) {
+              item.caught = true;
+              if (item.type === 'good') {
+                setScore(s => s + item.points);
+              } else {
+                setLives(l => l - 1);
+              }
+            }
+          }
+        });
+
+        // Remove items that are off screen
+        return updated.filter(item => item.y < 100);
+      });
+
+      animationRef.current = requestAnimationFrame(updateLoop);
+    };
+
+    updateLoop();
+
+    return () => {
+      clearInterval(spawnInterval);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [gameState, playerX]);
+
+  // Check game over
+  useEffect(() => {
+    if (lives <= 0 && gameState === 'playing') {
+      gameOver();
+    }
+  }, [lives, gameState]);
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-4">
+      <div className="w-full max-w-2xl">
+        
+        {/* Menu Screen */}
+        {gameState === 'menu' && (
+          <div className="text-center space-y-6 bg-slate-800/50 backdrop-blur-lg p-12 rounded-3xl border-2 border-blue-500/30">
+            <h1 className="text-6xl font-black text-blue-400 mb-4">
+              ✨ Catch The Dreams ✨
+            </h1>
+            <p className="text-xl text-blue-200 mb-6">
+              Built on dreams, shaped by purpose
+            </p>
+            
+            <div className="space-y-4 text-left max-w-md mx-auto bg-slate-700/50 p-6 rounded-2xl">
+              <h3 className="text-2xl font-bold text-blue-300 text-center mb-4">How to Play</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">📚</span>
+                  <span className="text-blue-200">Catch books = +10 points (Writing)</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">🍳</span>
+                  <span className="text-blue-200">Catch food = +10 points (Cooking)</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">❤️</span>
+                  <span className="text-blue-200">Catch hearts = +10 points (Volunteering)</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">⛈️</span>
+                  <span className="text-red-300">Avoid storms = -1 life</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">💤</span>
+                  <span className="text-red-300">Avoid distractions = -1 life</span>
+                </div>
+              </div>
+            </div>
+
+            {highScore > 0 && (
+              <p className="text-2xl text-yellow-300 font-bold">
+                🏆 High Score: {highScore}
+              </p>
+            )}
+
+            <button
+              onClick={startGame}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-2xl px-12 py-4 rounded-full shadow-lg transform hover:scale-105 transition-all"
+            >
+              START GAME
+            </button>
+          </div>
+        )}
+
+        {/* Game Screen */}
+        {gameState === 'playing' && (
+          <div>
+            {/* Score & Lives */}
+            <div className="flex justify-between items-center mb-4 bg-slate-800/50 backdrop-blur-lg p-4 rounded-2xl border-2 border-blue-500/30">
+              <div className="text-2xl font-bold text-blue-400">
+                Score: <span className="text-yellow-300">{score}</span>
+              </div>
+              <div className="text-2xl font-bold text-red-400">
+                Lives: {Array(lives).fill('❤️').join(' ')}
+              </div>
+            </div>
+
+            {/* Game Area */}
+            <div
+              ref={gameRef}
+              className="relative w-full h-[500px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-3xl overflow-hidden border-4 border-blue-500/50 cursor-none"
+            >
+              {/* Falling Items */}
+              {fallingItems.map(item => (
+                <div
+                  key={item.id}
+                  className="absolute text-5xl transition-none"
+                  style={{
+                    left: `${item.x}%`,
+                    top: `${item.y}%`,
+                    transform: 'translate(-50%, -50%)',
+                    filter: item.caught ? 'brightness(2)' : 'none',
+                  }}
+                >
+                  {item.emoji}
+                </div>
+              ))}
+
+              {/* Player Basket */}
+              <div
+                className="absolute bottom-4 text-6xl transition-all duration-100"
+                style={{
+                  left: `${playerX}%`,
+                  transform: 'translateX(-50%)',
+                }}
+              >
+                🧺
+              </div>
+            </div>
+
+            <p className="text-center text-blue-300 mt-4 text-sm">
+              Move mouse or use ← → arrow keys
+            </p>
+          </div>
+        )}
+
+        {/* Game Over Screen */}
+        {gameState === 'gameover' && (
+          <div className="text-center space-y-6 bg-slate-800/50 backdrop-blur-lg p-12 rounded-3xl border-2 border-blue-500/30">
+            <h1 className="text-5xl font-black text-red-400 mb-4">
+              Game Over!
+            </h1>
+            
+            <div className="text-6xl mb-6">
+              {score >= 100 ? '🏆' : score >= 50 ? '⭐' : '💫'}
+            </div>
+
+            <p className="text-3xl text-yellow-300 font-bold">
+              Final Score: {score}
+            </p>
+
+            {score >= highScore && score > 0 && (
+              <p className="text-2xl text-green-400 font-bold animate-pulse">
+                🎉 NEW HIGH SCORE! 🎉
+              </p>
+            )}
+
+            <div className="text-xl text-blue-200">
+              {score >= 100 && "🌟 Dream Achiever! Amazing!"}
+              {score >= 50 && score < 100 && "✨ Dream Chaser! Keep going!"}
+              {score < 50 && "💪 Keep practicing your dreams!"}
+            </div>
+
+            <button
+              onClick={startGame}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-xl px-10 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all"
+            >
+              PLAY AGAIN
+            </button>
+
+            <button
+              onClick={() => setGameState('menu')}
+              className="block mx-auto bg-slate-700 hover:bg-slate-600 text-blue-300 font-semibold px-8 py-2 rounded-full transition-all"
+            >
+              Back to Menu
+            </button>
+          </div>
+        )}
+
+      </div>
+    </div>
+  );
+}
