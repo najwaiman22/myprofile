@@ -24,7 +24,6 @@
       position: relative;
     }
 
-    /* Particle canvas */
     #particles-js {
       position: fixed;
       top: 0;
@@ -34,7 +33,6 @@
       z-index: -1;
     }
 
-    /* NAVIGATION MENU - Top Center */
     .nav-menu {
       position: absolute;
       top: 20px;
@@ -42,7 +40,6 @@
       transform: translateX(-50%);
       z-index: 100;
       display: flex;
-      flex-direction: row;
       gap: 15px;
       background: rgba(1, 22, 43, 0.9);
       padding: 10px 20px;
@@ -103,7 +100,6 @@
       height: 12px;
     }
 
-    /* PAGE NAVIGATION */
     .prev-btn {
       position: absolute;
       left: 25px;
@@ -128,9 +124,6 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
       backdrop-filter: blur(10px);
       font-family: "Poppins", sans-serif;
     }
@@ -142,7 +135,6 @@
       box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6);
     }
 
-    /* SCROLL BUTTONS */
     .scroll-controls {
       position: fixed;
       right: 25px;
@@ -176,7 +168,6 @@
       box-shadow: 0 0 15px rgba(99, 142, 203, 0.8);
     }
 
-    /* MAIN CONTENT */
     .container {
       position: relative;
       z-index: 1;
@@ -185,7 +176,6 @@
       margin: 0 auto;
     }
 
-    /* PROFILE SECTION */
     .profile-section {
       text-align: center;
       padding: 60px 20px;
@@ -228,7 +218,6 @@
       border: 5px solid rgba(138, 174, 224, 0.3);
       box-shadow: 0 0 40px rgba(99, 142, 203, 0.6);
       overflow: hidden;
-      position: relative;
       transition: all 0.3s ease;
     }
 
@@ -265,11 +254,8 @@
     .profile-section .subtitle {
       color: #a7c7e7;
       font-size: 1.1em;
-      max-width: 600px;
-      margin: 0 auto;
     }
 
-    /* STATS INLINE */
     .stats-inline {
       display: flex;
       justify-content: center;
@@ -285,11 +271,29 @@
       padding: 20px;
       border-radius: 15px;
       background: rgba(99, 142, 203, 0.05);
+      position: relative;
     }
 
     .stat-mini:hover {
       background: rgba(99, 142, 203, 0.15);
       transform: translateY(-5px);
+    }
+
+    .stat-mini::after {
+      content: "Click to view";
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7em;
+      color: #8AAEE0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .stat-mini:hover::after {
+      opacity: 1;
     }
 
     .stat-mini h4 {
@@ -304,7 +308,6 @@
       font-size: 1em;
     }
 
-    /* CONTENT BLOCKS */
     .content-section {
       max-width: 900px;
       margin: 0 auto;
@@ -367,7 +370,7 @@
       color: #8AAEE0;
     }
 
-    /* MODAL STYLES */
+    /* MODAL */
     .modal {
       display: none;
       position: fixed;
@@ -380,16 +383,10 @@
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(10px);
-      animation: fadeIn 0.3s ease;
     }
 
     .modal.active {
       display: flex;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
 
     .modal-content {
@@ -490,7 +487,7 @@
     .story-synopsis h3 {
       color: #8AAEE0;
       margin-bottom: 15px;
-      font-size: 1.3em;
+      font-size: 1.5em;
     }
 
     .story-synopsis p {
@@ -556,17 +553,6 @@
       font-weight: 600;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      .container {
-        padding: 100px 40px 60px;
-      }
-
-      .stats-inline {
-        gap: 30px;
-      }
-    }
-
     @media (max-width: 768px) {
       .container {
         padding: 100px 20px 60px;
@@ -627,10 +613,8 @@
 </head>
 <body>
   
-  <!-- Particles Background -->
   <div id="particles-js"></div>
   
-  <!-- PAGE NAVIGATION -->
   <button class="page-nav-btn prev-btn" onclick="location.href='index.html'">
     ← Previous
   </button>
@@ -638,7 +622,6 @@
     Next →
   </button>
 
-  <!-- NAVIGATION MENU -->
   <nav class="nav-menu">
     <div class="nav-item" onclick="location.href='index.html'" title="Homepage">
       <div class="nav-dot"></div>
@@ -662,20 +645,13 @@
     </div>
   </nav>
 
-  <!-- SCROLL CONTROLS -->
   <div class="scroll-controls">
-    <div class="scroll-btn" onclick="scrollToTop()" title="Scroll to top">
-      ↑
-    </div>
-    <div class="scroll-btn" onclick="scrollToBottom()" title="Scroll to bottom">
-      ↓
-    </div>
+    <div class="scroll-btn" onclick="scrollToTop()">↑</div>
+    <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <div class="container" id="scrollContent">
+  <div class="container">
     
-    <!-- PROFILE SECTION -->
     <div class="profile-section">
       <div class="profile-circle">
         <!-- <img src="images/profile.jpg" alt="Nawa"> -->
@@ -686,15 +662,14 @@
       <p class="subtitle">Writer • Volunteer • Change Maker</p>
     </div>
 
-    <!-- STATS INLINE -->
     <div class="stats-inline">
       <div class="stat-mini" onclick="openVolunteerModal()">
         <h4>20+</h4>
         <p>Volunteer Events</p>
       </div>
       <div class="stat-mini" onclick="openStoriesModal()">
-        <h4>5+</h4>
-        <p>Stories Published</p>
+        <h4>1</h4>
+        <p>Story Published</p>
       </div>
       <div class="stat-mini" onclick="openClubsModal()">
         <h4>3</h4>
@@ -702,7 +677,6 @@
       </div>
     </div>
 
-    <!-- CONTENT SECTIONS -->
     <div class="content-section">
       
       <div class="content-block">
@@ -744,7 +718,7 @@
 
   </div>
 
-  <!-- MODAL 1: Volunteer Events Gallery -->
+  <!-- MODAL 1: Volunteer -->
   <div id="volunteerModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('volunteerModal')">×</button>
@@ -782,44 +756,41 @@
     </div>
   </div>
 
-  <!-- MODAL 2: Stories Published -->
+  <!-- MODAL 2: Story (1 STORY ONLY) -->
   <div id="storiesModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('storiesModal')">×</button>
-      <h2>📚 My Published Stories</h2>
+      <h2>📚 My Published Story</h2>
       
       <div class="story-synopsis">
-        <h3>Lembayung Karma</h3>
+        <h3>Lembayung Karma </h3>
         <p>
-          Di bumi Tanah Melayu yang sarat dengan sejarah dan legenda, hidup seorang gadis bernama Cahaya. Warisan keluarganya bukan sekadar ilmu mengurut. Akan tetapi, sumpahan gelap yang terus menghantui dirinya. Dalam usahanya melarikan diri daripada bayangan itu, takdir mempertemukan seorang pemuda soleh bernama Nadim yang diutus oleh gurunya untuk mengendalikan kes kehilangan misteri di sebuah kampung terpencil.
+  In the land of the Malay Peninsula, rich with history and legend, lived a young woman named Cahaya. Her family’s heritage was more than just the art of traditional healing — it carried a **dark curse** that continued to shadow her life. In her attempt to escape those lingering shadows, fate brought her to a righteous young man named **Nadim**, sent by his teacher to investigate a series of mysterious disappearances in a remote village.
 
-Bersama seorang budak bijak bernama Belalang, mereka bertiga menempuh perjalanan yang penuh misteri, teka-teki, ujian, dan rahsia yang tidak terjangka dek akal.
+Together with a clever boy named Belalang, the three of them embarked on a journey filled with mysteries, riddles, trials, and secrets beyond human understanding.
 
-Namun semakin jauh mereka melangkah, semakin jelas bahawa perjalanan itu bukan sekadar menyelesaikan kehilangan... tetapi juga  pertarungan antara bayangan hitam dan cahaya dalam diri masing-masing.
+But the further they ventured, the clearer it became that their journey was not merely about solving the disappearances… but a battle between darkness and light within their own souls.**
 
-Lembayung Karma, sebuah buku yang dinukilkan tentang takdir, cinta, warisan, serta cahaya yang lahir dari kegelapan.
+Lembayung Karma, a tale written about destiny, love, heritage, and the light that is born from darkness.
+
         </p>
-      </div>
-
-      <div class="story-synopsis">
-        </p>
-      </div>
-      <div class="story-synopsis">
+        <p style="margin-top: 15px; color: #8AAEE0;">
+          <strong>Genre:</strong> Fantasy / Drama / Teen Fiction<br>
+          <strong>Status:</strong> Ongoing 
         </p>
       </div>
 
       <div style="text-align: center;">
-        <a href="https://www.wattpad.com/user/YOURUSERNAME" target="_blank" class="wattpad-link">
+        <a href="https://www.wattpad.com/story/402030027?utm_source=android&utm_medium=link&utm_content=story_info&wp_page=story_details_button&wp_uname=nvwaverse" target="_blank" class="wattpad-link">
           📖 Read on Wattpad
         </a>
         <p style="color: #888; font-size: 0.85em; margin-top: 10px;">
-          (Tukar link atas tu dengan Wattpad profile link you)
         </p>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 3: Active Clubs -->
+  <!-- MODAL 3: Clubs -->
   <div id="clubsModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('clubsModal')">×</button>
@@ -834,28 +805,27 @@ Lembayung Karma, sebuah buku yang dinukilkan tentang takdir, cinta, warisan, ser
             <!-- <img src="images/club1.jpg" alt="Club 1"> -->
             🏛️
           </div>
-          <p class="club-name">Club Name 1</p>
+          <p class="club-name">Bridged Sukarelawan Muda (BRISK)</p>
         </div>
         <div>
           <div class="club-frame">
             <!-- <img src="images/club2.jpg" alt="Club 2"> -->
             🏛️
           </div>
-          <p class="club-name">Club Name 2</p>
+          <p class="club-name">Kelab Rakan Siswa Yadim (RSY)</p>
         </div>
         <div>
           <div class="club-frame">
             <!-- <img src="images/club3.jpg" alt="Club 3"> -->
             🏛️
           </div>
-          <p class="club-name">Club Name 3</p>
+          <p class="club-name">Persatuan Kebangsaan Pelajar Islam Malaysia (PKPIM)</p>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Modal Functions
     function openVolunteerModal() {
       document.getElementById('volunteerModal').classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -876,7 +846,6 @@ Lembayung Karma, sebuah buku yang dinukilkan tentang takdir, cinta, warisan, ser
       document.body.style.overflow = 'auto';
     }
 
-    // Close modal when clicking outside
     document.querySelectorAll('.modal').forEach(modal => {
       modal.addEventListener('click', function(e) {
         if (e.target === this) {
@@ -885,7 +854,6 @@ Lembayung Karma, sebuah buku yang dinukilkan tentang takdir, cinta, warisan, ser
       });
     });
 
-    // Close modal with ESC key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal.active').forEach(modal => {
@@ -895,21 +863,37 @@ Lembayung Karma, sebuah buku yang dinukilkan tentang takdir, cinta, warisan, ser
     });
 
     function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function scrollToBottom() {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
-    // Smooth hover effect for navigation
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY
+        this.style.transform = 'translateY(-3px)';
+      });
+      item.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
 
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#6a90b4" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": { 
+          "enable": true,
+          "distance": 150,
+          "color": "#638ECB",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": { "enable": true, "speed": 1, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+      },
+      "interactivity": {
+        "detect
