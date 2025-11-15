@@ -34,7 +34,7 @@
       z-index: -1;
     }
 
-    /* NAVIGATION MENU - Top Center (Horizontal) - STAYS AT TOP */
+    /* NAVIGATION MENU - Top Center */
     .nav-menu {
       position: absolute;
       top: 20px;
@@ -45,7 +45,7 @@
       flex-direction: row;
       gap: 15px;
       background: rgba(1, 22, 43, 0.9);
-      padding: 10px 20px; /* TUKAR SIZE: padding untuk besarkan/kecilkan */
+      padding: 10px 20px;
       border-radius: 30px;
       backdrop-filter: blur(10px);
       border: 2px solid rgba(99, 142, 203, 0.3);
@@ -62,7 +62,7 @@
 
     .nav-label {
       color: #a7c7e7;
-      font-size: 0.75em; /* TUKAR SIZE: font size label */
+      font-size: 0.75em;
       font-weight: 500;
       opacity: 0;
       position: absolute;
@@ -70,7 +70,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: rgba(99, 142, 203, 0.9);
-      padding: 5px 12px; /* TUKAR SIZE: padding label */
+      padding: 5px 12px;
       border-radius: 15px;
       white-space: nowrap;
       pointer-events: none;
@@ -83,7 +83,7 @@
     }
 
     .nav-dot {
-      width: 10px; /* TUKAR SIZE: besarkan dots */
+      width: 10px;
       height: 10px;
       border-radius: 50%;
       background: rgba(99, 142, 203, 0.5);
@@ -103,41 +103,7 @@
       height: 12px;
     }
 
-    /* SCROLL BUTTONS - Bottom Right (Smaller) */
-    .scroll-controls {
-      position: fixed;
-      right: 25px;
-      bottom: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 100;
-    }
-
-    .scroll-btn {
-      width: 40px; /* TUKAR SIZE: width button */
-      height: 40px; /* TUKAR SIZE: height button */
-      border-radius: 50%;
-      background: rgba(99, 142, 203, 0.3);
-      border: 2px solid #638ECB;
-      color: #8AAEE0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2em; /* TUKAR SIZE: icon size */
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .scroll-btn:hover {
-      background: #638ECB;
-      color: white;
-      transform: scale(1.1);
-      box-shadow: 0 0 15px rgba(99, 142, 203, 0.8);
-    }
-
-    /* PAGE NAVIGATION - Left & Right - STAYS AT TOP */
+    /* PAGE NAVIGATION */
     .prev-btn {
       position: absolute;
       left: 25px;
@@ -156,9 +122,9 @@
       background: rgba(99, 142, 203, 0.3);
       border: 2px solid #638ECB;
       color: #a7c7e7;
-      padding: 8px 20px; /* TUKAR SIZE: padding button */
+      padding: 8px 20px;
       border-radius: 25px;
-      font-size: 0.8em; /* TUKAR SIZE: font size button */
+      font-size: 0.8em;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -166,6 +132,7 @@
       align-items: center;
       gap: 8px;
       backdrop-filter: blur(10px);
+      font-family: "Poppins", sans-serif;
     }
 
     .page-nav-btn:hover {
@@ -175,100 +142,55 @@
       box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6);
     }
 
-    .page-nav-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* MAIN CONTENT - Split Screen */
-    .container {
-      display: grid;
-      grid-template-columns: 40% 60%;
-      min-height: 100vh;
-      position: relative;
-      z-index: 1;
-      padding-top: 80px; /* Space for navigation at top */
-    }
-
-    /* LEFT SIDE - Profile */
-    .left-panel {
-      background: rgba(99, 142, 203, 0.05);
-      border-right: 2px solid #638ECB;
+    /* SCROLL BUTTONS */
+    .scroll-controls {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 40px;
-      position: sticky;
-      top: 0;
-      height: 100vh;
+      gap: 10px;
+      z-index: 100;
     }
 
-    .profile-circle {
-      width: 250px;
-      height: 250px;
+    .scroll-btn {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #6a90b4, #638ECB);
+      background: rgba(99, 142, 203, 0.3);
+      border: 2px solid #638ECB;
+      color: #8AAEE0;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 30px;
-      box-shadow: 0 0 40px rgba(99, 142, 203, 0.6);
-      border: 5px solid rgba(138, 174, 224, 0.3);
+      font-size: 1.2em;
+      cursor: pointer;
       transition: all 0.3s ease;
-      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .scroll-btn:hover {
+      background: #638ECB;
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(99, 142, 203, 0.8);
+    }
+
+    /* MAIN CONTENT */
+    .container {
       position: relative;
-    }
-
-    .profile-circle img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .profile-circle .placeholder {
-      font-size: 6em;
-    }
-
-    .profile-circle:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 60px rgba(99, 142, 203, 0.9);
-    }
-
-    .left-panel h1 {
-      font-family: "Archivo Black", sans-serif;
-      color: #6a90b4;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .left-panel .title {
-      color: #8AAEE0;
-      font-size: 1.1em;
-      text-align: center;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .left-panel .subtitle {
-      color: #a7c7e7;
-      text-align: center;
-      font-size: 0.95em;
-      line-height: 1.6;
-    }
-
-
-
-    /* RIGHT SIDE - Content */
-    .right-panel {
+      z-index: 1;
       padding: 120px 80px 80px;
-      overflow-y: auto;
-      max-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .content-section {
+    /* PROFILE SECTION */
+    .profile-section {
+      text-align: center;
+      padding: 60px 20px;
       margin-bottom: 60px;
+      position: relative;
       animation: fadeInUp 0.8s ease;
     }
 
@@ -283,30 +205,149 @@
       }
     }
 
-    .content-section h2 {
+    .profile-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #638ECB, transparent);
+    }
+
+    .profile-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6a90b4, #638ECB);
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 5px solid rgba(138, 174, 224, 0.3);
+      box-shadow: 0 0 40px rgba(99, 142, 203, 0.6);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .profile-circle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 60px rgba(99, 142, 203, 0.9);
+    }
+
+    .profile-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-circle .placeholder {
+      font-size: 5em;
+    }
+
+    .profile-section h1 {
+      font-family: "Archivo Black", sans-serif;
+      color: #6a90b4;
+      font-size: 3em;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .profile-section .title {
+      color: #8AAEE0;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .profile-section .subtitle {
+      color: #a7c7e7;
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* STATS INLINE */
+    .stats-inline {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin: 50px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-mini {
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(99, 142, 203, 0.05);
+    }
+
+    .stat-mini:hover {
+      background: rgba(99, 142, 203, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .stat-mini h4 {
       color: #6a90b4;
       font-family: "Archivo Black", sans-serif;
-      font-size: 2em;
-      margin-bottom: 20px;
-      border-left: 5px solid #638ECB;
-      padding-left: 20px;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .stat-mini p {
+      color: #8AAEE0;
+      font-size: 1em;
+    }
+
+    /* CONTENT BLOCKS */
+    .content-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .content-block {
+      background: rgba(99, 142, 203, 0.1);
+      border-left: 4px solid #638ECB;
+      padding: 35px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .content-block:hover {
+      background: rgba(99, 142, 203, 0.15);
+      transform: translateX(5px);
+    }
+
+    .content-block h3 {
+      color: #8AAEE0;
+      font-family: "Archivo Black", sans-serif;
+      font-size: 1.8em;
+      margin-bottom: 15px;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
 
-    .content-section p {
+    .content-block p {
       color: #a7c7e7;
       line-height: 1.8;
       font-size: 1.05em;
-      margin-bottom: 20px;
     }
 
-    .content-section ul {
+    .content-block ul {
       list-style: none;
       padding-left: 0;
+      margin-top: 15px;
     }
 
-    .content-section li {
+    .content-block li {
       color: #a7c7e7;
       padding: 12px 0;
       padding-left: 30px;
@@ -314,7 +355,7 @@
       line-height: 1.6;
     }
 
-    .content-section li::before {
+    .content-block li::before {
       content: "▸";
       color: #638ECB;
       font-size: 1.2em;
@@ -322,62 +363,11 @@
       left: 0;
     }
 
-    /* Stats Grid - Make clickable */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      margin: 40px 0;
-    }
-
-    .stat-box {
-      background: rgba(99, 142, 203, 0.15);
-      border: 2px solid #638ECB;
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .stat-box:hover {
-      background: rgba(99, 142, 203, 0.25);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(99, 142, 203, 0.4);
-    }
-
-    .stat-box::after {
-      content: "Click to view";
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.7em;
+    .content-block strong {
       color: #8AAEE0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
 
-    .stat-box:hover::after {
-      opacity: 1;
-    }
-
-    .stat-box h3 {
-      color: #6a90b4;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      font-family: "Archivo Black", sans-serif;
-    }
-
-    .stat-box p {
-      color: #8AAEE0;
-      font-size: 0.95em;
-      margin: 0;
-      margin-bottom: 25px;
-    }
-
-    /* MODAL/POPUP Styles */
+    /* MODAL STYLES */
     .modal {
       display: none;
       position: fixed;
@@ -457,7 +447,6 @@
       text-transform: uppercase;
     }
 
-    /* Gallery Grid */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -490,13 +479,18 @@
       box-shadow: 0 10px 30px rgba(99, 142, 203, 0.5);
     }
 
-    /* Story Synopsis */
     .story-synopsis {
       background: rgba(99, 142, 203, 0.1);
       border-left: 4px solid #638ECB;
       padding: 25px;
       border-radius: 10px;
       margin: 20px 0;
+    }
+
+    .story-synopsis h3 {
+      color: #8AAEE0;
+      margin-bottom: 15px;
+      font-size: 1.3em;
     }
 
     .story-synopsis p {
@@ -523,7 +517,6 @@
       box-shadow: 0 8px 25px rgba(255, 107, 0, 0.6);
     }
 
-    /* Clubs Frame */
     .clubs-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -563,50 +556,44 @@
       font-weight: 600;
     }
 
-    /* Highlight Box */
-    .highlight-box {
-      background: rgba(99, 142, 203, 0.1);
-      border-left: 4px solid #638ECB;
-      padding: 25px;
-      border-radius: 10px;
-      margin: 30px 0;
-    }
-
-    .highlight-box h3 {
-      color: #8AAEE0;
-      margin-bottom: 15px;
-      font-size: 1.3em;
-    }
-
-    /* Responsive */
+    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .container {
-        grid-template-columns: 1fr;
+        padding: 100px 40px 60px;
       }
 
-      .left-panel {
-        position: relative;
-        height: auto;
-        border-right: none;
-        border-bottom: 2px solid #638ECB;
-      }
-
-      .right-panel {
-        padding: 60px 40px;
-        max-height: none;
-      }
-
-      .scroll-controls {
-        right: 15px;
-        bottom: 15px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
+      .stats-inline {
+        gap: 30px;
       }
     }
 
     @media (max-width: 768px) {
+      .container {
+        padding: 100px 20px 60px;
+      }
+
+      .profile-section h1 {
+        font-size: 2em;
+      }
+
+      .profile-circle {
+        width: 150px;
+        height: 150px;
+      }
+
+      .profile-circle .placeholder {
+        font-size: 4em;
+      }
+
+      .stats-inline {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .content-block h3 {
+        font-size: 1.5em;
+      }
+
       .nav-menu {
         padding: 8px 15px;
         gap: 10px;
@@ -615,11 +602,6 @@
       .nav-dot {
         width: 8px;
         height: 8px;
-      }
-
-      .page-nav-btn {
-        padding: 6px 15px;
-        font-size: 0.7em;
       }
 
       .prev-btn {
@@ -632,31 +614,13 @@
         top: 80px;
       }
 
-      .scroll-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1em;
+      .clubs-grid {
+        grid-template-columns: 1fr;
       }
 
-      .profile-circle {
-        width: 180px;
-        height: 180px;
-      }
-
-      .profile-circle .placeholder {
-        font-size: 4em;
-      }
-
-      .left-panel h1 {
-        font-size: 2em;
-      }
-
-      .right-panel {
-        padding: 40px 20px;
-      }
-
-      .content-section h2 {
-        font-size: 1.5em;
+      .modal-content {
+        margin: 20px;
+        padding: 30px 20px;
       }
     }
   </style>
@@ -666,7 +630,7 @@
   <!-- Particles Background -->
   <div id="particles-js"></div>
   
-  <!-- PAGE NAVIGATION - Left & Right -->
+  <!-- PAGE NAVIGATION -->
   <button class="page-nav-btn prev-btn" onclick="location.href='index.html'">
     ← Previous
   </button>
@@ -674,7 +638,7 @@
     Next →
   </button>
 
-  <!-- NAVIGATION MENU - Top Center (Horizontal) -->
+  <!-- NAVIGATION MENU -->
   <nav class="nav-menu">
     <div class="nav-item" onclick="location.href='index.html'" title="Homepage">
       <div class="nav-dot"></div>
@@ -684,21 +648,21 @@
       <div class="nav-dot"></div>
       <span class="nav-label">About Me</span>
     </div>
-    <div class="nav-item" onclick="location.href='page3.html'" title="Hobbies">
+    <div class="nav-item" onclick="location.href='page3.html'" title="Game">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page4.html'" title="Hobbies">
       <div class="nav-dot"></div>
       <span class="nav-label">Hobbies</span>
     </div>
-    <div class="nav-item" onclick="location.href='page4.html'" title="Experience">
+    <div class="nav-item" onclick="location.href='page5.html'" title="Contact">
       <div class="nav-dot"></div>
-      <span class="nav-label">Experience</span>
-    </div>
-    <div class="nav-item" onclick="location.href='page5.html'" title="Contact Me">
-      <div class="nav-dot"></div>
-      <span class="nav-label">Contact Me</span>
+      <span class="nav-label">Contact</span>
     </div>
   </nav>
 
-  <!-- SCROLL CONTROLS - Bottom Right -->
+  <!-- SCROLL CONTROLS -->
   <div class="scroll-controls">
     <div class="scroll-btn" onclick="scrollToTop()" title="Scroll to top">
       ↑
@@ -708,77 +672,58 @@
     </div>
   </div>
 
-  <!-- MAIN CONTENT - Split Screen -->
-  <div class="container">
+  <!-- MAIN CONTENT -->
+  <div class="container" id="scrollContent">
     
-    <!-- LEFT PANEL - Profile -->
-    <div class="left-panel">
+    <!-- PROFILE SECTION -->
+    <div class="profile-section">
       <div class="profile-circle">
-        <!-- CARA 1: Guna gambar dari folder -->
         <!-- <img src="images/profile.jpg" alt="Nawa"> -->
-        
-        <!-- CARA 2: Guna gambar dari link/URL -->
-        <!-- <img src="https://your-image-url.com/photo.jpg" alt="Nawa"> -->
-        
-        <!-- Placeholder (delete this when you add image) -->
         <div class="placeholder">👤</div>
       </div>
       <h1>NAWA</h1>
       <p class="title">Information Management Student</p>
       <p class="subtitle">Writer • Volunteer • Change Maker</p>
-      
-      <div class="social-links">
-        <div class="social-icon" title="Instagram">📷</div>
-        <div class="social-icon" title="Wattpad">📚</div>
-        <div class="social-icon" title="LinkedIn">💼</div>
-        <div class="social-icon" title="Email">📧</div>
+    </div>
+
+    <!-- STATS INLINE -->
+    <div class="stats-inline">
+      <div class="stat-mini" onclick="openVolunteerModal()">
+        <h4>20+</h4>
+        <p>Volunteer Events</p>
+      </div>
+      <div class="stat-mini" onclick="openStoriesModal()">
+        <h4>5+</h4>
+        <p>Stories Published</p>
+      </div>
+      <div class="stat-mini" onclick="openClubsModal()">
+        <h4>3</h4>
+        <p>Active Clubs</p>
       </div>
     </div>
 
-    <!-- RIGHT PANEL - Content -->
-    <div class="right-panel" id="scrollContent">
+    <!-- CONTENT SECTIONS -->
+    <div class="content-section">
       
-      <div class="content-section">
-        <h2>Who Am I?</h2>
+      <div class="content-block">
+        <h3>Who Am I?</h3>
         <p>
           Hi! Saya Nawa, seorang pelajar Diploma in Information Management yang berusia 20 tahun. Saya bukan sekadar pelajar biasa - saya percaya dalam menggunakan teknologi untuk membuat perubahan positif dalam masyarakat.
         </p>
-        <p>
+        <p style="margin-top: 15px;">
           Perjalanan saya dalam dunia Information Management bukan hanya tentang coding dan data - ia tentang bagaimana teknologi boleh menjadi alat untuk memberi impak kepada kehidupan orang lain.
         </p>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-box" onclick="openVolunteerModal()">
-          <h3>20+</h3>
-          <p>Volunteer Events</p>
-        </div>
-        <div class="stat-box" onclick="openStoriesModal()">
-          <h3>5+</h3>
-          <p>Stories Published</p>
-        </div>
-        <div class="stat-box" onclick="openClubsModal()">
-          <h3>3</h3>
-          <p>Active Clubs</p>
-        </div>
-      </div>
-
-      <div class="content-section">
-        <h2>My Journey</h2>
+      <div class="content-block">
+        <h3>My Journey</h3>
         <p>
           Aktif dalam association clubs dan Gerakan luar kampus, saya telah mengorganisir dan menyertai pelbagai program komuniti yang memberi impak kepada masyarakat sekeliling. Setiap program mengajar saya nilai kepimpinan, empati, dan tanggungjawab sosial.
         </p>
-        
-        <div class="highlight-box">
-          <h3>🎯 My Mission</h3>
-          <p>
-            To use technology and storytelling as tools to inspire change, connect communities, and create meaningful impact in people's lives.
-          </p>
-        </div>
       </div>
 
-      <div class="content-section">
-        <h2>What Drives Me</h2>
+      <div class="content-block">
+        <h3>What Drives Me</h3>
         <ul>
           <li><strong>Technology for Good:</strong> Menggunakan Information Management untuk menyelesaikan masalah sebenar dalam masyarakat</li>
           <li><strong>Storytelling:</strong> Berkongsi cerita-cerita yang memberi inspirasi melalui penulisan di Wattpad</li>
@@ -788,24 +733,15 @@
         </ul>
       </div>
 
-      <div class="content-section">
-        <h2>My Values</h2>
+      <div class="content-block">
+        <h3>My Values</h3>
         <p>
           Saya percaya dalam <strong>authenticity</strong> - menjadi diri sendiri sambil terus berkembang. Saya juga percaya dalam <strong>service</strong> - memberi kembali kepada komuniti adalah bukan pilihan, tetapi tanggungjawab. Dan yang paling penting, saya percaya dalam <strong>impact</strong> - setiap tindakan kecil boleh membawa perubahan besar.
         </p>
       </div>
 
-      <div class="highlight-box">
-        <h3>💡 Fun Facts About Me</h3>
-        <ul>
-          <li>I can spend hours perfecting a single paragraph in my stories</li>
-          <li>My favorite way to de-stress is cooking elaborate meals</li>
-          <li>I've volunteered at over 20 different community events</li>
-          <li>I believe the best ideas come during late-night writing sessions</li>
-        </ul>
-      </div>
-
     </div>
+
   </div>
 
   <!-- MODAL 1: Volunteer Events Gallery -->
@@ -818,7 +754,6 @@
       </p>
       
       <div class="gallery-grid">
-        <!-- Replace emoji with your images -->
         <div class="gallery-item">
           <!-- <img src="images/volunteer1.jpg" alt="Event 1"> -->
           📸
@@ -854,25 +789,22 @@
       <h2>📚 My Published Stories</h2>
       
       <div class="story-synopsis">
-        <h3 style="color: #8AAEE0; margin-bottom: 15px; font-size: 1.3em;">Story Title 1</h3>
+        <h3>Lembayung Karma</h3>
         <p>
-          (SINOPSIS CERITA PERTAMA - Tukar text ni dengan sinopsis cerita you. Contoh: 
-          "Kisah seorang gadis yang bermimpi untuk mengubah dunia melalui teknologi. 
-          Dia menghadapi pelbagai cabaran dalam perjalanannya...")
+          Di bumi Tanah Melayu yang sarat dengan sejarah dan legenda, hidup seorang gadis bernama Cahaya. Warisan keluarganya bukan sekadar ilmu mengurut. Akan tetapi, sumpahan gelap yang terus menghantui dirinya. Dalam usahanya melarikan diri daripada bayangan itu, takdir mempertemukan seorang pemuda soleh bernama Nadim yang diutus oleh gurunya untuk mengendalikan kes kehilangan misteri di sebuah kampung terpencil.
+
+Bersama seorang budak bijak bernama Belalang, mereka bertiga menempuh perjalanan yang penuh misteri, teka-teki, ujian, dan rahsia yang tidak terjangka dek akal.
+
+Namun semakin jauh mereka melangkah, semakin jelas bahawa perjalanan itu bukan sekadar menyelesaikan kehilangan... tetapi juga  pertarungan antara bayangan hitam dan cahaya dalam diri masing-masing.
+
+Lembayung Karma, sebuah buku yang dinukilkan tentang takdir, cinta, warisan, serta cahaya yang lahir dari kegelapan.
         </p>
       </div>
 
       <div class="story-synopsis">
-        <h3 style="color: #8AAEE0; margin-bottom: 15px; font-size: 1.3em;">Story Title 2</h3>
-        <p>
-          (SINOPSIS CERITA KEDUA - Tukar dengan sinopsis cerita you yang kedua...)
         </p>
       </div>
-
       <div class="story-synopsis">
-        <h3 style="color: #8AAEE0; margin-bottom: 15px; font-size: 1.3em;">Story Title 3</h3>
-        <p>
-          (SINOPSIS CERITA KETIGA - Tukar dengan sinopsis cerita you yang ketiga...)
         </p>
       </div>
 
@@ -963,66 +895,21 @@
     });
 
     function scrollToTop() {
-      const content = document.getElementById('scrollContent');
-      if (content) {
-        content.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
 
     function scrollToBottom() {
-      const content = document.getElementById('scrollContent');
-      if (content) {
-        content.scrollTo({
-          top: content.scrollHeight,
-          behavior: 'smooth'
-        });
-      }
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
     }
 
     // Smooth hover effect for navigation
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px)';
-      });
-      item.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-      });
-    });
+        this.style.transform = 'translateY
 
-    // --- Initialize Particles (Network Web Style) ---
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#6a90b4" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5, "random": false },
-        "size": { "value": 3, "random": true },
-        "line_linked": { 
-          "enable": true,
-          "distance": 150,
-          "color": "#638ECB",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": { "enable": true, "speed": 1, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": { 
-          "onhover": { "enable": true, "mode": "grab" },
-          "onclick": { "enable": true, "mode": "push" }
-        },
-        "modes": {
-          "grab": { "distance": 200, "line_linked": { "opacity": 1 } },
-          "push": { "particles_nb": 4 }
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
-
-</body>
-</html>
