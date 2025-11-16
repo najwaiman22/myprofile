@@ -1,1 +1,226 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me - Nawa's Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Poppins", sans-serif; background: radial-gradient(circle at 50% 50%, #01162b, #000); color: #fff; overflow-x: hidden; position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    
+    .nav-menu { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 15px; background: rgba(1, 22, 43, 0.9); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(99, 142, 203, 0.3); }
+    .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(99, 142, 203, 0.5); border: 2px solid #638ECB; cursor: pointer; transition: all 0.3s ease; }
+    .nav-dot:hover, .nav-dot.active { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
+    .nav-dot.active { width: 12px; height: 12px; }
+    .prev-btn { position: fixed; left: 25px; top: 25px; z-index: 99; }
+    .page-nav-btn { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #a7c7e7; padding: 8px 20px; border-radius: 25px; font-size: 0.8em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); font-family: "Poppins", sans-serif; }
+    .page-nav-btn:hover { background: #638ECB; color: white; transform: scale(1.05); box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6); }
+    .scroll-controls { position: fixed; right: 25px; bottom: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+    .scroll-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #8AAEE0; display: flex; align-items: center; justify-content: center; font-size: 1.2em; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+    .scroll-btn:hover { background: #638ECB; color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(99, 142, 203, 0.8); }
+    
+    .container { position: relative; z-index: 1; max-width: 1200px; width: 100%; padding: 120px 40px 60px; }
+    
+    .hero { text-align: center; margin-bottom: 80px; animation: fadeInUp 0.8s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero h1 { font-family: "Archivo Black", sans-serif; font-size: 4em; color: #6a90b4; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; background: linear-gradient(135deg, #6a90b4, #8AAEE0, #6a90b4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradientShift 3s ease infinite; }
+    @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    .hero p { font-size: 1.3em; color: #a7c7e7; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+    
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 60px; }
+    
+    .left-section { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 25px; padding: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .profile-img { width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, #6a90b4, #638ECB); border: 5px solid rgba(138, 174, 224, 0.5); margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-size: 5em; box-shadow: 0 0 40px rgba(99, 142, 203, 0.6); }
+    .left-section h2 { font-family: "Righteous", sans-serif; font-size: 2.5em; color: #6a90b4; margin-bottom: 15px; }
+    .left-section .subtitle { font-size: 1.1em; color: #8AAEE0; margin-bottom: 10px; }
+    .left-section .tagline { font-size: 1em; color: #a7c7e7; font-style: italic; }
+    
+    .right-section { display: flex; flex-direction: column; gap: 30px; }
+    
+    .contact-section { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 25px; padding: 40px; }
+    .contact-section h3 { font-family: "Righteous", sans-serif; font-size: 1.8em; color: #8AAEE0; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+    .contact-section h3 .icon { font-size: 1.2em; }
+    
+    .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .social-btn { background: rgba(99, 142, 203, 0.2); border: 2px solid #638ECB; padding: 20px; border-radius: 20px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; cursor: pointer; }
+    .social-btn:hover { background: #638ECB; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(99, 142, 203, 0.5); }
+    .social-btn .icon { font-size: 2.5em; }
+    .social-btn .info { flex: 1; }
+    .social-btn .info .label { font-size: 0.85em; color: #8AAEE0; margin-bottom: 5px; }
+    .social-btn .info .value { font-size: 1em; color: #fff; font-weight: 600; }
+    
+    .contact-info { display: flex; flex-direction: column; gap: 15px; }
+    .info-item { display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(99, 142, 203, 0.1); border-radius: 15px; border: 1px solid rgba(99, 142, 203, 0.3); }
+    .info-item .icon { font-size: 2em; color: #8AAEE0; }
+    .info-item .text { flex: 1; }
+    .info-item .text .label { font-size: 0.85em; color: #8AAEE0; margin-bottom: 3px; }
+    .info-item .text .value { font-size: 1em; color: #fff; }
+    
+    .message-section { text-align: center; background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 25px; padding: 50px; }
+    .message-section h3 { font-family: "Righteous", sans-serif; font-size: 2em; color: #6a90b4; margin-bottom: 20px; }
+    .message-section p { color: #a7c7e7; font-size: 1.1em; line-height: 1.8; margin-bottom: 30px; }
+    .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn { background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; padding: 15px 40px; border-radius: 30px; font-family: "Poppins", sans-serif; font-weight: 700; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(99, 142, 203, 0.4); text-decoration: none; display: inline-block; }
+    .cta-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(99, 142, 203, 0.6); }
+    .cta-btn.secondary { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; }
+    
+    .footer { text-align: center; margin-top: 60px; padding: 30px; border-top: 2px solid rgba(99, 142, 203, 0.3); }
+    .footer p { color: #8AAEE0; font-size: 0.95em; }
+    .footer .heart { color: #ff6b6b; animation: heartbeat 1.5s ease infinite; }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    
+    @media (max-width: 968px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 3em; }
+      .social-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .nav-menu { padding: 8px 15px; gap: 10px; }
+      .nav-dot { width: 8px; height: 8px; }
+      .prev-btn { left: 10px; top: 80px; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="particles-js"></div>
+  
+  <button class="page-nav-btn prev-btn" onclick="location.href='page4.html'">← Previous</button>
+  
+  <nav class="nav-menu">
+    <div class="nav-dot" onclick="location.href='index.html'"></div>
+    <div class="nav-dot" onclick="location.href='page2.html'"></div>
+    <div class="nav-dot" onclick="location.href='page3.html'"></div>
+    <div class="nav-dot" onclick="location.href='page4.html'"></div>
+    <div class="nav-dot active"></div>
+  </nav>
+  
+  <div class="scroll-controls">
+    <div class="scroll-btn" onclick="scrollToTop()">↑</div>
+    <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
+  </div>
+  
+  <div class="container">
+    
+    <div class="hero">
+      <h1>Let's Connect!</h1>
+      <p>Have a project idea? Want to collaborate? Or just want to say hi? I'd love to hear from you! Feel free to reach out through any of these channels.</p>
+    </div>
+    
+    <div class="content-grid">
+      
+      <div class="left-section">
+        <div class="profile-img">👋</div>
+        <h2>Nawa</h2>
+        <p class="subtitle">Information Management Student</p>
+        <p class="tagline">Writer • Volunteer • Change Maker</p>
+      </div>
+      
+      <div class="right-section">
+        
+        <div class="contact-section">
+          <h3><span class="icon">📱</span> Social Media</h3>
+          <div class="social-grid">
+            <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" class="social-btn">
+              <div class="icon">📷</div>
+              <div class="info">
+                <div class="label">Instagram</div>
+                <div class="value">@your_username</div>
+              </div>
+            </a>
+            <a href="https://www.wattpad.com/user/nvwaverse" target="_blank" class="social-btn">
+              <div class="icon">📚</div>
+              <div class="info">
+                <div class="label">Wattpad</div>
+                <div class="value">@nvwaverse</div>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="social-btn">
+              <div class="icon">💼</div>
+              <div class="info">
+                <div class="label">LinkedIn</div>
+                <div class="value">Your Name</div>
+              </div>
+            </a>
+            <a href="https://www.facebook.com/YOUR_FACEBOOK" target="_blank" class="social-btn">
+              <div class="icon">📘</div>
+              <div class="info">
+                <div class="label">Facebook</div>
+                <div class="value">Your Name</div>
+              </div>
+            </a>
+            <a href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" class="social-btn">
+              <div class="icon">🎵</div>
+              <div class="info">
+                <div class="label">TikTok</div>
+                <div class="value">@your_username</div>
+              </div>
+            </a>
+            <a href="https://github.com/YOUR_GITHUB" target="_blank" class="social-btn">
+              <div class="icon">💻</div>
+              <div class="info">
+                <div class="label">GitHub</div>
+                <div class="value">@your_username</div>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <div class="contact-section">
+          <h3><span class="icon">📧</span> Contact Info</h3>
+          <div class="contact-info">
+            <div class="info-item">
+              <div class="icon">✉️</div>
+              <div class="text">
+                <div class="label">Email</div>
+                <div class="value">your.email@example.com</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon">📍</div>
+              <div class="text">
+                <div class="label">Location</div>
+                <div class="value">Johor Bahru, Malaysia</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon">🎓</div>
+              <div class="text">
+                <div class="label">University</div>
+                <div class="value">Your University Name</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    <div class="message-section">
+      <h3>✨ Want to Collaborate?</h3>
+      <p>I'm always open to interesting projects, volunteering opportunities, or just a good conversation about technology, writing, or making a positive impact in our community!</p>
+      <div class="cta-buttons">
+        <a href="mailto:your.email@example.com" class="cta-btn">📧 Send Email</a>
+        <a href="https://www.wattpad.com/user/nvwaverse" target="_blank" class="cta-btn secondary">📚 Read My Stories</a>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Made with <span class="heart">❤️</span> by Nawa</p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #6a90b4;">© 2024 • Built on dreams, shaped by purpose</p>
+    </div>
+    
+  </div>
+  
+  <script>
+    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
+    
+    particlesJS("particles-js",{"particles":{"number":{"value":100,"density":{"enable":true,"value_area":800}},"color":{"value":"#6a90b4"},"shape":{"type":"circle"},"opacity":{"value":0.6,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.2}},"size":{"value":3,"random":true,"anim":{"enable":true,"speed":2,"size_min":1}},"line_linked":{"enable":true,"distance":120,"color":"#638ECB","opacity":0.3,"width":1},"move":{"enable":true,"speed":0.8,"direction":"none","random":true,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}},"modes":{"grab":{"distance":150,"line_linked":{"opacity":0.8}},"push":{"particles_nb":3}}},"retina_detect":true});
+  </script>
+  
+</body>
+</html>
