@@ -1,378 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catch The Dreams - Nawa's Space</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
-      color: #fff;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 800px;
-    }
-
-    /* NAVIGATION - Top Center */
-    .nav-menu {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      gap: 15px;
-      background: rgba(1, 22, 43, 0.9);
-      padding: 10px 20px;
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(99, 142, 203, 0.3);
-    }
-
-    .nav-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(99, 142, 203, 0.5);
-      border: 2px solid #638ECB;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .nav-dot:hover,
-    .nav-dot.active {
-      background: #638ECB;
-      box-shadow: 0 0 10px rgba(99, 142, 203, 0.8);
-      transform: scale(1.2);
-    }
-
-    .nav-dot.active {
-      width: 12px;
-      height: 12px;
-    }
-
-    /* PAGE NAVIGATION */
-    .prev-btn {
-      position: fixed;
-      left: 25px;
-      top: 25px;
-      z-index: 99;
-    }
-
-    .next-btn {
-      position: fixed;
-      right: 25px;
-      top: 25px;
-      z-index: 99;
-    }
-
-    .page-nav-btn {
-      background: rgba(99, 142, 203, 0.3);
-      border: 2px solid #638ECB;
-      color: #a7c7e7;
-      padding: 8px 20px;
-      border-radius: 25px;
-      font-size: 0.8em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      font-family: "Poppins", sans-serif;
-    }
-
-    .page-nav-btn:hover {
-      background: #638ECB;
-      color: white;
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6);
-    }
-
-    /* SCREENS */
-    .screen {
-      display: none;
-      text-align: center;
-    }
-
-    .screen.active {
-      display: block;
-    }
-
-    /* MENU SCREEN */
-    .menu-screen {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(20px);
-      padding: 50px;
-      border-radius: 30px;
-      border: 2px solid rgba(99, 142, 203, 0.3);
-    }
-
-    .game-title {
-      font-family: "Archivo Black", sans-serif;
-      font-size: 3.5em;
-      color: #60a5fa;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
-    }
-
-    .game-subtitle {
-      font-size: 1.3em;
-      color: #93c5fd;
-      margin-bottom: 40px;
-    }
-
-    .instructions {
-      background: rgba(30, 58, 138, 0.5);
-      padding: 30px;
-      border-radius: 20px;
-      margin: 30px auto;
-      max-width: 500px;
-      text-align: left;
-    }
-
-    .instructions h3 {
-      color: #93c5fd;
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .instruction-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin: 15px 0;
-      font-size: 1.1em;
-    }
-
-    .instruction-item .emoji {
-      font-size: 2em;
-    }
-
-    .good-item {
-      color: #93c5fd;
-    }
-
-    .bad-item {
-      color: #fca5a5;
-    }
-
-    .high-score {
-      font-size: 1.5em;
-      color: #fcd34d;
-      margin: 20px 0;
-      font-weight: bold;
-    }
-
-    .start-btn {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      border: none;
-      color: white;
-      font-family: "Archivo Black", sans-serif;
-      font-size: 1.5em;
-      padding: 15px 50px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(59, 130, 246, 0.5);
-      margin-top: 20px;
-    }
-
-    .start-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.7);
-    }
-
-    /* GAME SCREEN */
-    .game-info {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      border: 2px solid rgba(99, 142, 203, 0.3);
-    }
-
-    .score-display {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #60a5fa;
-    }
-
-    .score-display .number {
-      color: #fcd34d;
-    }
-
-    .lives-display {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #f87171;
-    }
-
-    .game-area {
-      position: relative;
-      width: 100%;
-      height: 500px;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(30, 58, 138, 0.9));
-      border-radius: 30px;
-      overflow: hidden;
-      border: 4px solid rgba(96, 165, 250, 0.5);
-      cursor: none;
-    }
-
-    .falling-item {
-      position: absolute;
-      font-size: 3em;
-      transition: none;
-      pointer-events: none;
-    }
-
-    .player {
-      position: absolute;
-      bottom: 20px;
-      font-size: 4em;
-      transition: left 0.1s ease;
-      transform: translateX(-50%);
-    }
-
-    .control-hint {
-      text-align: center;
-      color: #93c5fd;
-      margin-top: 15px;
-      font-size: 0.9em;
-    }
-
-    /* GAME OVER SCREEN */
-    .gameover-screen {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(20px);
-      padding: 50px;
-      border-radius: 30px;
-      border: 2px solid rgba(99, 142, 203, 0.3);
-    }
-
-    .gameover-title {
-      font-family: "Archivo Black", sans-serif;
-      font-size: 3em;
-      color: #f87171;
-      margin-bottom: 20px;
-    }
-
-    .final-score {
-      font-size: 2.5em;
-      color: #fcd34d;
-      font-weight: bold;
-      margin: 30px 0;
-    }
-
-    .achievement-icon {
-      font-size: 5em;
-      margin: 20px 0;
-    }
-
-    .achievement-text {
-      font-size: 1.3em;
-      color: #93c5fd;
-      margin: 20px 0;
-    }
-
-    .new-highscore {
-      font-size: 1.5em;
-      color: #4ade80;
-      font-weight: bold;
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .menu-btn {
-      background: rgba(71, 85, 105, 0.8);
-      border: none;
-      color: #93c5fd;
-      font-family: "Poppins", sans-serif;
-      font-size: 1em;
-      padding: 12px 35px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 10px;
-    }
-
-    .menu-btn:hover {
-      background: rgba(71, 85, 105, 1);
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 768px) {
-      .game-title {
-        font-size: 2.5em;
-      }
-
-      .menu-screen, .gameover-screen {
-        padding: 30px 20px;
-      }
-
-      .game-area {
-        height: 400px;
-      }
-
-      .nav-menu {
-        padding: 8px 15px;
-        gap: 10px;
-      }
-
-      .nav-dot {
-        width: 8px;
-        height: 8px;
-      }
-
-      .prev-btn, .next-btn {
-        top: 80px;
-      }
-
-      .prev-btn {
-        left: 10px;
-      }
-
-      .next-btn {
-        right: 10px;
-      }
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%); color: #fff; overflow-y: auto; overflow-x: hidden; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .container { width: 100%; max-width: 800px; }
+    .nav-menu { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 15px; background: rgba(1, 22, 43, 0.9); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(99, 142, 203, 0.3); }
+    .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(99, 142, 203, 0.5); border: 2px solid #638ECB; cursor: pointer; transition: all 0.3s ease; }
+    .nav-dot:hover, .nav-dot.active { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
+    .nav-dot.active { width: 12px; height: 12px; }
+    .prev-btn { position: fixed; left: 25px; top: 25px; z-index: 99; }
+    .next-btn { position: fixed; right: 25px; top: 25px; z-index: 99; }
+    .page-nav-btn { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #a7c7e7; padding: 8px 20px; border-radius: 25px; font-size: 0.8em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); font-family: "Poppins", sans-serif; }
+    .page-nav-btn:hover { background: #638ECB; color: white; transform: scale(1.05); box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6); }
+    .screen { display: none; text-align: center; }
+    .screen.active { display: block; }
+    .menu-screen { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); padding: 50px; border-radius: 30px; border: 2px solid rgba(99, 142, 203, 0.3); }
+    .game-title { font-family: "Archivo Black", sans-serif; font-size: 3.5em; color: #60a5fa; margin-bottom: 20px; text-transform: uppercase; text-shadow: 0 0 20px rgba(96, 165, 250, 0.5); }
+    .game-subtitle { font-size: 1.3em; color: #93c5fd; margin-bottom: 40px; }
+    .instructions { background: rgba(30, 58, 138, 0.5); padding: 30px; border-radius: 20px; margin: 30px auto; max-width: 500px; text-align: left; }
+    .instructions h3 { color: #93c5fd; font-size: 1.5em; margin-bottom: 20px; text-align: center; }
+    .instruction-item { display: flex; align-items: center; gap: 15px; margin: 15px 0; font-size: 1.1em; }
+    .instruction-item .emoji { font-size: 2em; }
+    .good-item { color: #93c5fd; }
+    .bad-item { color: #fca5a5; }
+    .high-score { font-size: 1.5em; color: #fcd34d; margin: 20px 0; font-weight: bold; }
+    .start-btn { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; color: white; font-family: "Archivo Black", sans-serif; font-size: 1.5em; padding: 15px 50px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.5); margin-top: 20px; }
+    .start-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.7); }
+    .game-info { display: flex; justify-content: space-between; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 2px solid rgba(99, 142, 203, 0.3); align-items: center; }
+    .score-display { font-size: 1.5em; font-weight: bold; color: #60a5fa; }
+    .score-display .number { color: #fcd34d; }
+    .timer-display { font-size: 1.5em; font-weight: bold; color: #4ade80; }
+    .timer-display.warning { color: #fbbf24; }
+    .timer-display.danger { color: #f87171; animation: pulse 0.5s infinite; }
+    .lives-display { font-size: 1.5em; font-weight: bold; color: #f87171; }
+    .game-area { position: relative; width: 100%; height: 500px; background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(30, 58, 138, 0.9)); border-radius: 30px; overflow: hidden; border: 4px solid rgba(96, 165, 250, 0.5); cursor: none; }
+    .falling-item { position: absolute; font-size: 3em; }
+    .player { position: absolute; bottom: 20px; font-size: 4em; transition: left 0.1s ease; transform: translateX(-50%); }
+    .control-hint { text-align: center; color: #93c5fd; margin-top: 15px; font-size: 0.9em; }
+    .gameover-screen { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); padding: 50px; border-radius: 30px; border: 2px solid rgba(99, 142, 203, 0.3); }
+    .gameover-title { font-family: "Archivo Black", sans-serif; font-size: 3em; color: #f87171; margin-bottom: 20px; }
+    .final-score { font-size: 2.5em; color: #fcd34d; font-weight: bold; margin: 30px 0; }
+    .achievement-icon { font-size: 5em; margin: 20px 0; }
+    .achievement-text { font-size: 1.3em; color: #93c5fd; margin: 20px 0; }
+    .new-highscore { font-size: 1.5em; color: #4ade80; font-weight: bold; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .menu-btn { background: rgba(71, 85, 105, 0.8); border: none; color: #93c5fd; font-family: "Poppins", sans-serif; font-size: 1em; padding: 12px 35px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; margin: 10px; }
+    .menu-btn:hover { background: rgba(71, 85, 105, 1); transform: scale(1.05); }
+    .scroll-controls { position: fixed; right: 25px; bottom: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+    .scroll-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #8AAEE0; display: flex; align-items: center; justify-content: center; font-size: 1.2em; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+    .scroll-btn:hover { background: #638ECB; color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(99, 142, 203, 0.8); }
+    @media (max-width: 768px) { .game-title { font-size: 2.5em; } .menu-screen, .gameover-screen { padding: 30px 20px; } .game-area { height: 400px; } .nav-menu { padding: 8px 15px; gap: 10px; } .nav-dot { width: 8px; height: 8px; } .prev-btn, .next-btn { top: 80px; } .prev-btn { left: 10px; } .next-btn { right: 10px; } }
   </style>
 </head>
 <body>
-
-  <!-- PAGE NAVIGATION -->
-  <button class="page-nav-btn prev-btn" onclick="location.href='page2.html'">
-    ← Previous
-  </button>
-  <button class="page-nav-btn next-btn" onclick="location.href='page4.html'">
-    Next →
-  </button>
-
-  <!-- NAVIGATION MENU -->
+  <button class="page-nav-btn prev-btn" onclick="location.href='page2.html'">← Previous</button>
+  <button class="page-nav-btn next-btn" onclick="location.href='page4.html'">Next →</button>
   <nav class="nav-menu">
     <div class="nav-dot" onclick="location.href='index.html'"></div>
     <div class="nav-dot" onclick="location.href='page2.html'"></div>
@@ -380,291 +67,63 @@
     <div class="nav-dot" onclick="location.href='page4.html'"></div>
     <div class="nav-dot" onclick="location.href='page5.html'"></div>
   </nav>
-
+  <div class="scroll-controls">
+    <div class="scroll-btn" onclick="scrollToTop()">↑</div>
+    <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
+  </div>
   <div class="container">
-
-    <!-- MENU SCREEN -->
     <div id="menuScreen" class="screen active menu-screen">
       <h1 class="game-title">✨ Catch The Dreams ✨</h1>
       <p class="game-subtitle">Built on dreams, shaped by purpose</p>
-
       <div class="instructions">
         <h3>How to Play</h3>
-        <div class="instruction-item good-item">
-          <span class="emoji">📚</span>
-          <span>Catch books = +10 points (Writing)</span>
-        </div>
-        <div class="instruction-item good-item">
-          <span class="emoji">🍳</span>
-          <span>Catch food = +10 points (Cooking)</span>
-        </div>
-        <div class="instruction-item good-item">
-          <span class="emoji">❤️</span>
-          <span>Catch hearts = +10 points (Volunteering)</span>
-        </div>
-        <div class="instruction-item bad-item">
-          <span class="emoji">⛈️</span>
-          <span>Avoid storms = -1 life</span>
-        </div>
-        <div class="instruction-item bad-item">
-          <span class="emoji">💤</span>
-          <span>Avoid distractions = -1 life</span>
-        </div>
+        <div class="instruction-item good-item"><span class="emoji">📚</span><span>Catch books = +10 points (Writing)</span></div>
+        <div class="instruction-item good-item"><span class="emoji">🍳</span><span>Catch food = +10 points (Cooking)</span></div>
+        <div class="instruction-item good-item"><span class="emoji">❤️</span><span>Catch hearts = +10 points (Volunteering)</span></div>
+        <div class="instruction-item bad-item"><span class="emoji">⛈️</span><span>Avoid storms = -1 life</span></div>
+        <div class="instruction-item bad-item"><span class="emoji">💤</span><span>Avoid distractions = -1 life</span></div>
       </div>
-
       <div id="highScoreDisplay" class="high-score"></div>
-
-      <button class="start-btn" onclick="startGame()">START GAME</button>
+      <button class="start-btn" onclick="startGame()">▶ PLAY</button>
     </div>
-
-    <!-- GAME SCREEN -->
     <div id="gameScreen" class="screen">
       <div class="game-info">
-        <div class="score-display">
-          Score: <span class="number" id="scoreDisplay">0</span>
-        </div>
-        <div class="lives-display" id="livesDisplay">
-          ❤️ ❤️ ❤️
-        </div>
+        <div class="score-display">Score: <span class="number" id="scoreDisplay">0</span></div>
+        <div class="timer-display" id="timerDisplay">⏱️ 30s</div>
+        <div class="lives-display" id="livesDisplay">❤️ ❤️ ❤️</div>
       </div>
-
-      <div class="game-area" id="gameArea">
-        <div class="player" id="player">🧺</div>
-      </div>
-
+      <div class="game-area" id="gameArea"><div class="player" id="player">🧺</div></div>
       <p class="control-hint">Move mouse or use ← → arrow keys</p>
     </div>
-
-    <!-- GAME OVER SCREEN -->
     <div id="gameoverScreen" class="screen gameover-screen">
       <h1 class="gameover-title">Game Over!</h1>
-      
       <div class="achievement-icon" id="achievementIcon">💫</div>
-      
       <p class="final-score">Final Score: <span id="finalScore">0</span></p>
-      
-      <div id="newHighScore" class="new-highscore" style="display: none;">
-        🎉 NEW HIGH SCORE! 🎉
-      </div>
-      
+      <div id="newHighScore" class="new-highscore" style="display:none">🎉 NEW HIGH SCORE! 🎉</div>
       <p class="achievement-text" id="achievementText"></p>
-
       <button class="start-btn" onclick="startGame()">PLAY AGAIN</button>
       <button class="menu-btn" onclick="backToMenu()">Back to Menu</button>
     </div>
-
   </div>
-
   <script>
-    let gameState = 'menu';
-    let score = 0;
-    let lives = 3;
-    let highScore = parseInt(localStorage.getItem('highScore')) || 0;
-    let playerX = 50;
-    let fallingItems = [];
-    let itemIdCounter = 0;
-    let gameLoop;
-    let spawnInterval;
-
-    const items = [
-      { emoji: '📚', type: 'good', points: 10 },
-      { emoji: '🍳', type: 'good', points: 10 },
-      { emoji: '❤️', type: 'good', points: 10 },
-      { emoji: '⛈️', type: 'bad', points: -5 },
-      { emoji: '💤', type: 'bad', points: -5 },
-    ];
-
-    // Display high score on menu
-    if (highScore > 0) {
-      document.getElementById('highScoreDisplay').textContent = `🏆 High Score: ${highScore}`;
-    }
-
-    function showScreen(screenName) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(screenName + 'Screen').classList.add('active');
-    }
-
-    function startGame() {
-      gameState = 'playing';
-      score = 0;
-      lives = 3;
-      playerX = 50;
-      fallingItems = [];
-      itemIdCounter = 0;
-
-      updateScore();
-      updateLives();
-      showScreen('game');
-
-      // Start spawning items
-      spawnInterval = setInterval(spawnItem, 1500);
-      
-      // Start game loop
-      gameLoop = setInterval(updateGame, 30);
-    }
-
-    function spawnItem() {
-      const randomItem = items[Math.floor(Math.random() * items.length)];
-      const newItem = {
-        ...randomItem,
-        id: itemIdCounter++,
-        x: Math.random() * 80 + 10,
-        y: -5,
-        speed: 0.8 + Math.random() * 0.5,
-        element: null,
-        caught: false
-      };
-
-      // Create DOM element
-      const itemEl = document.createElement('div');
-      itemEl.className = 'falling-item';
-      itemEl.textContent = newItem.emoji;
-      itemEl.style.left = newItem.x + '%';
-      itemEl.style.top = newItem.y + '%';
-      document.getElementById('gameArea').appendChild(itemEl);
-
-      newItem.element = itemEl;
-      fallingItems.push(newItem);
-    }
-
-    function updateGame() {
-      if (gameState !== 'playing') return;
-
-      // Update falling items
-      fallingItems.forEach(item => {
-        item.y += item.speed;
-        item.element.style.top = item.y + '%';
-
-        // Check collision with player
-        if (item.y > 75 && item.y < 85 && !item.caught) {
-          const distance = Math.abs(item.x - playerX);
-          if (distance < 8) {
-            item.caught = true;
-            item.element.style.filter = 'brightness(2)';
-            
-            if (item.type === 'good') {
-              score += item.points;
-              updateScore();
-            } else {
-              lives--;
-              updateLives();
-              if (lives <= 0) {
-                endGame();
-              }
-            }
-
-            setTimeout(() => {
-              if (item.element && item.element.parentNode) {
-                item.element.remove();
-              }
-            }, 200);
-          }
-        }
-
-        // Remove if off screen
-        if (item.y > 105) {
-          if (item.element && item.element.parentNode) {
-            item.element.remove();
-          }
-        }
-      });
-
-      // Clean up off-screen items
-      fallingItems = fallingItems.filter(item => item.y < 105);
-    }
-
-    function updateScore() {
-      document.getElementById('scoreDisplay').textContent = score;
-    }
-
-    function updateLives() {
-      const hearts = '❤️ '.repeat(lives);
-      document.getElementById('livesDisplay').textContent = hearts.trim();
-    }
-
-    function endGame() {
-      gameState = 'gameover';
-      clearInterval(gameLoop);
-      clearInterval(spawnInterval);
-
-      // Clear all items
-      fallingItems.forEach(item => {
-        if (item.element && item.element.parentNode) {
-          item.element.remove();
-        }
-      });
-      fallingItems = [];
-
-      // Update high score
-      if (score > highScore) {
-        highScore = score;
-        localStorage.setItem('highScore', highScore);
-        document.getElementById('newHighScore').style.display = 'block';
-      } else {
-        document.getElementById('newHighScore').style.display = 'none';
-      }
-
-      // Set achievement
-      let icon = '💫';
-      let text = '💪 Keep practicing your dreams!';
-      
-      if (score >= 100) {
-        icon = '🏆';
-        text = '🌟 Dream Achiever! Amazing!';
-      } else if (score >= 50) {
-        icon = '⭐';
-        text = '✨ Dream Chaser! Keep going!';
-      }
-
-      document.getElementById('achievementIcon').textContent = icon;
-      document.getElementById('achievementText').textContent = text;
-      document.getElementById('finalScore').textContent = score;
-
-      showScreen('gameover');
-    }
-
-    function backToMenu() {
-      gameState = 'menu';
-      clearInterval(gameLoop);
-      clearInterval(spawnInterval);
-      
-      if (highScore > 0) {
-        document.getElementById('highScoreDisplay').textContent = `🏆 High Score: ${highScore}`;
-      }
-      
-      showScreen('menu');
-    }
-
-    // Mouse movement
-    const gameArea = document.getElementById('gameArea');
-    const player = document.getElementById('player');
-
-    gameArea.addEventListener('mousemove', (e) => {
-      if (gameState !== 'playing') return;
-      const rect = gameArea.getBoundingClientRect();
-      playerX = ((e.clientX - rect.left) / rect.width) * 100;
-      playerX = Math.max(10, Math.min(90, playerX));
-      player.style.left = playerX + '%';
-    });
-
-    // Keyboard controls
-    document.addEventListener('keydown', (e) => {
-      if (gameState !== 'playing') return;
-      
-      if (e.key === 'ArrowLeft') {
-        playerX = Math.max(10, playerX - 3);
-        player.style.left = playerX + '%';
-      } else if (e.key === 'ArrowRight') {
-        playerX = Math.min(90, playerX + 3);
-        player.style.left = playerX + '%';
-      }
-    });
-
-    // Initialize player position
-    player.style.left = playerX + '%';
+    let gameState='menu',score=0,lives=3,timeLeft=30,highScore=parseInt(localStorage.getItem('highScore'))||0,playerX=50,fallingItems=[],itemIdCounter=0,gameLoop,spawnInterval,timerInterval;
+    const items=[{emoji:'📚',type:'good',points:10},{emoji:'🍳',type:'good',points:10},{emoji:'❤️',type:'good',points:10},{emoji:'⛈️',type:'bad',points:-5},{emoji:'💤',type:'bad',points:-5}];
+    if(highScore>0)document.getElementById('highScoreDisplay').textContent=`🏆 High Score: ${highScore}`;
+    function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(n+'Screen').classList.add('active')}
+    function startGame(){gameState='playing';score=0;lives=3;timeLeft=30;playerX=50;fallingItems=[];itemIdCounter=0;updateScore();updateLives();updateTimer();showScreen('game');spawnInterval=setInterval(spawnItem,1500);gameLoop=setInterval(updateGame,30);timerInterval=setInterval(updateTimer,1000)}
+    function updateTimer(){timeLeft--;const timerEl=document.getElementById('timerDisplay');timerEl.textContent=`⏱️ ${timeLeft}s`;timerEl.classList.remove('warning','danger');if(timeLeft<=10&&timeLeft>5)timerEl.classList.add('warning');else if(timeLeft<=5)timerEl.classList.add('danger');if(timeLeft<=0)endGame()}
+    function spawnItem(){const r=items[Math.floor(Math.random()*items.length)],i={...r,id:itemIdCounter++,x:Math.random()*80+10,y:-5,speed:0.8+Math.random()*0.5,element:null,caught:false},e=document.createElement('div');e.className='falling-item';e.textContent=i.emoji;e.style.left=i.x+'%';e.style.top=i.y+'%';document.getElementById('gameArea').appendChild(e);i.element=e;fallingItems.push(i)}
+    function updateGame(){if(gameState!=='playing')return;fallingItems.forEach(i=>{i.y+=i.speed;i.element.style.top=i.y+'%';if(i.y>75&&i.y<85&&!i.caught){const d=Math.abs(i.x-playerX);if(d<8){i.caught=true;i.element.style.filter='brightness(2)';if(i.type==='good'){score+=i.points;updateScore()}else{lives--;updateLives();if(lives<=0)endGame()}setTimeout(()=>{if(i.element&&i.element.parentNode)i.element.remove()},200)}}if(i.y>105&&i.element&&i.element.parentNode)i.element.remove()});fallingItems=fallingItems.filter(i=>i.y<105)}
+    function updateScore(){document.getElementById('scoreDisplay').textContent=score}
+    function updateLives(){document.getElementById('livesDisplay').textContent='❤️ '.repeat(lives).trim()}
+    function endGame(){gameState='gameover';clearInterval(gameLoop);clearInterval(spawnInterval);clearInterval(timerInterval);fallingItems.forEach(i=>{if(i.element&&i.element.parentNode)i.element.remove()});fallingItems=[];if(score>highScore){highScore=score;localStorage.setItem('highScore',highScore);document.getElementById('newHighScore').style.display='block'}else{document.getElementById('newHighScore').style.display='none'}let icon='💫',text='💪 Keep practicing your dreams!';if(score>=100){icon='🏆';text='🌟 Dream Achiever! Amazing!'}else if(score>=50){icon='⭐';text='✨ Dream Chaser! Keep going!'}document.getElementById('achievementIcon').textContent=icon;document.getElementById('achievementText').textContent=text;document.getElementById('finalScore').textContent=score;showScreen('gameover')}
+    function backToMenu(){gameState='menu';clearInterval(gameLoop);clearInterval(spawnInterval);clearInterval(timerInterval);if(highScore>0)document.getElementById('highScoreDisplay').textContent=`🏆 High Score: ${highScore}`;showScreen('menu')}
+    const gameArea=document.getElementById('gameArea'),player=document.getElementById('player');
+    gameArea.addEventListener('mousemove',e=>{if(gameState!=='playing')return;const r=gameArea.getBoundingClientRect();playerX=((e.clientX-r.left)/r.width)*100;playerX=Math.max(10,Math.min(90,playerX));player.style.left=playerX+'%'});
+    document.addEventListener('keydown',e=>{if(gameState!=='playing')return;if(e.key==='ArrowLeft'){playerX=Math.max(10,playerX-3);player.style.left=playerX+'%'}else if(e.key==='ArrowRight'){playerX=Math.min(90,playerX+3);player.style.left=playerX+'%'}});
+    player.style.left=playerX+'%';
+    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
   </script>
-
 </body>
 </html>
-  );
-}
