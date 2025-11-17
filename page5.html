@@ -35,27 +35,23 @@
     @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
     .hero p { font-size: 1.2em; color: #a7c7e7; max-width: 700px; margin: 0 auto; line-height: 1.8; }
     
-    /* CONTACT SECTION */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
     
     .contact-card { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 20px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; }
     .contact-card:hover { transform: translateY(-8px); border-color: #8AAEE0; box-shadow: 0 15px 40px rgba(99, 142, 203, 0.4); background: rgba(99, 142, 203, 0.15); }
     
-    .contact-icon { width: 80px; height: 80px; margin: 0 auto 15px; display: block; object-fit: contain; }
+    .contact-icon { width: 80px; height: 80px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 3em; }
     .contact-card h3 { color: #8AAEE0; font-size: 1.3em; margin-bottom: 8px; font-weight: 700; }
     .contact-card p { color: #a7c7e7; font-size: 0.95em; }
     
-    /* STICKY NOTES SECTION */
     .notes-section { margin-top: 80px; }
     .section-header { text-align: center; margin-bottom: 40px; }
     .section-header h2 { font-family: "Archivo Black", sans-serif; font-size: 2.5em; color: #6a90b4; margin-bottom: 15px; }
     .section-header p { color: #a7c7e7; font-size: 1.1em; }
     
-    /* Add Button */
     .add-btn { position: fixed; bottom: 100px; right: 40px; width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; font-size: 2.5em; cursor: pointer; box-shadow: 0 8px 30px rgba(99, 142, 203, 0.6); transition: all 0.3s ease; z-index: 100; display: flex; align-items: center; justify-content: center; }
     .add-btn:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(99, 142, 203, 0.8); }
     
-    /* Modal */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 200; align-items: center; justify-content: center; animation: fadeIn 0.3s ease; }
     .modal-overlay.active { display: flex; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -89,7 +85,6 @@
     .submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; font-weight: 700; font-size: 1.1em; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; font-family: "Poppins", sans-serif; }
     .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99, 142, 203, 0.5); }
     
-    /* Sticky Notes Wall */
     .sticky-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
     
     .sticky-note { padding: 25px; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); transform: rotate(-2deg); transition: all 0.3s ease; cursor: pointer; position: relative; min-height: 200px; display: flex; flex-direction: column; animation: popIn 0.5s ease; }
@@ -119,6 +114,11 @@
     .empty-state { text-align: center; padding: 80px 20px; color: #a7c7e7; grid-column: 1 / -1; }
     .empty-state .emoji { font-size: 5em; margin-bottom: 20px; display: block; opacity: 0.5; }
     .empty-state p { font-size: 1.2em; }
+    
+    /* Success notification */
+    .notification { position: fixed; top: 100px; right: 30px; background: linear-gradient(135deg, #4ade80, #22c55e); color: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(74, 222, 128, 0.4); z-index: 300; animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s; font-weight: 600; }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeOut { to { opacity: 0; transform: translateX(100px); } }
     
     .footer { text-align: center; margin-top: 80px; padding: 30px; border-top: 2px solid rgba(99, 142, 203, 0.3); }
     .footer p { color: #8AAEE0; font-size: 0.95em; }
@@ -171,7 +171,6 @@
     <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
   </div>
   
-  <!-- Add Note Button -->
   <button class="add-btn" onclick="openModal()" title="Add a note">+</button>
   
   <div class="container">
@@ -181,43 +180,39 @@
       <p>Want to collaborate, say hi, or just drop a message? Feel free to reach out through any platform or leave a note below! ✨</p>
     </div>
     
-    <!-- CONTACT CARDS -->
     <div class="contact-grid">
-      <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" class="contact-card">
-        <img src="images/instagram.jpg" alt="Instagram" class="contact-icon">
+      <a href="https://www.instagram.com/najwaiman" target="_blank" class="contact-card">
+        <div class="contact-icon">📸</div>
         <h3>Instagram</h3>
-        <p>@your_username</p>
+        <p>@najwaiman</p>
       </a>
       
-      <a href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" class="contact-card">
-        <img src="images/tt.jpg" alt="TikTok" class="contact-icon">
+      <a href="https://www.tiktok.com/@najwaiman" target="_blank" class="contact-card">
+        <div class="contact-icon">🎵</div>
         <h3>TikTok</h3>
-        <p>@your_username</p>
+        <p>@najwaiman</p>
       </a>
       
       <a href="https://wa.me/60123456789" target="_blank" class="contact-card">
-        <img src="images/ws.jpg" alt="WhatsApp" class="contact-icon">
+        <div class="contact-icon">💬</div>
         <h3>WhatsApp</h3>
         <p>+60 12-345 6789</p>
       </a>
       
-      <a href="mailto:your.email@example.com" class="contact-card">
-        <img src="images/email.jpg" alt="Email" class="contact-icon">
+      <a href="mailto:najwaiman@student.uitm.edu.my" class="contact-card">
+        <div class="contact-icon">✉️</div>
         <h3>Email</h3>
-        <p>your.email@example.com</p>
+        <p>najwaiman@student.uitm.edu.my</p>
       </a>
     </div>
     
-    <!-- STICKY NOTES SECTION -->
     <div class="notes-section">
       <div class="section-header">
         <h2>📝 Message Wall</h2>
         <p>Leave a note and brighten my day! Your thoughts, feedback, or just a friendly hello ^^</p>
       </div>
       
-      <div class="sticky-wall" id="stickyWall">
-        <!-- Notes will be loaded here -->
-      </div>
+      <div class="sticky-wall" id="stickyWall"></div>
     </div>
     
     <div class="footer">
@@ -227,7 +222,6 @@
     
   </div>
   
-  <!-- Modal Form -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
     <div class="modal-form" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal()">×</button>
@@ -265,29 +259,23 @@
     let selectedColor = 'blue1';
     let notes = [];
     
-    // Load notes on page load
-    async function loadNotes() {
-      try {
-        const result = await window.storage.list('note:', true);
-        if (result && result.keys) {
-          notes = [];
-          for (const key of result.keys) {
-            try {
-              const noteData = await window.storage.get(key, true);
-              if (noteData && noteData.value) {
-                notes.push(JSON.parse(noteData.value));
-              }
-            } catch (err) {
-              console.log('Note not found:', key);
-            }
-          }
+    // ✅ LOAD NOTES FROM localStorage
+    function loadNotes() {
+      const savedNotes = localStorage.getItem('nawaProfileNotes');
+      if (savedNotes) {
+        try {
+          notes = JSON.parse(savedNotes);
           notes.sort((a, b) => b.timestamp - a.timestamp);
-          displayNotes();
+        } catch (e) {
+          notes = [];
         }
-      } catch (error) {
-        console.log('First time loading notes');
-        displayNotes();
       }
+      displayNotes();
+    }
+    
+    // ✅ SAVE NOTES TO localStorage
+    function saveNotes() {
+      localStorage.setItem('nawaProfileNotes', JSON.stringify(notes));
     }
     
     function displayNotes() {
@@ -351,7 +339,15 @@
       selectedColor = color;
     }
     
-    async function addNote(event) {
+    function showNotification(message) {
+      const notif = document.createElement('div');
+      notif.className = 'notification';
+      notif.textContent = message;
+      document.body.appendChild(notif);
+      setTimeout(() => notif.remove(), 3000);
+    }
+    
+    function addNote(event) {
       event.preventDefault();
       
       const name = document.getElementById('noteName').value.trim();
@@ -363,48 +359,46 @@
       }
       
       const timestamp = Date.now();
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-MY', { 
+        day: 'numeric', 
+        month: 'short', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
       const note = {
         id: 'note_' + timestamp,
         name: name,
         message: message,
         color: selectedColor,
-        date: 'Just now',
+        date: dateStr,
         timestamp: timestamp
       };
       
-      try {
-        await window.storage.set(note.id, JSON.stringify(note), true);
-        notes.unshift(note);
-        displayNotes();
-        closeModal();
-        alert('📌 Note posted successfully!');
-      } catch (error) {
-        console.error('Error saving note:', error);
-        alert('Sorry, there was an error posting your note. Please try again!');
-      }
+      notes.unshift(note);
+      saveNotes();
+      displayNotes();
+      closeModal();
+      showNotification('📌 Note posted successfully!');
     }
     
-    async function deleteNote(id) {
+    function deleteNote(id) {
       if (!confirm('Delete this note?')) return;
       
-      try {
-        await window.storage.delete(id, true);
-        notes = notes.filter(n => n.id !== id);
-        displayNotes();
-      } catch (error) {
-        console.error('Error deleting note:', error);
-      }
+      notes = notes.filter(n => n.id !== id);
+      saveNotes();
+      displayNotes();
+      showNotification('🗑️ Note deleted!');
     }
     
-    // Close modal on ESC key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
+      if (e.key === 'Escape') closeModal();
     });
     
-    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
-    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
+    function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+    function scrollToBottom() { window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); }
     
     // Particles
     particlesJS("particles-js",{"particles":{"number":{"value":100,"density":{"enable":true,"value_area":800}},"color":{"value":"#6a90b4"},"shape":{"type":"circle"},"opacity":{"value":0.6,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.2}},"size":{"value":3,"random":true,"anim":{"enable":true,"speed":2,"size_min":1}},"line_linked":{"enable":true,"distance":120,"color":"#638ECB","opacity":0.3,"width":1},"move":{"enable":true,"speed":0.8,"direction":"none","random":true,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}},"modes":{"grab":{"distance":150,"line_linked":{"opacity":0.8}},"push":{"particles_nb":3}}},"retina_detect":true});
