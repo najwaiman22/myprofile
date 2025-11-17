@@ -40,7 +40,7 @@
     .contact-card { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 20px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; }
     .contact-card:hover { transform: translateY(-8px); border-color: #8AAEE0; box-shadow: 0 15px 40px rgba(99, 142, 203, 0.4); background: rgba(99, 142, 203, 0.15); }
     
-    .contact-icon { width: 80px; height: 80px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 3em; }
+    .contact-icon { width: 80px; height: 80px; margin: 0 auto 15px; display: block; object-fit: contain; }
     .contact-card h3 { color: #8AAEE0; font-size: 1.3em; margin-bottom: 8px; font-weight: 700; }
     .contact-card p { color: #a7c7e7; font-size: 0.95em; }
     
@@ -115,7 +115,6 @@
     .empty-state .emoji { font-size: 5em; margin-bottom: 20px; display: block; opacity: 0.5; }
     .empty-state p { font-size: 1.2em; }
     
-    /* Success notification */
     .notification { position: fixed; top: 100px; right: 30px; background: linear-gradient(135deg, #4ade80, #22c55e); color: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(74, 222, 128, 0.4); z-index: 300; animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s; font-weight: 600; }
     @keyframes slideInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes fadeOut { to { opacity: 0; transform: translateX(100px); } }
@@ -181,28 +180,28 @@
     </div>
     
     <div class="contact-grid">
-      <a href="https://www.instagram.com/najwaiman" target="_blank" class="contact-card">
-        <div class="contact-icon">📸</div>
+      <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" class="contact-card">
+        <img src="images/instagram.jpg" alt="Instagram" class="contact-icon">
         <h3>Instagram</h3>
-        <p>@najwaiman</p>
+        <p>@matchiwa__</p>
       </a>
       
-      <a href="https://www.tiktok.com/@najwaiman" target="_blank" class="contact-card">
-        <div class="contact-icon">🎵</div>
+      <a href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" class="contact-card">
+        <img src="images/tt.jpg" alt="TikTok" class="contact-icon">
         <h3>TikTok</h3>
-        <p>@najwaiman</p>
+        <p>@naaawers</p>
       </a>
       
       <a href="https://wa.me/60123456789" target="_blank" class="contact-card">
-        <div class="contact-icon">💬</div>
+        <img src="images/ws.jpg" alt="WhatsApp" class="contact-icon">
         <h3>WhatsApp</h3>
-        <p>+60 12-345 6789</p>
+        <p>+60 11-1409 0412</p>
       </a>
       
-      <a href="mailto:najwaiman@student.uitm.edu.my" class="contact-card">
-        <div class="contact-icon">✉️</div>
+      <a href="mailto:your.email@example.com" class="contact-card">
+        <img src="images/email.jpg" alt="Email" class="contact-icon">
         <h3>Email</h3>
-        <p>najwaiman@student.uitm.edu.my</p>
+        <p>najwaiman226@gmail.com</p>
       </a>
     </div>
     
@@ -225,7 +224,7 @@
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
     <div class="modal-form" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal()">×</button>
-      <h2>✍️ Leave a Note</h2>
+      <h2>Leave a Note</h2>
       <p class="subtitle">Share your thoughts, feedback, or just say hi!</p>
       
       <form onsubmit="addNote(event)">
@@ -259,7 +258,7 @@
     let selectedColor = 'blue1';
     let notes = [];
     
-    // ✅ LOAD NOTES FROM localStorage
+    // LOAD NOTES FROM localStorage
     function loadNotes() {
       const savedNotes = localStorage.getItem('nawaProfileNotes');
       if (savedNotes) {
@@ -273,7 +272,7 @@
       displayNotes();
     }
     
-    // ✅ SAVE NOTES TO localStorage
+    // SAVE NOTES TO localStorage
     function saveNotes() {
       localStorage.setItem('nawaProfileNotes', JSON.stringify(notes));
     }
@@ -381,7 +380,7 @@
       saveNotes();
       displayNotes();
       closeModal();
-      showNotification('📌 Note posted successfully!');
+      showNotification('Note posted successfully!');
     }
     
     function deleteNote(id) {
@@ -390,7 +389,7 @@
       notes = notes.filter(n => n.id !== id);
       saveNotes();
       displayNotes();
-      showNotification('🗑️ Note deleted!');
+      showNotification('Note deleted!');
     }
     
     document.addEventListener('keydown', (e) => {
