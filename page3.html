@@ -5,14 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skybound</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%); color: #fff; overflow-y: auto; overflow-x: hidden; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-    .container { width: 100%; max-width: 800px; }
+    body { 
+      font-family: "Poppins", sans-serif; 
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      color: #fff; 
+      overflow-y: auto; 
+      overflow-x: hidden; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      min-height: 100vh; 
+      padding: 20px; 
+      position: relative;
+    }
+    
+    /* STARFIELD BACKGROUND */
+    #starfield { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+      animation: shoot 3s linear;
+    }
+    
+    @keyframes shoot {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-300px, 300px);
+        opacity: 0;
+      }
+    }
+    
+    .container { width: 100%; max-width: 800px; position: relative; z-index: 1; }
     .nav-menu { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 15px; background: rgba(1, 22, 43, 0.9); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(99, 142, 203, 0.3); }
+    .nav-item { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; position: relative; }
+    .nav-label { color: #a7c7e7; font-size: 0.75em; font-weight: 500; opacity: 0; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: rgba(99, 142, 203, 0.9); padding: 5px 12px; border-radius: 15px; white-space: nowrap; pointer-events: none; transition: all 0.3s ease; }
+    .nav-item:hover .nav-label { opacity: 1; bottom: -35px; }
     .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(99, 142, 203, 0.5); border: 2px solid #638ECB; cursor: pointer; transition: all 0.3s ease; }
-    .nav-dot:hover, .nav-dot.active { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
-    .nav-dot.active { width: 12px; height: 12px; }
+    .nav-item:hover .nav-dot, .nav-item.active .nav-dot { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
+    .nav-item.active .nav-dot { width: 12px; height: 12px; }
     .prev-btn { position: fixed; left: 25px; top: 25px; z-index: 99; }
     .next-btn { position: fixed; right: 25px; top: 25px; z-index: 99; }
     .page-nav-btn { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #a7c7e7; padding: 8px 20px; border-radius: 25px; font-size: 0.8em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); font-family: "Poppins", sans-serif; }
@@ -58,19 +120,40 @@
   </style>
 </head>
 <body>
+  <!-- STARFIELD BACKGROUND -->
+  <div id="starfield"></div>
+  
   <button class="page-nav-btn prev-btn" onclick="location.href='page2.html'">← Previous</button>
   <button class="page-nav-btn next-btn" onclick="location.href='page4.html'">Next →</button>
+  
   <nav class="nav-menu">
-    <div class="nav-dot" onclick="location.href='index.html'"></div>
-    <div class="nav-dot" onclick="location.href='page2.html'"></div>
-    <div class="nav-dot active"></div>
-    <div class="nav-dot" onclick="location.href='page4.html'"></div>
-    <div class="nav-dot" onclick="location.href='page5.html'"></div>
+    <div class="nav-item" onclick="location.href='index.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Homepage</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page2.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">About Me</span>
+    </div>
+    <div class="nav-item active">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page4.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Hobbies</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page5.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Contact</span>
+    </div>
   </nav>
+  
   <div class="scroll-controls">
     <div class="scroll-btn" onclick="scrollToTop()">↑</div>
     <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
   </div>
+  
   <div class="container">
     <div id="menuScreen" class="screen active menu-screen">
       <h1 class="game-title">⋆｡ﾟ☁︎｡ Skybound ⋆｡ ﾟ☾ ﾟ｡⋆</h1>
@@ -86,6 +169,7 @@
       <div id="highScoreDisplay" class="high-score"></div>
       <button class="start-btn" onclick="startGame()">▶ PLAY</button>
     </div>
+    
     <div id="gameScreen" class="screen">
       <div class="game-info">
         <div class="score-display">Score: <span class="number" id="scoreDisplay">0</span></div>
@@ -95,6 +179,7 @@
       <div class="game-area" id="gameArea"><div class="player" id="player">🧺</div></div>
       <p class="control-hint">Move mouse or use ← → arrow keys</p>
     </div>
+    
     <div id="gameoverScreen" class="screen gameover-screen">
       <h1 class="gameover-title">Game Over!</h1>
       <div class="achievement-icon" id="achievementIcon">💫</div>
@@ -105,10 +190,40 @@
       <button class="menu-btn" onclick="backToMenu()">Back to Menu</button>
     </div>
   </div>
+  
   <script>
+    // ===== STARFIELD GENERATION =====
+    const starfield = document.getElementById('starfield');
+    
+    // Generate 250 twinkling stars
+    for (let i = 0; i < 250; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      starfield.appendChild(star);
+    }
+    
+    // Generate shooting stars periodically
+    function createShootingStar() {
+      const shootingStar = document.createElement('div');
+      shootingStar.className = 'shooting-star';
+      shootingStar.style.left = Math.random() * 50 + 50 + '%';
+      shootingStar.style.top = Math.random() * 50 + '%';
+      starfield.appendChild(shootingStar);
+      setTimeout(() => shootingStar.remove(), 3000);
+    }
+    
+    // Create shooting star every 3-5 seconds
+    setInterval(createShootingStar, Math.random() * 2000 + 3000);
+    
+    // ===== GAME LOGIC =====
     let gameState='menu',score=0,lives=3,timeLeft=30,highScore=parseInt(localStorage.getItem('highScore'))||0,playerX=50,fallingItems=[],itemIdCounter=0,gameLoop,spawnInterval,timerInterval;
     const items=[{emoji:'📚',type:'good',points:10},{emoji:'🍳',type:'good',points:10},{emoji:'❤️',type:'good',points:10},{emoji:'⛈️',type:'bad',points:-5},{emoji:'💤',type:'bad',points:-5}];
     if(highScore>0)document.getElementById('highScoreDisplay').textContent=`🏆 High Score: ${highScore}`;
+    
     function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(n+'Screen').classList.add('active')}
     function startGame(){gameState='playing';score=0;lives=3;timeLeft=30;playerX=50;fallingItems=[];itemIdCounter=0;updateScore();updateLives();updateTimer();showScreen('game');spawnInterval=setInterval(spawnItem,1500);gameLoop=setInterval(updateGame,30);timerInterval=setInterval(updateTimer,1000)}
     function updateTimer(){timeLeft--;const timerEl=document.getElementById('timerDisplay');timerEl.textContent=`⏱️ ${timeLeft}s`;timerEl.classList.remove('warning','danger');if(timeLeft<=10&&timeLeft>5)timerEl.classList.add('warning');else if(timeLeft<=5)timerEl.classList.add('danger');if(timeLeft<=0)endGame()}
@@ -118,10 +233,12 @@
     function updateLives(){document.getElementById('livesDisplay').textContent='❤️ '.repeat(lives).trim()}
     function endGame(){gameState='gameover';clearInterval(gameLoop);clearInterval(spawnInterval);clearInterval(timerInterval);fallingItems.forEach(i=>{if(i.element&&i.element.parentNode)i.element.remove()});fallingItems=[];if(score>highScore){highScore=score;localStorage.setItem('highScore',highScore);document.getElementById('newHighScore').style.display='block'}else{document.getElementById('newHighScore').style.display='none'}let icon='💫',text='💪 Keep practicing your dreams!';if(score>=100){icon='🏆';text='🌟 Dream Achiever! Amazing!'}else if(score>=50){icon='⭐';text='✨ Dream Chaser! Keep going!'}document.getElementById('achievementIcon').textContent=icon;document.getElementById('achievementText').textContent=text;document.getElementById('finalScore').textContent=score;showScreen('gameover')}
     function backToMenu(){gameState='menu';clearInterval(gameLoop);clearInterval(spawnInterval);clearInterval(timerInterval);if(highScore>0)document.getElementById('highScoreDisplay').textContent=`🏆 High Score: ${highScore}`;showScreen('menu')}
+    
     const gameArea=document.getElementById('gameArea'),player=document.getElementById('player');
     gameArea.addEventListener('mousemove',e=>{if(gameState!=='playing')return;const r=gameArea.getBoundingClientRect();playerX=((e.clientX-r.left)/r.width)*100;playerX=Math.max(10,Math.min(90,playerX));player.style.left=playerX+'%'});
     document.addEventListener('keydown',e=>{if(gameState!=='playing')return;if(e.key==='ArrowLeft'){playerX=Math.max(10,playerX-3);player.style.left=playerX+'%'}else if(e.key==='ArrowRight'){playerX=Math.min(90,playerX+3);player.style.left=playerX+'%'}});
     player.style.left=playerX+'%';
+    
     function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
     function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
   </script>
