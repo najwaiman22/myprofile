@@ -405,6 +405,28 @@
     // Load notes when page loads
     loadNotes();
   </script>
-  
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDUmRlUXlDNiMKxe6eYwJXnASgKun6NM_4",
+    authDomain: "stickynoteswall.firebaseapp.com",
+    projectId: "stickynoteswall",
+    storageBucket: "stickynoteswall.firebasestorage.app",
+    messagingSenderId: "896404594464",
+    appId: "1:896404594464:web:32a79508cf2f5b5a220145",
+    measurementId: "G-CXLQ5C86G4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>
