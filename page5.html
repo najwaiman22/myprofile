@@ -4,79 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Me - Nawa's Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "Poppins", sans-serif; background: radial-gradient(circle at 50% 50%, #01162b, #000); color: #fff; overflow-x: hidden; position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    body { font-family: "Poppins", sans-serif; background: radial-gradient(circle at 50% 50%, #01162b, #000); color: #fff; overflow-x: hidden; position: relative; min-height: 100vh; }
     #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
     
     .nav-menu { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 15px; background: rgba(1, 22, 43, 0.9); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(99, 142, 203, 0.3); }
+    .nav-item { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; position: relative; }
+    .nav-label { color: #a7c7e7; font-size: 0.75em; font-weight: 500; opacity: 0; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: rgba(99, 142, 203, 0.9); padding: 5px 12px; border-radius: 15px; white-space: nowrap; pointer-events: none; transition: all 0.3s ease; }
+    .nav-item:hover .nav-label { opacity: 1; bottom: -35px; }
     .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(99, 142, 203, 0.5); border: 2px solid #638ECB; cursor: pointer; transition: all 0.3s ease; }
-    .nav-dot:hover, .nav-dot.active { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
-    .nav-dot.active { width: 12px; height: 12px; }
+    .nav-item:hover .nav-dot, .nav-item.active .nav-dot { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
+    .nav-item.active .nav-dot { width: 12px; height: 12px; }
+    
     .prev-btn { position: fixed; left: 25px; top: 25px; z-index: 99; }
     .page-nav-btn { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #a7c7e7; padding: 8px 20px; border-radius: 25px; font-size: 0.8em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); font-family: "Poppins", sans-serif; }
     .page-nav-btn:hover { background: #638ECB; color: white; transform: scale(1.05); box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6); }
+    
     .scroll-controls { position: fixed; right: 25px; bottom: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
     .scroll-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #8AAEE0; display: flex; align-items: center; justify-content: center; font-size: 1.2em; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
     .scroll-btn:hover { background: #638ECB; color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(99, 142, 203, 0.8); }
     
-    .container { position: relative; z-index: 1; max-width: 1200px; width: 100%; padding: 120px 40px 60px; }
+    .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 120px 40px 100px; }
     
-    .hero { text-align: center; margin-bottom: 80px; animation: fadeInUp 0.8s ease; }
+    .hero { text-align: center; margin-bottom: 60px; animation: fadeInUp 0.8s ease; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .hero h1 { font-family: "Archivo Black", sans-serif; font-size: 4em; color: #6a90b4; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; background: linear-gradient(135deg, #6a90b4, #8AAEE0, #6a90b4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradientShift 3s ease infinite; }
     @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-    .hero p { font-size: 1.3em; color: #a7c7e7; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+    .hero p { font-size: 1.2em; color: #a7c7e7; max-width: 700px; margin: 0 auto; line-height: 1.8; }
     
-    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 60px; }
+    /* CONTACT SECTION */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
     
-    .left-section { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 25px; padding: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-    .profile-img { width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, #6a90b4, #638ECB); border: 5px solid rgba(138, 174, 224, 0.5); margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-size: 5em; box-shadow: 0 0 40px rgba(99, 142, 203, 0.6); }
-    .left-section h2 { font-family: "Righteous", sans-serif; font-size: 2.5em; color: #6a90b4; margin-bottom: 15px; }
-    .left-section .subtitle { font-size: 1.1em; color: #8AAEE0; margin-bottom: 10px; }
-    .left-section .tagline { font-size: 1em; color: #a7c7e7; font-style: italic; }
+    .contact-card { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 20px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+    .contact-card:hover { transform: translateY(-8px); border-color: #8AAEE0; box-shadow: 0 15px 40px rgba(99, 142, 203, 0.4); background: rgba(99, 142, 203, 0.15); }
     
-    .right-section { display: flex; flex-direction: column; gap: 30px; }
+    .contact-icon { width: 80px; height: 80px; margin: 0 auto 15px; display: block; object-fit: contain; }
+    .contact-card h3 { color: #8AAEE0; font-size: 1.3em; margin-bottom: 8px; font-weight: 700; }
+    .contact-card p { color: #a7c7e7; font-size: 0.95em; }
     
-    .contact-section { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 25px; padding: 40px; }
-    .contact-section h3 { font-family: "Righteous", sans-serif; font-size: 1.8em; color: #8AAEE0; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
-    .contact-section h3 .icon { font-size: 1.2em; }
+    /* STICKY NOTES SECTION */
+    .notes-section { margin-top: 80px; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header h2 { font-family: "Archivo Black", sans-serif; font-size: 2.5em; color: #6a90b4; margin-bottom: 15px; }
+    .section-header p { color: #a7c7e7; font-size: 1.1em; }
     
-    .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .social-btn { background: rgba(99, 142, 203, 0.2); border: 2px solid #638ECB; padding: 20px; border-radius: 20px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; cursor: pointer; }
-    .social-btn:hover { background: #638ECB; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(99, 142, 203, 0.5); }
-    .social-btn .icon { font-size: 2.5em; }
-    .social-btn .info { flex: 1; }
-    .social-btn .info .label { font-size: 0.85em; color: #8AAEE0; margin-bottom: 5px; }
-    .social-btn .info .value { font-size: 1em; color: #fff; font-weight: 600; }
+    /* Add Button */
+    .add-btn { position: fixed; bottom: 100px; right: 40px; width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; font-size: 2.5em; cursor: pointer; box-shadow: 0 8px 30px rgba(99, 142, 203, 0.6); transition: all 0.3s ease; z-index: 100; display: flex; align-items: center; justify-content: center; }
+    .add-btn:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(99, 142, 203, 0.8); }
     
-    .contact-info { display: flex; flex-direction: column; gap: 15px; }
-    .info-item { display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(99, 142, 203, 0.1); border-radius: 15px; border: 1px solid rgba(99, 142, 203, 0.3); }
-    .info-item .icon { font-size: 2em; color: #8AAEE0; }
-    .info-item .text { flex: 1; }
-    .info-item .text .label { font-size: 0.85em; color: #8AAEE0; margin-bottom: 3px; }
-    .info-item .text .value { font-size: 1em; color: #fff; }
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 200; align-items: center; justify-content: center; animation: fadeIn 0.3s ease; }
+    .modal-overlay.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     
-    .message-section { text-align: center; background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 25px; padding: 50px; }
-    .message-section h3 { font-family: "Righteous", sans-serif; font-size: 2em; color: #6a90b4; margin-bottom: 20px; }
-    .message-section p { color: #a7c7e7; font-size: 1.1em; line-height: 1.8; margin-bottom: 30px; }
-    .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-    .cta-btn { background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; padding: 15px 40px; border-radius: 30px; font-family: "Poppins", sans-serif; font-weight: 700; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(99, 142, 203, 0.4); text-decoration: none; display: inline-block; }
-    .cta-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(99, 142, 203, 0.6); }
-    .cta-btn.secondary { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; }
+    .modal-form { background: linear-gradient(135deg, rgba(1, 22, 43, 0.95), rgba(1, 35, 56, 0.95)); border: 2px solid #638ECB; padding: 40px; border-radius: 25px; max-width: 500px; width: 90%; position: relative; animation: slideUp 0.3s ease; backdrop-filter: blur(20px); }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
     
-    .footer { text-align: center; margin-top: 60px; padding: 30px; border-top: 2px solid rgba(99, 142, 203, 0.3); }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; color: #8AAEE0; cursor: pointer; transition: all 0.3s ease; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: rgba(99, 142, 203, 0.3); color: white; transform: rotate(90deg); }
+    
+    .modal-form h2 { color: #6a90b4; margin-bottom: 10px; font-size: 2em; font-family: "Archivo Black", sans-serif; }
+    .modal-form .subtitle { color: #a7c7e7; margin-bottom: 30px; font-size: 0.95em; }
+    
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; color: #8AAEE0; margin-bottom: 8px; font-weight: 600; font-size: 0.95em; }
+    .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 2px solid rgba(99, 142, 203, 0.3); border-radius: 10px; font-family: "Poppins", sans-serif; font-size: 1em; transition: all 0.3s ease; background: rgba(15, 23, 42, 0.8); color: white; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #638ECB; box-shadow: 0 0 0 3px rgba(99, 142, 203, 0.2); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    
+    .color-picker { display: flex; gap: 10px; margin-top: 10px; }
+    .color-option { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.3s ease; }
+    .color-option:hover { transform: scale(1.1); }
+    .color-option.selected { border-color: #8AAEE0; transform: scale(1.15); box-shadow: 0 0 10px rgba(138, 174, 224, 0.5); }
+    
+    .color-option.blue1 { background: linear-gradient(135deg, #6a90b4, #8AAEE0); }
+    .color-option.blue2 { background: linear-gradient(135deg, #60a5fa, #93c5fd); }
+    .color-option.purple { background: linear-gradient(135deg, #a78bfa, #c4b5fd); }
+    .color-option.teal { background: linear-gradient(135deg, #5eead4, #99f6e4); }
+    .color-option.pink { background: linear-gradient(135deg, #f9a8d4, #fbcfe8); }
+    
+    .submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; font-weight: 700; font-size: 1.1em; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; font-family: "Poppins", sans-serif; }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99, 142, 203, 0.5); }
+    
+    /* Sticky Notes Wall */
+    .sticky-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    
+    .sticky-note { padding: 25px; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); transform: rotate(-2deg); transition: all 0.3s ease; cursor: pointer; position: relative; min-height: 200px; display: flex; flex-direction: column; animation: popIn 0.5s ease; }
+    @keyframes popIn { 0% { opacity: 0; transform: scale(0.5) rotate(-2deg); } 50% { transform: scale(1.1) rotate(-2deg); } 100% { opacity: 1; transform: scale(1) rotate(-2deg); } }
+    
+    .sticky-note:nth-child(even) { transform: rotate(2deg); }
+    .sticky-note:hover { transform: rotate(0deg) scale(1.05); box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4); z-index: 10; }
+    
+    .sticky-note.blue1 { background: linear-gradient(135deg, #93c5fd, #dbeafe); }
+    .sticky-note.blue2 { background: linear-gradient(135deg, #bfdbfe, #e0f2fe); }
+    .sticky-note.purple { background: linear-gradient(135deg, #c4b5fd, #e9d5ff); }
+    .sticky-note.teal { background: linear-gradient(135deg, #99f6e4, #ccfbf1); }
+    .sticky-note.pink { background: linear-gradient(135deg, #fbcfe8, #fce7f3); }
+    
+    .sticky-pin { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; background: #ef4444; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+    
+    .sticky-content { flex: 1; color: #1f2937; font-size: 1.05em; line-height: 1.6; margin-bottom: 15px; font-family: "Caveat", cursive; font-size: 1.3em; font-weight: 700; }
+    
+    .sticky-author { color: #374151; font-weight: 700; font-size: 0.9em; text-align: right; font-family: "Poppins", sans-serif; }
+    
+    .sticky-date { color: #6b7280; font-size: 0.75em; text-align: right; margin-top: 5px; font-family: "Poppins", sans-serif; }
+    
+    .delete-btn { position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.5); border: none; color: white; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; opacity: 0; transition: all 0.3s ease; font-size: 0.9em; }
+    .sticky-note:hover .delete-btn { opacity: 1; }
+    .delete-btn:hover { background: #ef4444; transform: scale(1.1); }
+    
+    .empty-state { text-align: center; padding: 80px 20px; color: #a7c7e7; grid-column: 1 / -1; }
+    .empty-state .emoji { font-size: 5em; margin-bottom: 20px; display: block; opacity: 0.5; }
+    .empty-state p { font-size: 1.2em; }
+    
+    .footer { text-align: center; margin-top: 80px; padding: 30px; border-top: 2px solid rgba(99, 142, 203, 0.3); }
     .footer p { color: #8AAEE0; font-size: 0.95em; }
     .footer .heart { color: #ff6b6b; animation: heartbeat 1.5s ease infinite; }
     @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
     
-    @media (max-width: 968px) {
-      .content-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 3em; }
-      .social-grid { grid-template-columns: 1fr; }
-      .cta-buttons { flex-direction: column; align-items: center; }
+    @media (max-width: 768px) {
+      .container { padding: 100px 20px 80px; }
+      .hero h1 { font-size: 2.5em; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .sticky-wall { grid-template-columns: 1fr; }
+      .add-btn { width: 60px; height: 60px; font-size: 2em; bottom: 80px; right: 20px; }
       .nav-menu { padding: 8px 15px; gap: 10px; }
       .nav-dot { width: 8px; height: 8px; }
       .prev-btn { left: 10px; top: 80px; }
@@ -90,11 +144,26 @@
   <button class="page-nav-btn prev-btn" onclick="location.href='page4.html'">← Previous</button>
   
   <nav class="nav-menu">
-    <div class="nav-dot" onclick="location.href='index.html'"></div>
-    <div class="nav-dot" onclick="location.href='page2.html'"></div>
-    <div class="nav-dot" onclick="location.href='page3.html'"></div>
-    <div class="nav-dot" onclick="location.href='page4.html'"></div>
-    <div class="nav-dot active"></div>
+    <div class="nav-item" onclick="location.href='index.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Homepage</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page2.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">About Me</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page3.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page4.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Hobbies</span>
+    </div>
+    <div class="nav-item active">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Contact</span>
+    </div>
   </nav>
   
   <div class="scroll-controls">
@@ -102,109 +171,52 @@
     <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
   </div>
   
+  <!-- Add Note Button -->
+  <button class="add-btn" onclick="openModal()" title="Add a note">+</button>
+  
   <div class="container">
     
     <div class="hero">
       <h1>Let's Connect!</h1>
-      <p>Have a project idea? Want to collaborate? Or just want to say hi? I'd love to hear from you! Feel free to reach out through any of these channels.</p>
+      <p>Want to collaborate, say hi, or just drop a message? Feel free to reach out through any platform or leave a note below! ✨</p>
     </div>
     
-    <div class="content-grid">
+    <!-- CONTACT CARDS -->
+    <div class="contact-grid">
+      <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" class="contact-card">
+        <img src="images/instagram.jpg" alt="Instagram" class="contact-icon">
+        <h3>Instagram</h3>
+        <p>@your_username</p>
+      </a>
       
-      <div class="left-section">
-        <div class="profile-img">👋</div>
-        <h2>Nawa</h2>
-        <p class="subtitle">Information Management Student</p>
-        <p class="tagline">Writer • Volunteer • Change Maker</p>
-      </div>
+      <a href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" class="contact-card">
+        <img src="images/tt.jpg" alt="TikTok" class="contact-icon">
+        <h3>TikTok</h3>
+        <p>@your_username</p>
+      </a>
       
-      <div class="right-section">
-        
-        <div class="contact-section">
-          <h3><span class="icon">📱</span> Social Media</h3>
-          <div class="social-grid">
-            <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" class="social-btn">
-              <div class="icon">📷</div>
-              <div class="info">
-                <div class="label">Instagram</div>
-                <div class="value">@your_username</div>
-              </div>
-            </a>
-            <a href="https://www.wattpad.com/user/nvwaverse" target="_blank" class="social-btn">
-              <div class="icon">📚</div>
-              <div class="info">
-                <div class="label">Wattpad</div>
-                <div class="value">@nvwaverse</div>
-              </div>
-            </a>
-            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="social-btn">
-              <div class="icon">💼</div>
-              <div class="info">
-                <div class="label">LinkedIn</div>
-                <div class="value">Your Name</div>
-              </div>
-            </a>
-            <a href="https://www.facebook.com/YOUR_FACEBOOK" target="_blank" class="social-btn">
-              <div class="icon">📘</div>
-              <div class="info">
-                <div class="label">Facebook</div>
-                <div class="value">Your Name</div>
-              </div>
-            </a>
-            <a href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" class="social-btn">
-              <div class="icon">🎵</div>
-              <div class="info">
-                <div class="label">TikTok</div>
-                <div class="value">@your_username</div>
-              </div>
-            </a>
-            <a href="https://github.com/YOUR_GITHUB" target="_blank" class="social-btn">
-              <div class="icon">💻</div>
-              <div class="info">
-                <div class="label">GitHub</div>
-                <div class="value">@your_username</div>
-              </div>
-            </a>
-          </div>
-        </div>
-        
-        <div class="contact-section">
-          <h3><span class="icon">📧</span> Contact Info</h3>
-          <div class="contact-info">
-            <div class="info-item">
-              <div class="icon">✉️</div>
-              <div class="text">
-                <div class="label">Email</div>
-                <div class="value">your.email@example.com</div>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="icon">📍</div>
-              <div class="text">
-                <div class="label">Location</div>
-                <div class="value">Johor Bahru, Malaysia</div>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="icon">🎓</div>
-              <div class="text">
-                <div class="label">University</div>
-                <div class="value">Your University Name</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
+      <a href="https://wa.me/60123456789" target="_blank" class="contact-card">
+        <img src="images/ws.jpg" alt="WhatsApp" class="contact-icon">
+        <h3>WhatsApp</h3>
+        <p>+60 12-345 6789</p>
+      </a>
       
+      <a href="mailto:your.email@example.com" class="contact-card">
+        <img src="images/email.jpg" alt="Email" class="contact-icon">
+        <h3>Email</h3>
+        <p>your.email@example.com</p>
+      </a>
     </div>
     
-    <div class="message-section">
-      <h3>✨ Want to Collaborate?</h3>
-      <p>I'm always open to interesting projects, volunteering opportunities, or just a good conversation about technology, writing, or making a positive impact in our community!</p>
-      <div class="cta-buttons">
-        <a href="mailto:your.email@example.com" class="cta-btn">📧 Send Email</a>
-        <a href="https://www.wattpad.com/user/nvwaverse" target="_blank" class="cta-btn secondary">📚 Read My Stories</a>
+    <!-- STICKY NOTES SECTION -->
+    <div class="notes-section">
+      <div class="section-header">
+        <h2>📝 Message Wall</h2>
+        <p>Leave a note and brighten my day! Your thoughts, feedback, or just a friendly hello ^^</p>
+      </div>
+      
+      <div class="sticky-wall" id="stickyWall">
+        <!-- Notes will be loaded here -->
       </div>
     </div>
     
@@ -215,11 +227,190 @@
     
   </div>
   
+  <!-- Modal Form -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-form" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2>✍️ Leave a Note</h2>
+      <p class="subtitle">Share your thoughts, feedback, or just say hi!</p>
+      
+      <form onsubmit="addNote(event)">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="noteName" placeholder="Enter your name..." required maxlength="30">
+        </div>
+        
+        <div class="form-group">
+          <label>Your Message</label>
+          <textarea id="noteMessage" placeholder="What's on your mind?" required maxlength="250"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Pick a Color</label>
+          <div class="color-picker">
+            <div class="color-option blue1 selected" data-color="blue1" onclick="selectColor('blue1')"></div>
+            <div class="color-option blue2" data-color="blue2" onclick="selectColor('blue2')"></div>
+            <div class="color-option purple" data-color="purple" onclick="selectColor('purple')"></div>
+            <div class="color-option teal" data-color="teal" onclick="selectColor('teal')"></div>
+            <div class="color-option pink" data-color="pink" onclick="selectColor('pink')"></div>
+          </div>
+        </div>
+        
+        <button type="submit" class="submit-btn">📌 Post Note</button>
+      </form>
+    </div>
+  </div>
+  
   <script>
+    let selectedColor = 'blue1';
+    let notes = [];
+    
+    // Load notes on page load
+    async function loadNotes() {
+      try {
+        const result = await window.storage.list('note:', true);
+        if (result && result.keys) {
+          notes = [];
+          for (const key of result.keys) {
+            try {
+              const noteData = await window.storage.get(key, true);
+              if (noteData && noteData.value) {
+                notes.push(JSON.parse(noteData.value));
+              }
+            } catch (err) {
+              console.log('Note not found:', key);
+            }
+          }
+          notes.sort((a, b) => b.timestamp - a.timestamp);
+          displayNotes();
+        }
+      } catch (error) {
+        console.log('First time loading notes');
+        displayNotes();
+      }
+    }
+    
+    function displayNotes() {
+      const wall = document.getElementById('stickyWall');
+      wall.innerHTML = '';
+      
+      if (notes.length === 0) {
+        wall.innerHTML = `
+          <div class="empty-state">
+            <span class="emoji">📝</span>
+            <p>No notes yet! Be the first to leave a message ✨</p>
+          </div>
+        `;
+        return;
+      }
+      
+      notes.forEach(note => {
+        const noteEl = document.createElement('div');
+        noteEl.className = `sticky-note ${note.color}`;
+        noteEl.innerHTML = `
+          <div class="sticky-pin"></div>
+          <button class="delete-btn" onclick="deleteNote('${note.id}')">×</button>
+          <div class="sticky-content">${escapeHtml(note.message)}</div>
+          <div class="sticky-author">- ${escapeHtml(note.name)}</div>
+          <div class="sticky-date">${note.date}</div>
+        `;
+        wall.appendChild(noteEl);
+      });
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      document.getElementById('noteName').value = '';
+      document.getElementById('noteMessage').value = '';
+      selectColor('blue1');
+    }
+    
+    function closeModalOnOverlay(event) {
+      if (event.target === event.currentTarget) {
+        closeModal();
+      }
+    }
+    
+    function selectColor(color) {
+      document.querySelectorAll('.color-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      document.querySelector(`.color-option.${color}`).classList.add('selected');
+      selectedColor = color;
+    }
+    
+    async function addNote(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('noteName').value.trim();
+      const message = document.getElementById('noteMessage').value.trim();
+      
+      if (!name || !message) {
+        alert('Please fill in all fields!');
+        return;
+      }
+      
+      const timestamp = Date.now();
+      const note = {
+        id: 'note_' + timestamp,
+        name: name,
+        message: message,
+        color: selectedColor,
+        date: 'Just now',
+        timestamp: timestamp
+      };
+      
+      try {
+        await window.storage.set(note.id, JSON.stringify(note), true);
+        notes.unshift(note);
+        displayNotes();
+        closeModal();
+        alert('📌 Note posted successfully!');
+      } catch (error) {
+        console.error('Error saving note:', error);
+        alert('Sorry, there was an error posting your note. Please try again!');
+      }
+    }
+    
+    async function deleteNote(id) {
+      if (!confirm('Delete this note?')) return;
+      
+      try {
+        await window.storage.delete(id, true);
+        notes = notes.filter(n => n.id !== id);
+        displayNotes();
+      } catch (error) {
+        console.error('Error deleting note:', error);
+      }
+    }
+    
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+    
     function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
     function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
     
+    // Particles
     particlesJS("particles-js",{"particles":{"number":{"value":100,"density":{"enable":true,"value_area":800}},"color":{"value":"#6a90b4"},"shape":{"type":"circle"},"opacity":{"value":0.6,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.2}},"size":{"value":3,"random":true,"anim":{"enable":true,"speed":2,"size_min":1}},"line_linked":{"enable":true,"distance":120,"color":"#638ECB","opacity":0.3,"width":1},"move":{"enable":true,"speed":0.8,"direction":"none","random":true,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}},"modes":{"grab":{"distance":150,"line_linked":{"opacity":0.8}},"push":{"particles_nb":3}}},"retina_detect":true});
+    
+    // Load notes when page loads
+    loadNotes();
   </script>
   
 </body>
