@@ -52,8 +52,8 @@
     .content-block li { color: #a7c7e7; padding: 12px 0; padding-left: 30px; position: relative; line-height: 1.6; }
     .content-block li::before { content: "▸"; color: #638ECB; font-size: 1.2em; position: absolute; left: 0; }
     .content-block strong { color: #8AAEE0; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-    .modal.active { display: flex; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.3s ease; }
+    .modal.active { display: flex; opacity: 1; }
     .modal-content { background: linear-gradient(135deg, #01162b, #012138); border: 2px solid #638ECB; border-radius: 25px; padding: 40px; max-width: 800px; max-height: 85vh; overflow-y: auto; position: relative; animation: slideUp 0.4s ease; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
     .modal-close { position: absolute; top: 20px; right: 25px; font-size: 2em; color: #a7c7e7; cursor: pointer; transition: all 0.3s ease; background: none; border: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
@@ -94,8 +94,8 @@
   <div class="container">
     <div class="profile-section">
       <div class="profile-circle">
-    <img src="images/nawa.jpg" alt="Nawa Profile">
-</div>
+        <img src="images/nawa.jpg" alt="Nawa Profile">
+      </div>
       <h1>NAJWA IMAN</h1>
       <p class="title">Information Management Student</p>
       <p class="subtitle">Reflective • Emphatetic • Ambitious</p>
@@ -107,8 +107,8 @@
     </div>
     <div class="content-section">
       <div class="content-block">
-        <h3>Who Am I?</h3>
-        <p>Hi! Saya Nawa, seorang pelajar Diploma in Information Management yang berusia 20 tahun. Saya bukan sekadar pelajar biasa - saya percaya dalam menggunakan teknologi untuk membuat perubahan positif dalam masyarakat.</p>
+        <h3>About Me</h3>
+        <p>born in Hospital Kajang and live at Kajang for 16 years and then moved to Kedah Darul Aman and here I am.</p>
         <p style="margin-top: 15px;">Perjalanan saya dalam dunia Information Management bukan hanya tentang coding dan data - ia tentang bagaimana teknologi boleh menjadi alat untuk memberi impak kepada kehidupan orang lain.</p>
       </div>
       <div class="content-block">
@@ -131,74 +131,39 @@
       </div>
     </div>
   </div>
+
+  <!-- VOLUNTEER MODAL -->
   <div id="volunteerModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('volunteerModal')">×</button>
       <h2>🤝 Volunteer Events</h2>
       <p style="color: #a7c7e7; margin-bottom: 20px;">Photos dari program-program volunteering yang saya sertai</p>
-     <div class="gallery-grid">
-  <div class="gallery-item">
-    <img src="images/v1.jpg" alt="Volunteer Event 1">
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="images/v1.jpg" alt="Volunteer Event 1"></div>
+        <div class="gallery-item"><img src="images/v2.jpg" alt="Volunteer Event 2"></div>
+        <div class="gallery-item"><img src="images/v3.jpg" alt="Volunteer Event 3"></div>
+        <div class="gallery-item"><img src="images/v4.jpg" alt="Volunteer Event 4"></div>
+        <div class="gallery-item"><img src="images/v5.jpg" alt="Volunteer Event 5"></div>
+        <div class="gallery-item"><img src="images/v6.jpg" alt="Volunteer Event 6"></div>
+        <div class="gallery-item"><img src="images/v7.jpg" alt="Volunteer Event 7"></div>
+        <div class="gallery-item"><img src="images/v8.jpg" alt="Volunteer Event 8"></div>
+        <div class="gallery-item"><img src="images/v9.jpg" alt="Volunteer Event 9"></div>
+        <div class="gallery-item"><img src="images/v10.jpg" alt="Volunteer Event 10"></div>
+        <div class="gallery-item"><img src="images/v11.jpg" alt="Volunteer Event 11"></div>
+        <div class="gallery-item"><img src="images/v12.jpg" alt="Volunteer Event 12"></div>
+        <div class="gallery-item"><img src="images/v13.jpg" alt="Volunteer Event 13"></div>
+        <div class="gallery-item"><img src="images/v14.jpg" alt="Volunteer Event 14"></div>
+        <div class="gallery-item"><img src="images/v15.jpg" alt="Volunteer Event 15"></div>
+        <div class="gallery-item"><img src="images/v16.jpg" alt="Volunteer Event 16"></div>
+        <div class="gallery-item"><img src="images/v17.jpg" alt="Volunteer Event 17"></div>
+        <div class="gallery-item"><img src="images/v18.jpg" alt="Volunteer Event 18"></div>
+        <div class="gallery-item"><img src="images/v19.jpg" alt="Volunteer Event 19"></div>
+        <div class="gallery-item"><img src="images/v20.jpg" alt="Volunteer Event 20"></div>
+      </div>
+    </div>
   </div>
-  <div class="gallery-item">
-    <img src="images/v2.jpg" alt="Volunteer Event 2">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v3.jpg" alt="Volunteer Event 3">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v4.jpg" alt="Volunteer Event 4">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v5.jpg" alt="Volunteer Event 5">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v6.jpg" alt="Volunteer Event 6">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v7.jpg" alt="Volunteer Event 7">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v8.jpg" alt="Volunteer Event 8">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v9.jpg" alt="Volunteer Event 9">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v10.jpg" alt="Volunteer Event 10">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v11.jpg" alt="Volunteer Event 11">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v12.jpg" alt="Volunteer Event 12">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v13.jpg" alt="Volunteer Event 13">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v14.jpg" alt="Volunteer Event 14">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v15.jpg" alt="Volunteer Event 15">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v16.jpg" alt="Volunteer Event 16">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v17.jpg" alt="Volunteer Event 17">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v18.jpg" alt="Volunteer Event 18">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v19.jpg" alt="Volunteer Event 19">
-  </div>
-  <div class="gallery-item">
-    <img src="images/v20.jpg" alt="Volunteer Event 20">
-  </div>
-</div>
-  </div>
+
+  <!-- STORIES MODAL -->
   <div id="storiesModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('storiesModal')">×</button>
@@ -215,51 +180,122 @@
       </div>
     </div>
   </div>
- <div id="clubsModal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeModal('clubsModal')">×</button>
-    <h2>🎓 My Active Clubs</h2>
-    <p style="color: #a7c7e7; margin-bottom: 20px;">Association clubs dan organisasi yang saya aktif</p>
-    <div class="clubs-grid">
-      <div>
-        <div class="club-frame">
-          <img src="images/brisk.jpg" alt="BRISK Club">
+
+  <!-- CLUBS MODAL -->
+  <div id="clubsModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('clubsModal')">×</button>
+      <h2>🎓 My Active Clubs</h2>
+      <p style="color: #a7c7e7; margin-bottom: 20px;">Association clubs dan organisasi yang saya aktif</p>
+      <div class="clubs-grid">
+        <div>
+          <div class="club-frame">
+            <img src="images/brisk.jpg" alt="BRISK Club">
+          </div>
+          <p class="club-name">Bridged Sukarelawan Muda (BRISK)</p>
         </div>
-        <p class="club-name">Bridged Sukarelawan Muda (BRISK)</p>
-      </div>
-      <div>
-        <div class="club-frame">
-          <img src="images/rsy.jpg" alt="RSY Club">
+        <div>
+          <div class="club-frame">
+            <img src="images/rsy.jpg" alt="RSY Club">
+          </div>
+          <p class="club-name">Kelab Rakan Siswa Yadim (RSY)</p>
         </div>
-        <p class="club-name">Kelab Rakan Siswa Yadim (RSY)</p>
-      </div>
-      <div>
-        <div class="club-frame">
-          <img src="images/pkpim.jpg" alt="PKPIM Club">
+        <div>
+          <div class="club-frame">
+            <img src="images/pkpim.jpg" alt="PKPIM Club">
+          </div>
+          <p class="club-name">Persatuan Kebangsaan Pelajar Islam Malaysia (PKPIM)</p>
         </div>
-        <p class="club-name">Persatuan Kebangsaan Pelajar Islam Malaysia (PKPIM)</p>
       </div>
     </div>
   </div>
-</div>
+
   <script>
-    function openVolunteerModal(){document.getElementById('volunteerModal').classList.add('active');document.body.style.overflow='hidden';}
-    function openStoriesModal(){document.getElementById('storiesModal').classList.add('active');document.body.style.overflow='hidden';}
-    function openClubsModal(){document.getElementById('clubsModal').classList.add('active');document.body.style.overflow='hidden';}
-    function closeModal(id){document.getElementById(id).classList.remove('active');document.body.style.overflow='auto';}
-    document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)closeModal(this.id)}));
-    document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.active').forEach(m=>closeModal(m.id))});
-    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
-    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
-    document.querySelectorAll('.nav-item').forEach(i=>{i.addEventListener('mouseenter',function(){this.style.transform='translateY(-3px)'});i.addEventListener('mouseleave',function(){this.style.transform='translateY(0)'})});
-    particlesJS("particles-js",{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#6a90b4"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#638ECB","opacity":0.4,"width":1},"move":{"enable":true,"speed":1,"direction":"none","random":false,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}},"modes":{"grab":{"distance":200,"line_linked":{"opacity":1}},"push":{"particles_nb":4}}},"retina_detect":true});
+    // IMPROVED MODAL FUNCTIONS - NO MORE OVERLAP!
+    function openVolunteerModal() {
+      closeAllModals();
+      setTimeout(() => {
+        document.getElementById('volunteerModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, 100);
+    }
+
+    function openStoriesModal() {
+      closeAllModals();
+      setTimeout(() => {
+        document.getElementById('storiesModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, 100);
+    }
+
+    function openClubsModal() {
+      closeAllModals();
+      setTimeout(() => {
+        document.getElementById('clubsModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, 100);
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.modal').forEach(m => {
+        m.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    // Click outside modal to close
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', function(e) {
+        if (e.target === this) closeModal(this.id);
+      });
+    });
+
+    // Press ESC to close modal
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(m => closeModal(m.id));
+      }
+    });
+
+    // Scroll functions
+    function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+    function scrollToBottom() { window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); }
+
+    // Nav hover effects
+    document.querySelectorAll('.nav-item').forEach(i => {
+      i.addEventListener('mouseenter', function() { this.style.transform = 'translateY(-3px)'; });
+      i.addEventListener('mouseleave', function() { this.style.transform = 'translateY(0)'; });
+    });
+
+    // Particles.js initialization
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {"value": 80, "density": {"enable": true, "value_area": 800}},
+        "color": {"value": "#6a90b4"},
+        "shape": {"type": "circle"},
+        "opacity": {"value": 0.5, "random": false},
+        "size": {"value": 3, "random": true},
+        "line_linked": {"enable": true, "distance": 150, "color": "#638ECB", "opacity": 0.4, "width": 1},
+        "move": {"enable": true, "speed": 1, "direction": "none", "random": false, "straight": false, "out_mode": "out"}
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {"enable": true, "mode": "grab"},
+          "onclick": {"enable": true, "mode": "push"}
+        },
+        "modes": {
+          "grab": {"distance": 200, "line_linked": {"opacity": 1}},
+          "push": {"particles_nb": 4}
+        }
+      },
+      "retina_detect": true
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
