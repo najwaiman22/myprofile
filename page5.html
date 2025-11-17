@@ -1,182 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Core Values</title>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #eef2ff, #dbeafe);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Me - Nawa's Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    /* ========== YOUR ORIGINAL CSS (unchanged) ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Poppins", sans-serif; background: radial-gradient(circle at 50% 50%, #01162b, #000); color: #fff; overflow-x: hidden; position: relative; min-height: 100vh; }
+    #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    
+    .nav-menu { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 15px; background: rgba(1, 22, 43, 0.9); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(99, 142, 203, 0.3); }
+    .nav-item { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; position: relative; }
+    .nav-label { color: #a7c7e7; font-size: 0.75em; font-weight: 500; opacity: 0; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: rgba(99, 142, 203, 0.9); padding: 5px 12px; border-radius: 15px; white-space: nowrap; pointer-events: none; transition: all 0.3s ease; }
+    .nav-item:hover .nav-label { opacity: 1; bottom: -35px; }
+    .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(99, 142, 203, 0.5); border: 2px solid #638ECB; cursor: pointer; transition: all 0.3s ease; }
+    .nav-item:hover .nav-dot, .nav-item.active .nav-dot { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
+    .nav-item.active .nav-dot { width: 12px; height: 12px; }
+    
+    .prev-btn { position: fixed; left: 25px; top: 25px; z-index: 99; }
+    .page-nav-btn { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #a7c7e7; padding: 8px 20px; border-radius: 25px; font-size: 0.8em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); font-family: "Poppins", sans-serif; }
+    .page-nav-btn:hover { background: #638ECB; color: white; transform: scale(1.05); box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6); }
+    
+    .scroll-controls { position: fixed; right: 25px; bottom: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+    .scroll-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #8AAEE0; display: flex; align-items: center; justify-content: center; font-size: 1.2em; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+    .scroll-btn:hover { background: #638ECB; color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(99, 142, 203, 0.8); }
+    
+    .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 120px 40px 100px; }
+    
+    .hero { text-align: center; margin-bottom: 60px; animation: fadeInUp 0.8s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero h1 { font-family: "Archivo Black", sans-serif; font-size: 4em; color: #6a90b4; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; background: linear-gradient(135deg, #6a90b4, #8AAEE0, #6a90b4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradientShift 3s ease infinite; }
+    @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    .hero p { font-size: 1.2em; color: #a7c7e7; max-width: 700px; margin: 0 auto; line-height: 1.8; }
+    
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
+    
+    .contact-card { background: rgba(99, 142, 203, 0.1); border: 2px solid #638ECB; border-radius: 20px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+    .contact-card:hover { transform: translateY(-8px); border-color: #8AAEE0; box-shadow: 0 15px 40px rgba(99, 142, 203, 0.4); background: rgba(99, 142, 203, 0.15); }
+    
+    .contact-icon { width: 80px; height: 80px; margin: 0 auto 15px; display: block; object-fit: contain; }
+    .contact-card h3 { color: #8AAEE0; font-size: 1.3em; margin-bottom: 8px; font-weight: 700; }
+    .contact-card p { color: #a7c7e7; font-size: 0.95em; }
+    
+    .notes-section { margin-top: 80px; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header h2 { font-family: "Archivo Black", sans-serif; font-size: 2.5em; color: #6a90b4; margin-bottom: 15px; }
+    .section-header p { color: #a7c7e7; font-size: 1.1em; }
+    
+    .add-btn { position: fixed; bottom: 100px; right: 40px; width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; font-size: 2.5em; cursor: pointer; box-shadow: 0 8px 30px rgba(99, 142, 203, 0.6); transition: all 0.3s ease; z-index: 100; display: flex; align-items: center; justify-content: center; }
+    .add-btn:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(99, 142, 203, 0.8); }
+    
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 200; align-items: center; justify-content: center; animation: fadeIn 0.3s ease; }
+    .modal-overlay.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    .modal-form { background: linear-gradient(135deg, rgba(1, 22, 43, 0.95), rgba(1, 35, 56, 0.95)); border: 2px solid #638ECB; padding: 40px; border-radius: 25px; max-width: 500px; width: 90%; position: relative; animation: slideUp 0.3s ease; backdrop-filter: blur(20px); }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; color: #8AAEE0; cursor: pointer; transition: all 0.3s ease; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: rgba(99, 142, 203, 0.3); color: white; transform: rotate(90deg); }
+    
+    .modal-form h2 { color: #6a90b4; margin-bottom: 10px; font-size: 2em; font-family: "Archivo Black", sans-serif; }
+    .modal-form .subtitle { color: #a7c7e7; margin-bottom: 30px; font-size: 0.95em; }
+    
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; color: #8AAEE0; margin-bottom: 8px; font-weight: 600; font-size: 0.95em; }
+    .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 2px solid rgba(99, 142, 203, 0.3); border-radius: 10px; font-family: "Poppins", sans-serif; font-size: 1em; transition: all 0.3s ease; background: rgba(15, 23, 42, 0.8); color: white; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #638ECB; box-shadow: 0 0 0 3px rgba(99, 142, 203, 0.2); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    
+    .color-picker { display: flex; gap: 10px; margin-top: 10px; }
+    .color-option { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.3s ease; }
+    .color-option:hover { transform: scale(1.1); }
+    .color-option.selected { border-color: #8AAEE0; transform: scale(1.15); box-shadow: 0 0 10px rgba(138, 174, 224, 0.5); }
+    
+    .color-option.blue1 { background: linear-gradient(135deg, #6a90b4, #8AAEE0); }
+    .color-option.blue2 { background: linear-gradient(135deg, #60a5fa, #93c5fd); }
+    .color-option.purple { background: linear-gradient(135deg, #a78bfa, #c4b5fd); }
+    .color-option.teal { background: linear-gradient(135deg, #5eead4, #99f6e4); }
+    .color-option.pink { background: linear-gradient(135deg, #f9a8d4, #fbcfe8); }
+    
+    .submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #6a90b4, #638ECB); border: none; color: white; font-weight: 700; font-size: 1.1em; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; font-family: "Poppins", sans-serif; }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99, 142, 203, 0.5); }
+    
+    .sticky-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    
+    .sticky-note { padding: 25px; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); transform: rotate(-2deg); transition: all 0.3s ease; cursor: pointer; position: relative; min-height: 200px; display: flex; flex-direction: column; animation: popIn 0.5s ease; }
+    @keyframes popIn { 0% { opacity: 0; transform: scale(0.5) rotate(-2deg); } 50% { transform: scale(1.1) rotate(-2deg); } 100% { opacity: 1; transform: scale(1) rotate(-2deg); } }
+    
+    .sticky-note:nth-child(even) { transform: rotate(2deg); }
+    .sticky-note:hover { transform: rotate(0deg) scale(1.05); box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4); z-index: 10; }
+    
+    .sticky-note.blue1 { background: linear-gradient(135deg, #93c5fd, #dbeafe); }
+    .sticky-note.blue2 { background: linear-gradient(135deg, #bfdbfe, #e0f2fe); }
+    .sticky-note.purple { background: linear-gradient(135deg, #c4b5fd, #e9d5ff); }
+    .sticky-note.teal { background: linear-gradient(135deg, #99f6e4, #ccfbf1); }
+    .sticky-note.pink { background: linear-gradient(135deg, #fbcfe8, #fce7f3); }
+    
+    .sticky-pin { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; background: #ef4444; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+    
+    .sticky-content { flex: 1; color: #1f2937; font-size: 1.05em; line-height: 1.6; margin-bottom: 15px; font-family: "Caveat", cursive; font-size: 1.3em; font-weight: 700; }
+    
+    .sticky-author { color: #374151; font-weight: 700; font-size: 0.9em; text-align: right; font-family: "Poppins", sans-serif; }
+    
+    .sticky-date { color: #6b7280; font-size: 0.75em; text-align: right; margin-top: 5px; font-family: "Poppins", sans-serif; }
+    
+    .delete-btn { position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.5); border: none; color: white; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; opacity: 0; transition: all 0.3s ease; font-size: 0.9em; }
+    .sticky-note:hover .delete-btn { opacity: 1; }
+    .delete-btn:hover { background: #ef4444; transform: scale(1.1); }
+    
+    .empty-state { text-align: center; padding: 80px 20px; color: #a7c7e7; grid-column: 1 / -1; }
+    .empty-state .emoji { font-size: 5em; margin-bottom: 20px; display: block; opacity: 0.5; }
+    .empty-state p { font-size: 1.2em; }
+    
+    .notification { position: fixed; top: 100px; right: 30px; background: linear-gradient(135deg, #4ade80, #22c55e); color: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(74, 222, 128, 0.4); z-index: 300; animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s; font-weight: 600; }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeOut { to { opacity: 0; transform: translateX(100px); } }
+    
+    .footer { text-align: center; margin-top: 80px; padding: 30px; border-top: 2px solid rgba(99, 142, 203, 0.3); }
+    .footer p { color: #8AAEE0; font-size: 0.95em; }
+    .footer .heart { color: #ff6b6b; animation: heartbeat 1.5s ease infinite; }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    
+    @media (max-width: 768px) {
+      .container { padding: 100px 20px 80px; }
+      .hero h1 { font-size: 2.5em; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .sticky-wall { grid-template-columns: 1fr; }
+      .add-btn { width: 60px; height: 60px; font-size: 2em; bottom: 80px; right: 20px; }
+      .nav-menu { padding: 8px 15px; gap: 10px; }
+      .nav-dot { width: 8px; height: 8px; }
+      .prev-btn { left: 10px; top: 80px; }
     }
-
-    .container {
-        position: relative;
-        width: 380px;
-        height: 630px;
-        background: #ffffff;
-        border-radius: 25px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        padding: 30px;
-        text-align: center;
-        overflow: hidden;
-    }
-
-    h1 {
-        font-size: 28px;
-        margin-bottom: 10px;
-    }
-
-    .subtitle {
-        color: gray;
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    /* Scroll area */
-    .messages {
-        height: 360px;
-        overflow-y: auto;
-        padding-right: 5px;
-        margin-bottom: 15px;
-    }
-
-    /* Sticky note style */
-    .note {
-        background: #fff9c4;
-        padding: 12px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        font-size: 14px;
-        text-align: left;
-        word-wrap: break-word;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .input-area {
-        display: flex;
-        gap: 8px;
-    }
-
-    input {
-        flex: 1;
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-    }
-
-    button {
-        padding: 10px 15px;
-        border-radius: 10px;
-        background: #6366f1;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #4f46e5;
-    }
-</style>
-
+  </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Your Core Values</h1>
-    <div class="subtitle">What’s important to you?</div>
-
-    <div id="messages" class="messages"></div>
-
-    <div class="input-area">
-        <input type="text" id="messageInput" placeholder="Add new value...">
-        <button onclick="addMessage()">Add</button>
+  
+  <div id="particles-js"></div>
+  
+  <button class="page-nav-btn prev-btn" onclick="location.href='page4.html'">← Previous</button>
+  
+  <nav class="nav-menu">
+    <div class="nav-item" onclick="location.href='index.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Homepage</span>
     </div>
-</div>
+    <div class="nav-item" onclick="location.href='page2.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">About Me</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page3.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Game</span>
+    </div>
+    <div class="nav-item" onclick="location.href='page4.html'">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Hobbies</span>
+    </div>
+    <div class="nav-item active">
+      <div class="nav-dot"></div>
+      <span class="nav-label">Contact</span>
+    </div>
+  </nav>
+  
+  <div class="scroll-controls">
+    <div class="scroll-btn" onclick="scrollToTop()">↑</div>
+    <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
+  </div>
+  
+  <button class="add-btn" onclick="openModal()" title="Add a note">+</button>
+  
+  <div class="container">
+    
+    <div class="hero">
+      <h1>Let's Connect!</h1>
+      <p>Want to collaborate, say hi, or just drop a message? Feel free to reach out through any platform or leave a note below! ✨</p>
+    </div>
+    
+    <div class="contact-grid">
+      <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" class="contact-card">
+        <img src="images/instagram.jpg" alt="Instagram" class="contact-icon">
+        <h3>Instagram</h3>
+        <p>@matchiwa__</p>
+      </a>
+      
+      <a href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" class="contact-card">
+        <img src="images/tt.jpg" alt="TikTok" class="contact-icon">
+        <h3>TikTok</h3>
+        <p>@naaawers</p>
+      </a>
+      
+      <a href="https://wa.me/60123456789" target="_blank" class="contact-card">
+        <img src="images/ws.jpg" alt="WhatsApp" class="contact-icon">
+        <h3>WhatsApp</h3>
+        <p>+60 11-1409 0412</p>
+      </a>
+      
+      <a href="mailto:your.email@example.com" class="contact-card">
+        <img src="images/email.jpg" alt="Email" class="contact-icon">
+        <h3>Email</h3>
+        <p>najwaiman226@gmail.com</p>
+      </a>
+    </div>
+    
+    <div class="notes-section">
+      <div class="section-header">
+        <h2>📝 Message Wall</h2>
+        <p>Leave a note and brighten my day! Your thoughts, feedback, or just a friendly hello ^^</p>
+      </div>
+      
+      <div class="sticky-wall" id="stickyWall"></div>
+    </div>
+    
+    <div class="footer">
+      <p>Made with <span class="heart">❤️</span> by Nawa</p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #6a90b4;">© 2024 • Built on dreams, shaped by purpose</p>
+    </div>
+    
+  </div>
+  
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-form" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2>Leave a Note</h2>
+      <p class="subtitle">Share your thoughts, feedback, or just say hi!</p>
+      
+      <form onsubmit="addNote(event)">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="noteName" placeholder="Enter your name..." required maxlength="30">
+        </div>
+        
+        <div class="form-group">
+          <label>Your Message</label>
+          <textarea id="noteMessage" placeholder="What's on your mind?" required maxlength="250"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Pick a Color</label>
+          <div class="color-picker">
+            <div class="color-option blue1 selected" data-color="blue1" onclick="selectColor('blue1')"></div>
+            <div class="color-option blue2" data-color="blue2" onclick="selectColor('blue2')"></div>
+            <div class="color-option purple" data-color="purple" onclick="selectColor('purple')"></div>
+            <div class="color-option teal" data-color="teal" onclick="selectColor('teal')"></div>
+            <div class="color-option pink" data-color="pink" onclick="selectColor('pink')"></div>
+          </div>
+        </div>
+        
+        <button type="submit" class="submit-btn">📌 Post Note</button>
+      </form>
+    </div>
+  </div>
 
-<!-- Firebase SDK -->
-<script type="module">
-    // ================================
-    // 1. IMPORT FIREBASE
-    // ================================
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { 
-        getFirestore, collection, addDoc, getDocs, serverTimestamp 
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  <!-- ===================== MAIN UI SCRIPT (keeps design & UI logic) ===================== -->
+  <script>
+    // UI state
+    window.selectedColor = 'blue1';
+    window.notes = [];
 
-    // ================================
-    // 2. YOUR FIREBASE CONFIG
-    // ================================
+    // DISPLAY NOTES (fixed template strings)
+    function displayNotes() {
+      const wall = document.getElementById('stickyWall');
+      wall.innerHTML = '';
+
+      if (!window.notes || window.notes.length === 0) {
+        wall.innerHTML = `
+          <div class="empty-state">
+            <span class="emoji">📝</span>
+            <p>No notes yet! Be the first to leave a message ✨</p>
+          </div>
+        `;
+        return;
+      }
+
+      window.notes.forEach(note => {
+        const noteEl = document.createElement('div');
+        noteEl.className = `sticky-note ${note.color || 'blue1'}`;
+        // set DOM id to note doc id so we can find it if needed
+        if (note.id) noteEl.dataset.docId = note.id;
+
+        noteEl.innerHTML = `
+          <div class="sticky-pin"></div>
+          <button class="delete-btn" onclick="deleteNote('${note.id || ''}')">×</button>
+          <div class="sticky-content">${escapeHtml(note.message)}</div>
+          <div class="sticky-author">- ${escapeHtml(note.name || 'Anonymous')}</div>
+          <div class="sticky-date">${note.date || ''}</div>
+        `;
+        wall.appendChild(noteEl);
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      const n = document.getElementById('noteName');
+      const m = document.getElementById('noteMessage');
+      if (n) n.value = '';
+      if (m) m.value = '';
+      selectColor('blue1');
+    }
+
+    function closeModalOnOverlay(event) {
+      if (event.target === event.currentTarget) closeModal();
+    }
+
+    function selectColor(color) {
+      document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+      const el = document.querySelector(`.color-option.${color}`);
+      if (el) el.classList.add('selected');
+      window.selectedColor = color;
+    }
+
+    function showNotification(message) {
+      const notif = document.createElement('div');
+      notif.className = 'notification';
+      notif.textContent = message;
+      document.body.appendChild(notif);
+      setTimeout(() => notif.remove(), 3000);
+    }
+
+    // ADD NOTE: this will call Firebase-saving function provided by module script below
+    async function addNote(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('noteName').value.trim();
+      const message = document.getElementById('noteMessage').value.trim();
+
+      if (!name || !message) {
+        alert('Please fill in all fields!');
+        return;
+      }
+
+      const timestamp = Date.now();
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-MY', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      const note = {
+        name,
+        message,
+        color: window.selectedColor || 'blue1',
+        date: dateStr,
+        timestamp
+      };
+
+      // Wait for Firebase saving function exposed by module
+      if (typeof window.saveNoteToFirebase === 'function') {
+        await window.saveNoteToFirebase(note);
+        // realtime listener will update UI automatically
+        closeModal();
+        showNotification('Note posted successfully!');
+      } else {
+        // safety fallback (shouldn't happen because module starts)
+        alert('Firebase not initialized yet. Try again in a moment.');
+      }
+    }
+
+    // DELETE NOTE: will call Firebase delete function exposed by module
+    async function deleteNote(id) {
+      if (!id) return;
+      if (!confirm('Delete this note?')) return;
+
+      if (typeof window.deleteNoteFromFirebase === 'function') {
+        await window.deleteNoteFromFirebase(id);
+        showNotification('Note deleted!');
+        // realtime listener will update UI automatically
+      } else {
+        alert('Firebase not initialized yet.');
+      }
+    }
+
+    // keyboard: Esc closes modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+    function scrollToBottom() { window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); }
+
+    // Initialize display with empty or existing notes array (listener will replace)
+    displayNotes();
+
+    // Particles
+    particlesJS("particles-js",{"particles":{"number":{"value":100,"density":{"enable":true,"value_area":800}},"color":{"value":"#6a90b4"},"shape":{"type":"circle"},"opacity":{"value":0.6,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.2}},"size":{"value":3,"random":true,"anim":{"enable":true,"speed":2,"size_min":1}},"line_linked":{"enable":true,"distance":120,"color":"#638ECB","opacity":0.3,"width":1},"move":{"enable":true,"speed":0.8,"direction":"none","random":true,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}},"modes":{"grab":{"distance":150,"line_linked":{"opacity":0.8}},"push":{"particles_nb":3}}},"retina_detect":true});
+  </script>
+
+  <!-- ===================== FIREBASE MODULE (Firestore logic) ===================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, deleteDoc, doc,
+      onSnapshot, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    // ---------- YOUR firebaseConfig (from your Firebase console) ----------
     const firebaseConfig = {
-  apiKey: "AIzxxxxxxx",
-  authDomain: "myproject.firebaseapp.com",
-  projectId: "myproject",
-  storageBucket: "myproject.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdefg123"
-};
+      apiKey: "AIzaSyDUmRlUXlDNiMKxe6eYwJXnASgKun6NM_4",
+      authDomain: "stickynoteswall.firebaseapp.com",
+      projectId: "stickynoteswall",
+      storageBucket: "stickynoteswall.firebasestorage.app",
+      messagingSenderId: "896404594464",
+      appId: "1:896404594464:web:32a79508cf2f5b5a220145",
+      measurementId: "G-CXLQ5C86G4"
+    };
 
-
-    // ================================
-    // 3. INITIALIZE FIREBASE
-    // ================================
+    // Initialize Firebase & Firestore
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const messagesDiv = document.getElementById("messages");
+    // Save note to Firestore
+    window.saveNoteToFirebase = async function(note) {
+      try {
+        await addDoc(collection(db, "notes"), note);
+      } catch (err) {
+        console.error("Error saving note:", err);
+        alert("Failed to save note (check console).");
+      }
+    };
 
-    // ================================
-    // 4. LOAD MESSAGES FROM FIRESTORE
-    // ================================
-    async function loadMessages() {
-        const querySnapshot = await getDocs(collection(db, "messages"));
-        messagesDiv.innerHTML = ""; 
+    // Delete note from Firestore by doc id
+    window.deleteNoteFromFirebase = async function(docId) {
+      try {
+        await deleteDoc(doc(db, "notes", docId));
+      } catch (err) {
+        console.error("Error deleting note:", err);
+        alert("Failed to delete note (check console).");
+      }
+    };
 
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            displayMessage(data.text);
+    // Start realtime listener and update window.notes, then call displayNotes()
+    (function startRealtime() {
+      try {
+        const notesCol = collection(db, "notes");
+        const q = query(notesCol, orderBy("timestamp", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+          // update global notes array in window
+          window.notes = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+          // call displayNotes from main script to render
+          if (typeof window.displayNotes === 'function') window.displayNotes();
+        }, (err) => {
+          console.error("Realtime onSnapshot error:", err);
         });
-    }
+      } catch (err) {
+        console.error("Error starting realtime listener:", err);
+      }
+    })();
 
-    // ================================
-    // 5. DISPLAY MESSAGE IN UI
-    // ================================
-    function displayMessage(text) {
-        const div = document.createElement("div");
-        div.className = "note";
-        div.textContent = text;
-        messagesDiv.appendChild(div);
-    }
-
-    // ================================
-    // 6. ADD MESSAGE TO FIRESTORE
-    // ================================
-    async function addMessage() {
-        const input = document.getElementById("messageInput");
-        const text = input.value.trim();
-        if (text === "") return;
-
-        await addDoc(collection(db, "messages"), {
-            text: text,
-            created: serverTimestamp()
-        });
-
-        displayMessage(text);
-        input.value = "";
-    }
-
-    // ================================
-    // 7. RUN ON PAGE LOAD
-    // ================================
-    loadMessages();
-</script>
-
+  </script>
 </body>
 </html>
