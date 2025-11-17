@@ -43,14 +43,14 @@
     
     /* CAROUSEL CONTAINER */
     .carousel-section { margin: 80px 0; position: relative; }
-    .carousel-container { position: relative; height: 650px; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
+    .carousel-container { position: relative; height: 550px; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
     
     /* CAROUSEL CARDS */
-    .recipe-card { position: absolute; width: 450px; height: 600px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
+    .recipe-card { position: absolute; width: 1100px; height: 480px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
     
-    .recipe-card.left { transform: translateX(-500px) scale(0.8); opacity: 0.5; z-index: 1; filter: blur(2px); }
+    .recipe-card.left { transform: translateX(-1150px) scale(0.8); opacity: 0.5; z-index: 1; filter: blur(2px); }
     .recipe-card.center { transform: translateX(0) scale(1); opacity: 1; z-index: 10; filter: blur(0); }
-    .recipe-card.right { transform: translateX(500px) scale(0.8); opacity: 0.5; z-index: 1; filter: blur(2px); }
+    .recipe-card.right { transform: translateX(1150px) scale(0.8); opacity: 0.5; z-index: 1; filter: blur(2px); }
     .recipe-card.hidden { transform: translateX(0) scale(0.5); opacity: 0; z-index: 0; pointer-events: none; }
     
     /* FLIP EFFECT */
@@ -61,24 +61,31 @@
     
     .card-back { transform: rotateY(180deg); display: flex; flex-direction: column; padding: 40px; justify-content: center; background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(254, 202, 87, 0.2)); }
     
-    /* FRONT CARD */
-    .recipe-image { width: 100%; height: 250px; position: relative; overflow: hidden; }
+    /* FRONT CARD - SIDE BY SIDE LAYOUT */
+    .card-front { display: flex; flex-direction: row; }
+    
+    .recipe-image { width: 50%; height: 100%; position: relative; overflow: hidden; flex-shrink: 0; }
     .recipe-image img { width: 100%; height: 100%; object-fit: cover; }
-    .recipe-image::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7)); }
+    .recipe-image::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3)); }
     
-    .recipe-content { padding: 30px; }
-    .recipe-content h3 { font-family: "Righteous", sans-serif; font-size: 2em; color: #feca57; margin-bottom: 15px; }
+    .recipe-content { padding: 40px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+    .recipe-content h3 { font-family: "Righteous", sans-serif; font-size: 2em; color: #feca57; margin-bottom: 12px; }
     
-    .recipe-meta { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+    .recipe-meta { display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
     .meta-item { display: flex; align-items: center; gap: 8px; color: #a7c7e7; font-size: 0.9em; }
     
-    .recipe-content p { color: #a7c7e7; line-height: 1.7; margin-bottom: 20px; font-size: 0.95em; }
+    .recipe-content p { color: #a7c7e7; line-height: 1.6; margin-bottom: 15px; font-size: 0.95em; }
     
-    .ingredients-list { background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; padding: 15px; border-radius: 8px; max-height: 150px; overflow-y: auto; }
+    .ingredients-list { background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
     .ingredients-list h4 { font-family: "Righteous", sans-serif; color: #ff6b6b; margin-bottom: 10px; font-size: 1em; }
-    .ingredients-list ul { list-style: none; padding: 0; }
-    .ingredients-list li { color: #a7c7e7; padding: 5px 0; padding-left: 20px; position: relative; font-size: 0.9em; }
-    .ingredients-list li::before { content: "🔸"; position: absolute; left: 0; font-size: 0.8em; }
+    .ingredients-list ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .ingredients-list li { color: #a7c7e7; padding: 4px 0; padding-left: 18px; position: relative; font-size: 0.88em; }
+    .ingredients-list li::before { content: "🔸"; position: absolute; left: 0; font-size: 0.75em; }
+    
+    .recipe-steps { background: rgba(254, 202, 87, 0.1); border-left: 3px solid #feca57; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+    .recipe-steps h4 { font-family: "Righteous", sans-serif; color: #feca57; margin-bottom: 10px; font-size: 1em; }
+    .recipe-steps ol { padding-left: 18px; }
+    .recipe-steps li { color: #a7c7e7; padding: 5px 0; line-height: 1.5; font-size: 0.88em; }
     
     /* BACK CARD */
     .card-back h3 { font-family: "Playfair Display", serif; font-size: 2.5em; color: #feca57; margin-bottom: 20px; text-align: center; }
@@ -105,18 +112,29 @@
     .tip-item h4 { font-family: "Righteous", sans-serif; color: #feca57; margin-bottom: 10px; font-size: 1.1em; }
     .tip-item p { color: #a7c7e7; font-size: 0.95em; line-height: 1.6; }
     
+    @media (max-width: 1200px) {
+      .recipe-card { width: 900px; height: 450px; }
+      .recipe-card.left { transform: translateX(-950px) scale(0.75); }
+      .recipe-card.right { transform: translateX(950px) scale(0.75); }
+    }
+    
     @media (max-width: 1024px) {
-      .recipe-card { width: 380px; height: 550px; }
-      .recipe-card.left { transform: translateX(-420px) scale(0.75); }
-      .recipe-card.right { transform: translateX(420px) scale(0.75); }
+      .recipe-card { width: 750px; height: 420px; }
+      .recipe-card.left { transform: translateX(-800px) scale(0.7); }
+      .recipe-card.right { transform: translateX(800px) scale(0.7); }
+      .recipe-content { padding: 30px; }
+      .ingredients-list ul { grid-template-columns: 1fr; }
     }
     
     @media (max-width: 768px) {
       .container { padding: 100px 20px 60px; }
       .hero h1 { font-size: 3em; }
       .hero .subtitle { font-size: 1.5em; }
-      .carousel-container { height: 600px; }
-      .recipe-card { width: 320px; height: 500px; }
+      .carousel-container { height: 650px; }
+      .recipe-card { width: 340px; height: 580px; }
+      .card-front { flex-direction: column; }
+      .recipe-image { width: 100%; height: 200px; }
+      .recipe-content { padding: 20px; }
       .recipe-card.left, .recipe-card.right { display: none; }
       .recipe-card.center { transform: scale(0.95); }
       .carousel-arrow { width: 50px; height: 50px; font-size: 1.5em; }
@@ -197,15 +215,30 @@
                 </div>
                 <p>Rich, creamy, and fiery! Traditional Malay curry with tender chicken in coconut milk and bird's eye chili.</p>
                 <div class="ingredients-list">
-                  <h4>Key Ingredients:</h4>
+                  <h4>Ingredients:</h4>
                   <ul>
-                    <li>Chicken pieces</li>
-                    <li>Coconut milk</li>
-                    <li>Cili api (bird's eye chili)</li>
-                    <li>Turmeric</li>
-                    <li>Lemongrass</li>
-                    <li>Shallots & garlic</li>
+                    <li>500g chicken pieces (cut into chunks)</li>
+                    <li>400ml coconut milk</li>
+                    <li>10-15 cili api (bird's eye chili)</li>
+                    <li>2 tsp turmeric powder</li>
+                    <li>2 stalks lemongrass (bruised)</li>
+                    <li>5 shallots (sliced)</li>
+                    <li>3 cloves garlic (minced)</li>
+                    <li>1 tomato (quartered)</li>
+                    <li>Salt to taste</li>
+                    <li>Cooking oil</li>
                   </ul>
+                </div>
+                <div class="recipe-steps">
+                  <h4>Steps:</h4>
+                  <ol>
+                    <li>Heat oil in a pot. Sauté shallots, garlic, and lemongrass until fragrant.</li>
+                    <li>Add turmeric powder and stir for 1 minute.</li>
+                    <li>Add chicken pieces and cook until slightly browned.</li>
+                    <li>Pour in coconut milk and bring to a gentle boil.</li>
+                    <li>Add cili api and tomato. Simmer for 20 minutes until chicken is tender.</li>
+                    <li>Season with salt to taste. Serve hot with rice!</li>
+                  </ol>
                 </div>
                 <p class="flip-hint">Click to see the story behind this dish →</p>
               </div>
@@ -237,15 +270,29 @@
                 </div>
                 <p>Slow-cooked sweet and savory beef jerky, caramelized to perfection with a hint of spice.</p>
                 <div class="ingredients-list">
-                  <h4>Key Ingredients:</h4>
+                  <h4>Ingredients:</h4>
                   <ul>
-                    <li>Beef slices (thinly cut)</li>
-                    <li>Brown sugar</li>
-                    <li>Tamarind paste</li>
-                    <li>Coriander powder</li>
-                    <li>Fennel seeds</li>
-                    <li>Cooking oil for frying</li>
+                    <li>500g beef (thinly sliced)</li>
+                    <li>100g brown sugar</li>
+                    <li>3 tbsp tamarind paste</li>
+                    <li>2 tsp coriander powder</li>
+                    <li>1 tsp fennel seeds</li>
+                    <li>5 shallots (blended)</li>
+                    <li>3 cloves garlic (blended)</li>
+                    <li>1 tsp salt</li>
+                    <li>Cooking oil for deep frying</li>
                   </ul>
+                </div>
+                <div class="recipe-steps">
+                  <h4>Steps:</h4>
+                  <ol>
+                    <li>Marinate beef with blended shallots, garlic, coriander, fennel, and salt for 2 hours.</li>
+                    <li>Heat a pan with a little oil. Add marinated beef and cook over low heat, stirring occasionally.</li>
+                    <li>Add brown sugar and tamarind paste. Continue cooking until liquid evaporates.</li>
+                    <li>Once dry, heat oil in a separate pan for deep frying.</li>
+                    <li>Fry the beef until crispy and caramelized.</li>
+                    <li>Drain excess oil and let cool. Store in airtight container.</li>
+                  </ol>
                 </div>
                 <p class="flip-hint">Click to see the story behind this dish →</p>
               </div>
@@ -277,15 +324,30 @@
                 </div>
                 <p>Succulent prawns stir-fried in homemade fiery sambal with hints of tamarind sweetness.</p>
                 <div class="ingredients-list">
-                  <h4>Key Ingredients:</h4>
+                  <h4>Ingredients:</h4>
                   <ul>
-                    <li>Fresh prawns</li>
-                    <li>Dried chilies</li>
-                    <li>Belacan (shrimp paste)</li>
-                    <li>Tamarind juice</li>
-                    <li>Palm sugar</li>
-                    <li>Tomatoes</li>
+                    <li>500g fresh prawns (cleaned and deveined)</li>
+                    <li>15 dried chilies (soaked)</li>
+                    <li>1 tbsp belacan (shrimp paste)</li>
+                    <li>3 tbsp tamarind juice</li>
+                    <li>2 tbsp palm sugar</li>
+                    <li>2 tomatoes (cut into wedges)</li>
+                    <li>5 shallots</li>
+                    <li>3 cloves garlic</li>
+                    <li>Salt to taste</li>
+                    <li>Cooking oil</li>
                   </ul>
+                </div>
+                <div class="recipe-steps">
+                  <h4>Steps:</h4>
+                  <ol>
+                    <li>Blend soaked chilies, shallots, garlic, and belacan into a smooth paste.</li>
+                    <li>Heat oil in a wok. Fry the paste over medium heat until fragrant and oil separates.</li>
+                    <li>Add tamarind juice and palm sugar. Stir well.</li>
+                    <li>Add tomatoes and cook until soft.</li>
+                    <li>Add prawns and stir-fry until cooked (about 3-5 minutes).</li>
+                    <li>Season with salt to taste. Serve immediately with steamed rice!</li>
+                  </ol>
                 </div>
                 <p class="flip-hint">Click to see the story behind this dish →</p>
               </div>
