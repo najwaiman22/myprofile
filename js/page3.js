@@ -26,7 +26,7 @@ function createShootingStar() {
 setInterval(createShootingStar, Math.random() * 2000 + 3000);
 
 // ===== AUDIO SETUP =====
-const soundtrack = new Audio('audio/soundtrack.mp3');
+const soundtrack = new Audio('main/soundtrack.mp3');
 soundtrack.loop = true; // Loop terus muzik
 soundtrack.volume = 0.5; // Volume 50% (boleh adjust 0.0 - 1.0)
 
