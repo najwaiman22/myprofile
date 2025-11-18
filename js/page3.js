@@ -25,6 +25,11 @@ function createShootingStar() {
 // Create shooting star every 3-5 seconds
 setInterval(createShootingStar, Math.random() * 2000 + 3000);
 
+// ===== AUDIO SETUP =====
+const soundtrack = new Audio('audio/soundtrack.mp3');
+soundtrack.loop = true; // Loop terus muzik
+soundtrack.volume = 0.5; // Volume 50% (boleh adjust 0.0 - 1.0)
+
 // ===== GAME LOGIC =====
 let gameState = 'menu';
 let score = 0;
@@ -63,6 +68,13 @@ function startGame() {
   playerX = 50;
   fallingItems = [];
   itemIdCounter = 0;
+  
+  // ===== START AUDIO DARI MULA =====
+  soundtrack.currentTime = 0; // Reset ke 0 saat
+  soundtrack.play().catch(err => {
+    console.log('Audio autoplay blocked:', err);
+    // Kalau browser block autoplay, akan try lagi
+  });
   
   updateScore();
   updateLives();
@@ -168,6 +180,10 @@ function endGame() {
   clearInterval(spawnInterval);
   clearInterval(timerInterval);
   
+  // ===== STOP AUDIO BILA GAME OVER =====
+  soundtrack.pause();
+  soundtrack.currentTime = 0; // Reset untuk next game
+  
   fallingItems.forEach(item => {
     if (item.element && item.element.parentNode) {
       item.element.remove();
@@ -205,6 +221,10 @@ function backToMenu() {
   clearInterval(gameLoop);
   clearInterval(spawnInterval);
   clearInterval(timerInterval);
+  
+  // ===== STOP AUDIO BILA BALIK MENU =====
+  soundtrack.pause();
+  soundtrack.currentTime = 0;
   
   if (highScore > 0) {
     document.getElementById('highScoreDisplay').textContent = `🏆 High Score: ${highScore}`;
