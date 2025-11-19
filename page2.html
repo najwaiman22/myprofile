@@ -14,6 +14,7 @@
 </head>
 <body>
   <div id="particles-js"></div>
+  
   <button class="page-nav-btn prev-btn" onclick="location.href='index.html'">← Previous</button>
   <button class="page-nav-btn next-btn" onclick="location.href='page3.html'">Next →</button>
   
@@ -37,7 +38,7 @@
       </div>
       <h1>NAJWA IMAN</h1>
       <p class="title">Information Management Student</p>
-      <p class="subtitle">Reflective • Emphatetic • Ambitious</p>
+      <p class="subtitle">Reflective • Empathetic • Ambitious</p>
     </div>
     
     <div class="stats-inline">
@@ -47,6 +48,7 @@
     </div>
     
     <div class="content-section">
+      <!-- About Me -->
       <div class="content-block">
         <h3>About Me</h3>
         <p>My name is Nurul Najwa Iman binti Shudirman, but I'm more fondly known as Najwa Iman or Nawa.
@@ -56,24 +58,26 @@ I'm currently pursuing a Diploma in Information Management at UiTM Kedah.</p>
         <p style="margin-top: 15px;">I'm actively involved in organisational and event management, both on campus and beyond.</p>
       </div>
       
+      <!-- Hobby -->
       <div class="content-block">
-        <h3>Hobby and Passion </h3>
+        <h3>Hobby and Passion</h3>
         <p>I love spending time on things that spark joy and creativity. Some of my favorite hobbies include volunteering, cooking, and writing stories.
-These activities let me explore new ideas, help others, and express myself in fun and meaningful ways.
-
-Beyond my hobbies, I'm passionate about people and making things work smoothly. I love turning ideas into action, organising events, and helping a team succeed together.
+These activities let me explore new ideas, help others, and express myself in fun and meaningful ways.</p>
+        <p style="margin-top: 15px;">Beyond my hobbies, I'm passionate about people and making things work smoothly. I love turning ideas into action, organising events, and helping a team succeed together.
 Learning is also a big part of my life. Leadership, information management, communication, and self-development are all areas I enjoy diving into.
 I'm looking forward to diving into the world of business, but I haven't found the right circle yet. If you know someone who fits this description, let me know!
 I thrive on anything that lets me grow, contribute, and leave a positive impact.</p>
       </div>
       
+      <!-- Growth Path -->
       <div class="content-block">
         <h3>My Growth Path</h3>
-       <p>I'm learning to lead with clarity. I'm working on communicating better, making decisions with confidence, and balancing strength with humility.
+        <p>I'm learning to lead with clarity. I'm working on communicating better, making decisions with confidence, and balancing strength with humility.
 I'm growing into someone who pauses before reacting, values honesty over comfort, and knows when to be soft and when to be firm.
-Every experience wheter in class, organisations, or daily life, is shaping me into a more disciplined, resilient, and grounded person.</p>
+Every experience whether in class, organisations, or daily life, is shaping me into a more disciplined, resilient, and grounded person.</p>
       </div>
       
+      <!-- Values -->
       <div class="content-block">
         <h3>Values I Live By</h3>
         <p>Honesty keeps me real. Compassion keeps me human. Discipline keeps me moving.
@@ -83,7 +87,8 @@ Strength is quiet, steady, and intentional, and I build it step by step.</p>
     </div>
   </div>
 
-  <!-- VOLUNTEER MODAL -->
+  <!-- MODALS -->
+  <!-- Volunteer Modal -->
   <div id="volunteerModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('volunteerModal')">×</button>
@@ -110,3 +115,37 @@ Strength is quiet, steady, and intentional, and I build it step by step.</p>
         <div class="gallery-item"><img src="images/v18.jpg" alt="Volunteer Event 18"></div>
         <div class="gallery-item"><img src="images/v19.jpg" alt="Volunteer Event 19"></div>
         <div class="gallery-item"><img src="images/v20.jpg" alt="Volunteer Event 20"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stories Modal -->
+  <div id="storiesModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('storiesModal')">×</button>
+      <h2>📖 My Stories</h2>
+      <p style="color: #a7c7e7; margin-bottom: 20px;">Summary of my published stories or creative writing</p>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="images/s1.jpg" alt="Story 1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clubs Modal -->
+  <div id="clubsModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('clubsModal')">×</button>
+      <h2>🏫 Active Clubs</h2>
+      <p style="color: #a7c7e7; margin-bottom: 20px;">Photos from clubs I'm active in</p>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="images/c1.jpg" alt="Club 1"></div>
+        <div class="gallery-item"><img src="images/c2.jpg" alt="Club 2"></div>
+        <div class="gallery-item"><img src="images/c3.jpg" alt="Club 3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/page2.js"></script>
+</body>
+</html>
