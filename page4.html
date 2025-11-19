@@ -8,10 +8,9 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
-    body { font-family: "Quicksand", sans-serif; background: radial-gradient(circle at 70% 30%, #1a0033, #000); color: #fff; overflow-x: hidden; position: relative; }
+    body { font-family: "Quicksand", sans-serif; background: radial-gradient(circle at 70% 30%, #1a0033, #000); color: #fff; overflow-x: hidden; position: relative; min-height: 100vh; }
     #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
+    
     .nav-menu { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 15px; background: rgba(1, 22, 43, 0.9); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(99, 142, 203, 0.3); }
     .nav-item { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; position: relative; }
     .nav-label { color: #a7c7e7; font-size: 0.75em; font-weight: 500; opacity: 0; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: rgba(99, 142, 203, 0.9); padding: 5px 12px; border-radius: 15px; white-space: nowrap; pointer-events: none; transition: all 0.3s ease; }
@@ -19,103 +18,132 @@
     .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(99, 142, 203, 0.5); border: 2px solid #638ECB; cursor: pointer; transition: all 0.3s ease; }
     .nav-item:hover .nav-dot, .nav-item.active .nav-dot { background: #638ECB; box-shadow: 0 0 10px rgba(99, 142, 203, 0.8); transform: scale(1.2); }
     .nav-item.active .nav-dot { width: 12px; height: 12px; }
-
+    
     .prev-btn { position: fixed; left: 25px; top: 25px; z-index: 99; }
     .next-btn { position: fixed; right: 25px; top: 25px; z-index: 99; }
     .page-nav-btn { background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #a7c7e7; padding: 8px 20px; border-radius: 25px; font-size: 0.8em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); font-family: "Quicksand", sans-serif; }
     .page-nav-btn:hover { background: #638ECB; color: white; transform: scale(1.05); box-shadow: 0 5px 15px rgba(99, 142, 203, 0.6); }
-
+    
     .scroll-controls { position: fixed; right: 25px; bottom: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
     .scroll-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(99, 142, 203, 0.3); border: 2px solid #638ECB; color: #8AAEE0; display: flex; align-items: center; justify-content: center; font-size: 1.2em; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
     .scroll-btn:hover { background: #638ECB; color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(99, 142, 203, 0.8); }
-
-    /* main container: padding-bottom controlled so page ends exactly after TikTok section */
-    .container { position: relative; z-index: 1; padding: 120px 60px 40px; max-width: 1400px; margin: 0 auto; }
-
+    
+    .container { position: relative; z-index: 1; padding: 120px 60px 80px; max-width: 1400px; margin: 0 auto; }
+    
     .hero { text-align: center; margin-bottom: 80px; animation: fadeInUp 0.8s ease; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .hero h1 { font-family: "Playfair Display", serif; font-size: 5em; font-weight: 900; background: linear-gradient(135deg, #ff6b6b, #feca57, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; text-shadow: 0 0 30px rgba(255, 107, 107, 0.3); }
     .hero .subtitle { font-family: "Satisfy", cursive; font-size: 2em; color: #feca57; margin-bottom: 15px; }
     .hero p { font-size: 1.2em; color: #a7c7e7; max-width: 700px; margin: 0 auto; line-height: 1.8; }
-
-    /* intro */
+    
+    /* INTRO SECTION */
     .intro-section { background: rgba(255, 107, 107, 0.1); border: 2px solid rgba(255, 107, 107, 0.3); border-radius: 25px; padding: 40px; margin-bottom: 60px; text-align: center; }
     .intro-section h2 { font-family: "Righteous", sans-serif; font-size: 2em; color: #ff6b6b; margin-bottom: 20px; }
     .intro-section p { color: #a7c7e7; line-height: 1.8; font-size: 1.1em; }
-
-    /* carousel */
+    
+    /* CAROUSEL CONTAINER */
     .carousel-section { margin: 80px 0; position: relative; }
     .carousel-container { position: relative; height: 550px; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
+    
+    /* CAROUSEL CARDS */
     .recipe-card { position: absolute; width: 1100px; height: 480px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
+    
     .recipe-card.left { transform: translateX(-1000px) scale(0.8); opacity: 0.5; z-index: 1; filter: blur(2px); }
     .recipe-card.center { transform: translateX(0) scale(1); opacity: 1; z-index: 10; filter: blur(0); }
     .recipe-card.right { transform: translateX(1000px) scale(0.8); opacity: 0.5; z-index: 1; filter: blur(2px); }
     .recipe-card.hidden { transform: translateX(0) scale(0.5); opacity: 0; z-index: 0; pointer-events: none; }
+    
+    /* FLIP EFFECT */
     .recipe-card.flipped .card-inner { transform: rotateY(180deg); }
     .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
-
+    
     .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 25px; overflow: hidden; border: 2px solid #ff6b6b; background: linear-gradient(135deg, rgba(1, 22, 43, 0.95), rgba(1, 35, 56, 0.95)); }
+    
     .card-back { transform: rotateY(180deg); display: flex; flex-direction: column; padding: 40px; justify-content: center; background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(254, 202, 87, 0.2)); }
+    
+    /* FRONT CARD - SIDE BY SIDE LAYOUT */
     .card-front { display: flex; flex-direction: row; }
+    
     .recipe-image { width: 45%; height: 100%; position: relative; overflow: hidden; flex-shrink: 0; }
     .recipe-image img { width: 100%; height: 100%; object-fit: cover; }
     .recipe-image::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3)); }
+    
     .recipe-content { padding: 35px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
     .recipe-content h3 { font-family: "Righteous", sans-serif; font-size: 2.2em; color: #feca57; margin-bottom: 15px; }
+    
     .recipe-meta { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
     .meta-item { display: flex; align-items: center; gap: 8px; color: #a7c7e7; font-size: 0.95em; }
+    
+    .recipe-content p { color: #a7c7e7; line-height: 1.7; margin-bottom: 20px; font-size: 1em; }
+    
     .ingredients-list { background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
     .ingredients-list h4 { font-family: "Righteous", sans-serif; color: #ff6b6b; margin-bottom: 12px; font-size: 1.1em; }
+    .ingredients-list ul { list-style: none; padding: 0; }
+    .ingredients-list li { color: #a7c7e7; padding: 6px 0; padding-left: 20px; position: relative; font-size: 0.95em; }
+    .ingredients-list li::before { content: "🔸"; position: absolute; left: 0; font-size: 0.8em; }
+    
     .recipe-steps { background: rgba(254, 202, 87, 0.1); border-left: 3px solid #feca57; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
-
+    .recipe-steps h4 { font-family: "Righteous", sans-serif; color: #feca57; margin-bottom: 12px; font-size: 1.1em; }
+    .recipe-steps ol { padding-left: 20px; }
+    .recipe-steps li { color: #a7c7e7; padding: 8px 0; line-height: 1.6; font-size: 0.95em; }
+    
+    /* BACK CARD */
+    .card-back h3 { font-family: "Playfair Display", serif; font-size: 2.5em; color: #feca57; margin-bottom: 20px; text-align: center; }
+    .memory-icon { font-size: 4em; text-align: center; margin-bottom: 20px; }
+    .memory-text { color: #a7c7e7; line-height: 1.8; font-size: 1.1em; text-align: center; }
     .flip-hint { text-align: center; color: #ff6b6b; font-size: 0.9em; margin-top: 20px; font-style: italic; }
-
-    /* carousel nav */
+    
+    /* NAVIGATION ARROWS */
     .carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 20; pointer-events: none; }
     .carousel-arrow { width: 60px; height: 60px; border-radius: 50%; background: rgba(255, 107, 107, 0.8); border: 2px solid #feca57; color: white; font-size: 2em; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; pointer-events: auto; backdrop-filter: blur(10px); }
     .carousel-arrow:hover { background: #feca57; transform: scale(1.1); box-shadow: 0 0 20px rgba(254, 202, 87, 0.8); }
-
+    
+    /* CAROUSEL INDICATORS */
     .carousel-indicators { display: flex; justify-content: center; gap: 15px; margin-top: 40px; }
     .indicator-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 107, 107, 0.3); border: 2px solid #ff6b6b; cursor: pointer; transition: all 0.3s ease; }
     .indicator-dot.active { background: #feca57; border-color: #feca57; transform: scale(1.3); box-shadow: 0 0 15px rgba(254, 202, 87, 0.6); }
-
+    
     .cooking-tips { background: rgba(254, 202, 87, 0.1); border: 2px solid rgba(254, 202, 87, 0.3); border-radius: 25px; padding: 40px; text-align: center; margin-top: 80px; }
-
-    /* TikTok inspiration */
-    .tiktok-inspiration { background: rgba(99, 142, 203, 0.1); border: 2px solid rgba(99, 142, 203, 0.3); border-radius: 25px; padding: 50px 40px; margin-top: 80px; margin-bottom: 0; }
-    .tiktok-inspiration .section-header { text-align: center; margin-bottom: 50px; }
-    .tiktok-inspiration h2 { font-family: "Playfair Display", serif; font-size: 2.5em; color: #638ECB; margin-bottom: 15px; }
-    .tiktok-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; justify-items: center; }
-    .tiktok-card { background: rgba(1, 22, 43, 0.6); border: 2px solid rgba(99, 142, 203, 0.3); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; cursor: pointer; width: 100%; max-width: 320px; backdrop-filter: blur(10px); }
-    .tiktok-thumbnail { position: relative; width: 100%; padding-top: 177.78%; background: #000; overflow: hidden; }
-    .tiktok-thumbnail video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-    .tiktok-info { padding: 20px; }
-    .tiktok-username { font-size: 1.2em; color: #638ECB; font-weight: 600; margin-bottom: 8px; font-family: "Righteous", sans-serif; }
-    .tiktok-title { font-size: 1em; color: #feca57; margin-bottom: 10px; line-height: 1.4; font-weight: 600; }
-    .tiktok-description { font-size: 0.9em; color: #a7c7e7; line-height: 1.5; }
-    .tiktok-badge { display: inline-block; padding: 5px 12px; background: linear-gradient(135deg, #ff0050, #00f2ea); color: white; border-radius: 20px; font-size: 0.75em; font-weight: 600; margin-top: 10px; }
-
-    /* responsive tweaks */
-    @media (max-width: 1024px) { .recipe-card { width: 700px; height: 500px; } }
+    .cooking-tips h2 { font-family: "Playfair Display", serif; font-size: 2.5em; color: #feca57; margin-bottom: 30px; }
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px; }
+    .tip-item { background: rgba(255, 107, 107, 0.1); border: 2px solid rgba(255, 107, 107, 0.3); border-radius: 15px; padding: 25px; transition: all 0.3s ease; }
+    .tip-item:hover { transform: scale(1.05); border-color: #feca57; }
+    .tip-item .icon { font-size: 3em; margin-bottom: 15px; }
+    .tip-item h4 { font-family: "Righteous", sans-serif; color: #feca57; margin-bottom: 10px; font-size: 1.1em; }
+    .tip-item p { color: #a7c7e7; font-size: 0.95em; line-height: 1.6; }
+    
+    @media (max-width: 1024px) {
+      .recipe-card { width: 700px; height: 500px; }
+      .recipe-card.left { transform: translateX(-750px) scale(0.75); }
+      .recipe-card.right { transform: translateX(750px) scale(0.75); }
+    }
+    
     @media (max-width: 768px) {
-      .container { padding: 100px 20px 30px; }
+      .container { padding: 100px 20px 60px; }
       .hero h1 { font-size: 3em; }
+      .hero .subtitle { font-size: 1.5em; }
       .carousel-container { height: 650px; }
       .recipe-card { width: 340px; height: 580px; }
       .card-front { flex-direction: column; }
       .recipe-image { width: 100%; height: 200px; }
       .recipe-content { padding: 20px; }
       .recipe-card.left, .recipe-card.right { display: none; }
-      .tiktok-inspiration { padding: 30px 20px; }
+      .recipe-card.center { transform: scale(0.95); }
+      .carousel-arrow { width: 50px; height: 50px; font-size: 1.5em; }
+      .nav-menu { padding: 8px 15px; gap: 10px; }
+      .nav-dot { width: 8px; height: 8px; }
+      .prev-btn { left: 10px; top: 80px; }
+      .next-btn { right: 10px; top: 80px; }
     }
   </style>
 </head>
 <body>
+  
   <div id="particles-js"></div>
-
+  
   <button class="page-nav-btn prev-btn" onclick="location.href='page3.html'">← Previous</button>
   <button class="page-nav-btn next-btn" onclick="location.href='page5.html'">Next →</button>
-
+  
   <nav class="nav-menu">
     <div class="nav-item" onclick="location.href='index.html'">
       <div class="nav-dot"></div>
@@ -138,226 +166,300 @@
       <span class="nav-label">Contact</span>
     </div>
   </nav>
-
+  
   <div class="scroll-controls">
     <div class="scroll-btn" onclick="scrollToTop()">↑</div>
     <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
   </div>
-
+  
   <div class="container">
+    
     <div class="hero">
       <div class="subtitle">Welcome to</div>
       <h1>Nawa's Kitchen Diary!</h1>
       <p>I find peace while cooking for my loved ones. It may be simple but filled with warmth ^^</p>
     </div>
-
+    
+    <!-- COOKING PHILOSOPHY SECTION -->
     <div class="intro-section">
-      <h2>🍳 My Cooking Diary</h2>
-      <p>For me, cooking is more than just following recipes — it's about pouring love into every ingredient, experimenting with flavors, and creating memories around the dining table. Below are a few of my favourites and some kitchen tips.</p>
+      <h2>🍳 My Cooking Philosophy</h2>
+      <p>For me, cooking is more than just following recipes, it's about pouring love into every ingredient, experimenting with various flavors, and creating memories around the dining table and the kitchen. Here, I will be sharing 3 of my favourite menus, which are actually special to me because of the memories tied to the moments I prepared them.</p>
     </div>
-
-    <!-- CAROUSEL SECTION (3 cards) -->
+    
+    <!-- CAROUSEL SECTION -->
     <div class="carousel-section">
       <div class="carousel-container" id="carouselContainer">
-
+        
+        <!-- Card 1: Masak Lemak -->
         <div class="recipe-card center" data-index="0" onclick="flipCard(this)">
           <div class="card-inner">
+            <!-- FRONT -->
             <div class="card-face card-front">
-              <div class="recipe-image"><img src="images/kuning.jpg" alt="Masak Lemak"></div>
+              <div class="recipe-image">
+                <img src="images/kuning.jpg" alt="Masak Lemak Cili Api Ayam">
+              </div>
               <div class="recipe-content">
                 <h3>Masak Lemak Cili Api Ayam</h3>
                 <div class="recipe-meta">
-                  <div class="meta-item">⏱️ 40 mins</div>
-                  <div class="meta-item">👥 4 servings</div>
-                  <div class="meta-item">🌶️ Spicy</div>
+                  <div class="meta-item"><span>⏱️</span> 40 mins</div>
+                  <div class="meta-item"><span>👥</span> 4 servings</div>
+                  <div class="meta-item"><span>🌶️</span> Spicy</div>
                 </div>
-                <p>Rich, creamy, and fiery — traditional Malay curry with tender chicken in coconut milk and bird's eye chili.</p>
+                <p>Rich, creamy, and fiery! Traditional Malay curry with tender chicken in coconut milk and bird's eye chili.</p>
                 <div class="ingredients-list">
                   <h4>Ingredients:</h4>
                   <ul>
-                    <li>500g chicken pieces</li>
+                    <li>500g chicken pieces (cut into chunks)</li>
                     <li>400ml coconut milk</li>
-                    <li>10-15 cili api</li>
-                    <li>2 tsp turmeric</li>
-                    <li>lemongrass, shallots, garlic, tomato, salt, oil</li>
+                    <li>10-15 cili api (bird's eye chili)</li>
+                    <li>2 tsp turmeric powder</li>
+                    <li>2 stalks lemongrass (bruised)</li>
+                    <li>5 shallots (sliced)</li>
+                    <li>3 cloves garlic (minced)</li>
+                    <li>1 tomato (quartered)</li>
+                    <li>Salt to taste</li>
+                    <li>Cooking oil</li>
                   </ul>
                 </div>
                 <div class="recipe-steps">
                   <h4>Steps:</h4>
                   <ol>
-                    <li>Sauté aromatics. Add turmeric and chicken. Pour coconut milk and simmer with cili api and tomato.</li>
+                    <li>Heat oil in a pot. Sauté shallots, garlic, and lemongrass until fragrant.</li>
+                    <li>Add turmeric powder and stir for 1 minute.</li>
+                    <li>Add chicken pieces and cook until slightly browned.</li>
+                    <li>Pour in coconut milk and bring to a gentle boil.</li>
+                    <li>Add cili api and tomato. Simmer for 20 minutes until chicken is tender.</li>
+                    <li>Season with salt to taste. Serve hot with rice!</li>
                   </ol>
                 </div>
-                <p class="flip-hint">Click to flip →</p>
+                <p class="flip-hint">Click to see the story behind this dish →</p>
               </div>
             </div>
+            <!-- BACK -->
             <div class="card-face card-back">
               <div class="memory-icon">💛</div>
               <h3>A Comfort Memory</h3>
-              <p class="memory-text">This dish reminds me of cooking alongside my mother — the stirring, the stories, the warmth. It's home on a plate.</p>
+              <p class="memory-text">This was one of the first dishes I learned from my mother. I remember standing beside her in the kitchen, watching her expertly balance the spices while telling stories about her own mother. The aroma of coconut milk simmering with fresh turmeric always brings me back to those warm afternoons. Now, whenever I cook this, I feel her presence guiding my hands, and it reminds me that cooking is more than just feeding people—it's about passing down love through generations.</p>
               <p class="flip-hint">Click to see recipe →</p>
             </div>
           </div>
         </div>
-
+        
+        <!-- Card 2: Dendeng -->
         <div class="recipe-card right" data-index="1" onclick="flipCard(this)">
           <div class="card-inner">
+            <!-- FRONT -->
             <div class="card-face card-front">
-              <div class="recipe-image"><img src="images/dendeng.jpg" alt="Dendeng Daging"></div>
+              <div class="recipe-image">
+                <img src="images/dendeng.jpg" alt="Dendeng Daging">
+              </div>
               <div class="recipe-content">
                 <h3>Dendeng Daging</h3>
                 <div class="recipe-meta">
-                  <div class="meta-item">⏱️ 2 hours</div>
-                  <div class="meta-item">👥 6 servings</div>
-                  <div class="meta-item">🌶️ Sweet & Spicy</div>
+                  <div class="meta-item"><span>⏱️</span> 2 hours</div>
+                  <div class="meta-item"><span>👥</span> 6 servings</div>
+                  <div class="meta-item"><span>🌶️</span> Sweet & Spicy</div>
                 </div>
                 <p>Slow-cooked sweet and savory beef jerky, caramelized to perfection with a hint of spice.</p>
-                <p class="flip-hint">Click to flip →</p>
+                <div class="ingredients-list">
+                  <h4>Ingredients:</h4>
+                  <ul>
+                    <li>500g beef (thinly sliced)</li>
+                    <li>100g brown sugar</li>
+                    <li>3 tbsp tamarind paste</li>
+                    <li>2 tsp coriander powder</li>
+                    <li>1 tsp fennel seeds</li>
+                    <li>5 shallots (blended)</li>
+                    <li>3 cloves garlic (blended)</li>
+                    <li>1 tsp salt</li>
+                    <li>Cooking oil for deep frying</li>
+                  </ul>
+                </div>
+                <div class="recipe-steps">
+                  <h4>Steps:</h4>
+                  <ol>
+                    <li>Marinate beef with blended shallots, garlic, coriander, fennel, and salt for 2 hours.</li>
+                    <li>Heat a pan with a little oil. Add marinated beef and cook over low heat, stirring occasionally.</li>
+                    <li>Add brown sugar and tamarind paste. Continue cooking until liquid evaporates.</li>
+                    <li>Once dry, heat oil in a separate pan for deep frying.</li>
+                    <li>Fry the beef until crispy and caramelized.</li>
+                    <li>Drain excess oil and let cool. Store in airtight container.</li>
+                  </ol>
+                </div>
+                <p class="flip-hint">Click to see the story behind this dish →</p>
               </div>
             </div>
+            <!-- BACK -->
             <div class="card-face card-back">
               <div class="memory-icon">🥩</div>
               <h3>Patience & Tradition</h3>
-              <p class="memory-text">Dendeng taught me patience — good things take time, especially when you follow family recipes passed down through generations.</p>
+              <p class="memory-text">Dendeng taught me the virtue of patience. The first time I attempted this recipe, I rushed through the process and ended up with burnt, tough pieces. My grandmother laughed gently and said, "Good things take time, sayang." We started over together, and she showed me how to wait for each stage, how to listen to the sizzle, and how to trust the process. Now, every time I make dendeng, I remember her wisdom—that the best things in life, whether it's food or relationships, require patience and care.</p>
               <p class="flip-hint">Click to see recipe →</p>
             </div>
           </div>
         </div>
-
+        
+        <!-- Card 3: Sambal Udang -->
         <div class="recipe-card hidden" data-index="2" onclick="flipCard(this)">
           <div class="card-inner">
+            <!-- FRONT -->
             <div class="card-face card-front">
-              <div class="recipe-image"><img src="images/udang.jpg" alt="Sambal Udang"></div>
+              <div class="recipe-image">
+                <img src="images/udang.jpg" alt="Sambal Udang">
+              </div>
               <div class="recipe-content">
                 <h3>Sambal Udang</h3>
                 <div class="recipe-meta">
-                  <div class="meta-item">⏱️ 25 mins</div>
-                  <div class="meta-item">👥 4 servings</div>
-                  <div class="meta-item">🌶️ Very Spicy</div>
+                  <div class="meta-item"><span>⏱️</span> 25 mins</div>
+                  <div class="meta-item"><span>👥</span> 4 servings</div>
+                  <div class="meta-item"><span>🌶️</span> Very Spicy</div>
                 </div>
-                <p>Succulent prawns in a fiery sambal with tamarind and palm sugar.</p>
-                <p class="flip-hint">Click to flip →</p>
+                <p>Succulent prawns stir-fried in homemade fiery sambal with hints of tamarind sweetness.</p>
+                <div class="ingredients-list">
+                  <h4>Ingredients:</h4>
+                  <ul>
+                    <li>500g fresh prawns (cleaned and deveined)</li>
+                    <li>15 dried chilies (soaked)</li>
+                    <li>1 tbsp belacan (shrimp paste)</li>
+                    <li>3 tbsp tamarind juice</li>
+                    <li>2 tbsp palm sugar</li>
+                    <li>2 tomatoes (cut into wedges)</li>
+                    <li>5 shallots</li>
+                    <li>3 cloves garlic</li>
+                    <li>Salt to taste</li>
+                    <li>Cooking oil</li>
+                  </ul>
+                </div>
+                <div class="recipe-steps">
+                  <h4>Steps:</h4>
+                  <ol>
+                    <li>Blend soaked chilies, shallots, garlic, and belacan into a smooth paste.</li>
+                    <li>Heat oil in a wok. Fry the paste over medium heat until fragrant and oil separates.</li>
+                    <li>Add tamarind juice and palm sugar. Stir well.</li>
+                    <li>Add tomatoes and cook until soft.</li>
+                    <li>Add prawns and stir-fry until cooked (about 3-5 minutes).</li>
+                    <li>Season with salt to taste. Serve immediately with steamed rice!</li>
+                  </ol>
+                </div>
+                <p class="flip-hint">Click to see the story behind this dish →</p>
               </div>
             </div>
+            <!-- BACK -->
             <div class="card-face card-back">
               <div class="memory-icon">🦐</div>
-              <h3>A Flavor That Always Leads Me Back to Abah</h3>
-              <p class="memory-text">Eating prawns always brings back memories of my dad peeling them for me — a small act of love I'll never forget.</p>
+              <h3>A Celebration Dish</h3>
+              <p class="memory-text">Sambal Udang holds a special place in my heart because it was the first dish I ever cooked for a celebration. When my family gathered for Hari Raya, I volunteered to prepare this, despite my nervousness. I spent the morning grinding spices, and when I finally served it, the silence at the table made my heart sink—until my father smiled and said it tasted just like home. That moment taught me that food has the power to bring people together and create joy, and it gave me the confidence to keep exploring my culinary journey.</p>
               <p class="flip-hint">Click to see recipe →</p>
             </div>
           </div>
         </div>
-
+        
       </div>
-
+      
+      <!-- NAVIGATION -->
       <div class="carousel-nav">
         <div class="carousel-arrow" onclick="previousCard()">←</div>
         <div class="carousel-arrow" onclick="nextCard()">→</div>
       </div>
-
+      
+      <!-- INDICATORS -->
       <div class="carousel-indicators">
         <div class="indicator-dot active" onclick="goToCard(0)"></div>
         <div class="indicator-dot" onclick="goToCard(1)"></div>
         <div class="indicator-dot" onclick="goToCard(2)"></div>
       </div>
     </div>
-
+    
+    <!-- COOKING TIPS -->
     <div class="cooking-tips">
       <h2>💡 My Kitchen Secrets</h2>
       <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 20px;">Tips and tricks I've learned along the way</p>
       <div class="tips-grid">
-        <div class="tip-item"><div class="icon">🔥</div><h4>Perfect Heat Control</h4><p>Low and slow for complex flavors; high heat for char.</p></div>
-        <div class="tip-item"><div class="icon">🧂</div><h4>Season in Layers</h4><p>Season at each stage for depth.</p></div>
-        <div class="tip-item"><div class="icon">⚖️</div><h4>Trust Your Taste</h4><p>Recipes are guides. Adjust to your preference.</p></div>
-        <div class="tip-item"><div class="icon">🥘</div><h4>Prep is Everything</h4><p>Everything ready before you start makes cooking smooth.</p></div>
-      </div>
-    </div>
-
-    <!-- TIKTOK INSPIRATION SECTION: Page MUST end exactly after this section -->
-    <div class="tiktok-inspiration" id="tiktokEnd">
-      <div class="section-header">
-        <h2>📱 Cooking Inspiration from TikTok</h2>
-        <p class="section-subtitle">Get inspired by these cooking creators — traditional recipes to modern fusion.</p>
-      </div>
-
-      <div class="tiktok-grid">
-        <div class="tiktok-card">
-          <div class="tiktok-thumbnail"><video controls muted playsinline><source src="videos/video1.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
-          <div class="tiktok-info"><div class="tiktok-username">@khairulaming</div><div class="tiktok-title">Sambal Nyet Recipe</div><div class="tiktok-description">Viral sambal nyet — everyone loves it.</div><span class="tiktok-badge">TikTok</span></div>
+        <div class="tip-item">
+          <div class="icon">🔥</div>
+          <h4>Perfect Heat Control</h4>
+          <p>Master your stove settings. Low and slow for complex flavors, high heat for that perfect char.</p>
         </div>
-
-        <div class="tiktok-card">
-          <div class="tiktok-thumbnail"><video controls muted playsinline><source src="videos/video2.mp4" type="video/mp4"></video></div>
-          <div class="tiktok-info"><div class="tiktok-username">@aminramlee</div><div class="tiktok-title">Quick & Easy Recipes</div><div class="tiktok-description">Simple, tasty, and fast.</div><span class="tiktok-badge">TikTok</span></div>
+        <div class="tip-item">
+          <div class="icon">🧂</div>
+          <h4>Season in Layers</h4>
+          <p>Don't wait until the end! Season at each stage of cooking for deeper, more balanced flavors.</p>
         </div>
-
-        <div class="tiktok-card">
-          <div class="tiktok-thumbnail"><video controls muted playsinline><source src="videos/video3.mp4" type="video/mp4"></video></div>
-          <div class="tiktok-info"><div class="tiktok-username">@cookingwithsheila</div><div class="tiktok-title">Masakan Melayu Simple</div><div class="tiktok-description">Traditional Malay cooking made easy.</div><span class="tiktok-badge">TikTok</span></div>
+        <div class="tip-item">
+          <div class="icon">⚖️</div>
+          <h4>Trust Your Taste</h4>
+          <p>Recipes are guides, not rules. Adjust to your preference and don't be afraid to experiment!</p>
         </div>
-
-        <div class="tiktok-card">
-          <div class="tiktok-thumbnail"><video controls muted playsinline><source src="videos/video4.mp4" type="video/mp4"></video></div>
-          <div class="tiktok-info"><div class="tiktok-username">@chefammar</div><div class="tiktok-title">Western Fusion Dishes</div><div class="tiktok-description">Western cuisine with Malaysian twist.</div><span class="tiktok-badge">TikTok</span></div>
-        </div>
-
-        <div class="tiktok-card">
-          <div class="tiktok-thumbnail"><video controls muted playsinline><source src="videos/video5.mp4" type="video/mp4"></video></div>
-          <div class="tiktok-info"><div class="tiktok-username">@mamafami</div><div class="tiktok-title">Resepi Viral Budget</div><div class="tiktok-description">Delicious budget-friendly recipes.</div><span class="tiktok-badge">TikTok</span></div>
-        </div>
-
-        <div class="tiktok-card">
-          <div class="tiktok-thumbnail"><video controls muted playsinline><source src="videos/video6.mp4" type="video/mp4"></video></div>
-          <div class="tiktok-info"><div class="tiktok-username">@dapurtanpasempadan</div><div class="tiktok-title">Asian Street Food</div><div class="tiktok-description">Recreate street food at home easily.</div><span class="tiktok-badge">TikTok</span></div>
+        <div class="tip-item">
+          <div class="icon">🥘</div>
+          <h4>Prep is Everything</h4>
+          <p>Mise en place! Having everything ready before you start cooking makes the process smooth and stress-free.</p>
         </div>
       </div>
     </div>
-
-  </div> <!-- end .container -->
-
+    
+  </div>
+  
   <script>
-    // Carousel logic (single, clean copy)
     let currentIndex = 0;
     const totalCards = 3;
-    function updateCarousel(){
+    
+    function updateCarousel() {
       const cards = document.querySelectorAll('.recipe-card');
       const indicators = document.querySelectorAll('.indicator-dot');
-      cards.forEach((card, index)=>{
-        card.classList.remove('left','center','right','hidden','flipped');
-        if(index === currentIndex) card.classList.add('center');
-        else if(index === (currentIndex - 1 + totalCards) % totalCards) card.classList.add('left');
-        else if(index === (currentIndex + 1) % totalCards) card.classList.add('right');
-        else card.classList.add('hidden');
+      
+      cards.forEach((card, index) => {
+        card.classList.remove('left', 'center', 'right', 'hidden', 'flipped');
+        
+        if (index === currentIndex) {
+          card.classList.add('center');
+        } else if (index === (currentIndex - 1 + totalCards) % totalCards) {
+          card.classList.add('left');
+        } else if (index === (currentIndex + 1) % totalCards) {
+          card.classList.add('right');
+        } else {
+          card.classList.add('hidden');
+        }
       });
-      indicators.forEach((dot, i)=> dot.classList.toggle('active', i === currentIndex));
+      
+      indicators.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
     }
-    function nextCard(){ currentIndex = (currentIndex + 1) % totalCards; updateCarousel(); }
-    function previousCard(){ currentIndex = (currentIndex - 1 + totalCards) % totalCards; updateCarousel(); }
-    function goToCard(i){ currentIndex = i; updateCarousel(); }
-    function flipCard(card){ if(card.classList.contains('center')) card.classList.toggle('flipped'); }
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'ArrowLeft') previousCard(); if(e.key === 'ArrowRight') nextCard(); });
-
-    function scrollToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
-    function scrollToBottom(){
-      // Scroll to TikTok section end exactly
-      const el = document.getElementById('tiktokEnd');
-      if(el) {
-        const rect = el.getBoundingClientRect();
-        const top = window.scrollY + rect.top + el.offsetHeight - window.innerHeight + 20; // 20px pad
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      } else {
-        window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+    
+    function nextCard() {
+      currentIndex = (currentIndex + 1) % totalCards;
+      updateCarousel();
+    }
+    
+    function previousCard() {
+      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+      updateCarousel();
+    }
+    
+    function goToCard(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+    
+    function flipCard(card) {
+      if (card.classList.contains('center')) {
+        card.classList.toggle('flipped');
       }
     }
-
-    // Particles init
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') previousCard();
+      if (e.key === 'ArrowRight') nextCard();
+    });
+    
+    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
+    
+    // Particles
     particlesJS("particles-js",{"particles":{"number":{"value":60,"density":{"enable":true,"value_area":800}},"color":{"value":"#feca57"},"shape":{"type":"circle"},"opacity":{"value":0.4,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1}},"size":{"value":4,"random":true,"anim":{"enable":true,"speed":2,"size_min":1}},"line_linked":{"enable":false},"move":{"enable":true,"speed":1.5,"direction":"top","random":true,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"push"}},"modes":{"bubble":{"distance":150,"size":6,"duration":2},"push":{"particles_nb":3}}},"retina_detect":true});
-
-    // ensure carousel initial state
-    updateCarousel();
-
-    // ensure page ends exactly after the TikTok section by trimming body margin (no extra elements)
-    // (No extra JS needed - layout controlled by container padding and tiktok-inspiration margin-bottom:0)
   </script>
+  
 </body>
 </html>
