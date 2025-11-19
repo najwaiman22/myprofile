@@ -27,8 +27,8 @@ setInterval(createShootingStar, Math.random() * 2000 + 3000);
 
 // ===== AUDIO SETUP =====
 const soundtrack = new Audio('audio/soundtrack.mp3');
-soundtrack.loop = true; // Loop terus muzik
-soundtrack.volume = 0.5; // Volume 50% (boleh adjust 0.0 - 1.0)
+soundtrack.loop = true; 
+soundtrack.volume = 0.5;
 
 // ===== GAME LOGIC =====
 let gameState = 'menu';
@@ -68,19 +68,16 @@ function startGame() {
   playerX = 50;
   fallingItems = [];
   itemIdCounter = 0;
-  
-  // ===== START AUDIO DARI MULA =====
-  soundtrack.currentTime = 0; // Reset ke 0 saat
-  soundtrack.play().catch(err => {
-    console.log('Audio autoplay blocked:', err);
-    // Kalau browser block autoplay, akan try lagi
-  });
-  
+
+  // ===== START AUDIO =====
+  soundtrack.currentTime = 0;
+  soundtrack.play().catch(err => console.log('Autoplay blocked:', err));
+
   updateScore();
   updateLives();
   updateTimer();
   showScreen('game');
-  
+
   spawnInterval = setInterval(spawnItem, 1500);
   gameLoop = setInterval(updateGame, 30);
   timerInterval = setInterval(updateTimer, 1000);
@@ -91,16 +88,11 @@ function updateTimer() {
   const timerEl = document.getElementById('timerDisplay');
   timerEl.textContent = `⏱️ ${timeLeft}s`;
   timerEl.classList.remove('warning', 'danger');
-  
-  if (timeLeft <= 10 && timeLeft > 5) {
-    timerEl.classList.add('warning');
-  } else if (timeLeft <= 5) {
-    timerEl.classList.add('danger');
-  }
-  
-  if (timeLeft <= 0) {
-    endGame();
-  }
+
+  if (timeLeft <= 10 && timeLeft > 5) timerEl.classList.add('warning');
+  else if (timeLeft <= 5) timerEl.classList.add('danger');
+
+  if (timeLeft <= 0) endGame();
 }
 
 function spawnItem() {
@@ -114,55 +106,48 @@ function spawnItem() {
     element: null,
     caught: false
   };
-  
+
   const element = document.createElement('div');
   element.className = 'falling-item';
   element.textContent = item.emoji;
   element.style.left = item.x + '%';
   element.style.top = item.y + '%';
   document.getElementById('gameArea').appendChild(element);
-  
+
   item.element = element;
   fallingItems.push(item);
 }
 
 function updateGame() {
   if (gameState !== 'playing') return;
-  
+
   fallingItems.forEach(item => {
     item.y += item.speed;
     item.element.style.top = item.y + '%';
-    
+
     if (item.y > 75 && item.y < 85 && !item.caught) {
       const distance = Math.abs(item.x - playerX);
+
       if (distance < 8) {
         item.caught = true;
         item.element.style.filter = 'brightness(2)';
-        
+
         if (item.type === 'good') {
           score += item.points;
           updateScore();
         } else {
           lives--;
           updateLives();
-          if (lives <= 0) {
-            endGame();
-          }
+          if (lives <= 0) endGame();
         }
-        
-        setTimeout(() => {
-          if (item.element && item.element.parentNode) {
-            item.element.remove();
-          }
-        }, 200);
+
+        setTimeout(() => item.element?.remove(), 200);
       }
     }
-    
-    if (item.y > 105 && item.element && item.element.parentNode) {
-      item.element.remove();
-    }
+
+    if (item.y > 105) item.element?.remove();
   });
-  
+
   fallingItems = fallingItems.filter(item => item.y < 105);
 }
 
@@ -179,18 +164,14 @@ function endGame() {
   clearInterval(gameLoop);
   clearInterval(spawnInterval);
   clearInterval(timerInterval);
-  
-  // ===== STOP AUDIO BILA GAME OVER =====
+
+  // ===== STOP AUDIO =====
   soundtrack.pause();
-  soundtrack.currentTime = 0; // Reset untuk next game
-  
-  fallingItems.forEach(item => {
-    if (item.element && item.element.parentNode) {
-      item.element.remove();
-    }
-  });
+  soundtrack.currentTime = 0;
+
+  fallingItems.forEach(item => item.element?.remove());
   fallingItems = [];
-  
+
   if (score > highScore) {
     highScore = score;
     localStorage.setItem('highScore', highScore);
@@ -198,10 +179,10 @@ function endGame() {
   } else {
     document.getElementById('newHighScore').style.display = 'none';
   }
-  
+
   let icon = '💫';
   let text = '💪 Keep practicing your dreams!';
-  
+
   if (score >= 100) {
     icon = '🏆';
     text = '🌟 Dream Achiever! Amazing!';
@@ -209,7 +190,7 @@ function endGame() {
     icon = '⭐';
     text = '✨ Dream Chaser! Keep going!';
   }
-  
+
   document.getElementById('achievementIcon').textContent = icon;
   document.getElementById('achievementText').textContent = text;
   document.getElementById('finalScore').textContent = score;
@@ -221,15 +202,15 @@ function backToMenu() {
   clearInterval(gameLoop);
   clearInterval(spawnInterval);
   clearInterval(timerInterval);
-  
-  // ===== STOP AUDIO BILA BALIK MENU =====
+
+  // ===== STOP AUDIO =====
   soundtrack.pause();
   soundtrack.currentTime = 0;
-  
+
   if (highScore > 0) {
     document.getElementById('highScoreDisplay').textContent = `🏆 High Score: ${highScore}`;
   }
-  
+
   showScreen('menu');
 }
 
@@ -247,7 +228,7 @@ gameArea.addEventListener('mousemove', e => {
 
 document.addEventListener('keydown', e => {
   if (gameState !== 'playing') return;
-  
+
   if (e.key === 'ArrowLeft') {
     playerX = Math.max(10, playerX - 3);
     player.style.left = playerX + '%';
