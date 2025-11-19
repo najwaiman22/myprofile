@@ -4,14 +4,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Profile</title>
-  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&family=Archivo+Black&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at 30% 30%, #01162b, #000);
+      color: #6a90b4;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+      position: relative;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #01162b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.5s ease;
+    }
+
+    #counter {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 4em;
+      letter-spacing: 2px;
+      opacity: 0.5;
+      color: #6a90b4;
+    }
+
+    .loader {
+      display: none;
+      margin-top: 40px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #6a90b4;
+      opacity: 0.5;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    #main-content {
+      opacity: 0;
+      transition: opacity 1.5s ease, transform 1s ease;
+      transform: translateY(30px);
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      padding: 20px;
+      max-width: 90%;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #main-content h1 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      color: #6a90b4;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: 0.4s ease;
+      cursor: pointer;
+      font-family: "Archivo Black", sans-serif;
+    }
+
+    #main-content h1:hover {
+      color: #a7c7e7;
+      transform: scale(1.08);
+      text-shadow: 0 0 15px rgba(167,199,231,0.6);
+    }
+
+    #main-content p {
+      color: #a7c7e7;
+      font-size: 1.3em;
+      margin: 0 0 50px 0;
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+
+    #main-content p:hover {
+      color: #c7e3ff;
+      transform: scale(1.05);
+      text-shadow: 0 0 10px rgba(199,227,255,0.6);
+    }
+
+    .button {
+      display: inline-block;
+      height: 50px;
+      min-width: 200px;
+      padding: 0 30px;
+      background-color: #638ECB;
+      border: 2px solid #638ECB;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 30px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      font-family: "Poppins", sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(99,140,203,0.6);
+      text-decoration: none;
+      line-height: 46px;
+      text-align: center;
+    }
+
+    .button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(99,140,203,0.9);
+      background-color: #8AAEE0;
+    }
+  </style>
 </head>
 <body>
-  <!-- Particles Background -->
   <div id="particles-js"></div>
 
-  <!-- Loading Screen -->
   <div id="loading-screen">
     <div id="counter">0%</div>
     <div class="loader">
@@ -21,15 +168,69 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <main id="main-content">
     <h1>WELCOME TO MY PROFILE!</h1>
     <p>Built on dreams, shaped by purpose.</p>
     <a href="#about" class="button">ENTER</a>
   </main>
 
-  <!-- Particles.js Library -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="script.js"></script>
+  <script>
+    // Your existing JS here - copy paste dari JS awak yang asal
+    window.addEventListener('load', () => {
+      const counter = document.getElementById("counter");
+      const loader = document.querySelector(".loader");
+      const loadingScreen = document.getElementById("loading-screen");
+      const mainContent = document.getElementById("main-content");
+      
+      const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
+      
+      if (hasSeenLoading) {
+        loadingScreen.style.display = "none";
+        document.body.style.overflow = "auto";
+        mainContent.classList.add("visible");
+      } else {
+        let count = 0;
+        const interval = setInterval(() => {
+          if (count < 100) {
+            count++;
+            counter.innerText = count + "%";
+          } else {
+            clearInterval(interval);
+            counter.style.display = "none";
+            loader.style.display = "flex";
+            setTimeout(() => {
+              loadingScreen.style.opacity = "0";
+              setTimeout(() => {
+                loadingScreen.style.display = "none";
+                mainContent.classList.add("visible");
+                sessionStorage.setItem('hasSeenLoading', 'true');
+              }, 500);
+            }, 1500);
+          }
+        }, 20);
+      }
+      
+      if (typeof particlesJS !== 'undefined') {
+        particlesJS("particles-js", {
+          "particles": {
+            "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3 } },
+            "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.3 } },
+            "line_linked": { "enable": false },
+            "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+            "modes": { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } }
+          },
+          "retina_detect": true
+        });
+      }
+    });
+  </script>
 </body>
 </html>
