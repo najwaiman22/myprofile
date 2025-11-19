@@ -181,3 +181,24 @@ body {
     font-size: 3em;
   }
 }
+
+@media (max-width: 480px) {
+  #main-content h1 {
+    font-size: 1.5em;
+    letter-spacing: 2px;
+  }
+  
+  #main-content p {
+    font-size: 0.9em;
+    margin-bottom: 30px;
+  }
+}
+  
+  #main-content p {
+    font-size: 1em;
+  }
+  
+  #counter {
+    font-size: 3em;
+  }
+}
