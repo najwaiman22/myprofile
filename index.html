@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Profile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&family=Archivo+Black&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nawa's Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+  
+  <!-- Particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -25,6 +29,7 @@
       position: relative;
     }
 
+    /* Particle canvas */
     #particles-js {
       position: fixed;
       top: 0;
@@ -34,6 +39,7 @@
       z-index: -1;
     }
 
+    /* --- Loading Screen --- */
     #loading-screen {
       position: fixed;
       top: 0;
@@ -57,6 +63,7 @@
       color: #6a90b4;
     }
 
+    /* --- Dot Loader --- */
     .loader {
       display: none;
       margin-top: 40px;
@@ -82,6 +89,7 @@
       40% { transform: scale(1); opacity: 1; }
     }
 
+    /* --- Main Content --- */
     #main-content {
       opacity: 0;
       transition: opacity 1.5s ease, transform 1s ease;
@@ -129,6 +137,7 @@
       text-shadow: 0 0 10px rgba(199,227,255,0.6);
     }
 
+    /* --- Stand-out Button Style --- */
     .button {
       display: inline-block;
       height: 50px;
@@ -154,83 +163,220 @@
       box-shadow: 0 0 25px rgba(99,140,203,0.9);
       background-color: #8AAEE0;
     }
+
+    .button:focus {
+      outline: 2px solid #a7c7e7;
+      outline-offset: 4px;
+    }
+
+    .btn-txt {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 768px) {
+      #counter {
+        font-size: 3em;
+      }
+
+      #main-content h1 {
+        font-size: 2em;
+        letter-spacing: 2px;
+      }
+
+      #main-content p {
+        font-size: 1.1em;
+        margin-bottom: 40px;
+      }
+
+      .button {
+        height: 45px;
+        min-width: 180px;
+        font-size: 0.9em;
+        letter-spacing: 3px;
+        line-height: 41px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #counter {
+        font-size: 2.5em;
+      }
+
+      #main-content h1 {
+        font-size: 1.5em;
+        letter-spacing: 1px;
+      }
+
+      #main-content p {
+        font-size: 1em;
+        margin-bottom: 30px;
+      }
+
+      .button {
+        height: 40px;
+        min-width: 160px;
+        font-size: 0.8em;
+        letter-spacing: 2px;
+        line-height: 36px;
+        padding: 0 20px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    /* Skip to content link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #638ECB;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
   </style>
 </head>
 <body>
-  <div id="particles-js"></div>
+  <!-- Accessibility: Skip to main content -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <div id="loading-screen">
-    <div id="counter">0%</div>
-    <div class="loader">
+  <!-- Particles Background -->
+  <div id="particles-js" aria-hidden="true"></div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" role="status" aria-live="polite">
+    <div id="counter" aria-label="Loading progress">0%</div>
+    <div class="loader" aria-label="Loading">
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
     </div>
   </div>
 
+  <!-- Main Content -->
   <main id="main-content">
-    <h1>WELCOME TO MY PROFILE!</h1>
+    <h1>Welcome to my profile!</h1>
     <p>Built on dreams, shaped by purpose.</p>
-    <a href="#about" class="button">ENTER</a>
+    <a href="page2.html" class="button" aria-label="Navigate to next page">
+      <span class="btn-txt">ENTER</span>
+    </a>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Your existing JS here - copy paste dari JS awak yang asal
-    window.addEventListener('load', () => {
-      const counter = document.getElementById("counter");
-      const loader = document.querySelector(".loader");
-      const loadingScreen = document.getElementById("loading-screen");
-      const mainContent = document.getElementById("main-content");
-      
-      const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
-      
-      if (hasSeenLoading) {
-        loadingScreen.style.display = "none";
-        document.body.style.overflow = "auto";
-        mainContent.classList.add("visible");
-      } else {
-        let count = 0;
-        const interval = setInterval(() => {
-          if (count < 100) {
-            count++;
-            counter.innerText = count + "%";
-          } else {
-            clearInterval(interval);
-            counter.style.display = "none";
-            loader.style.display = "flex";
-            setTimeout(() => {
-              loadingScreen.style.opacity = "0";
+    const counter = document.getElementById("counter");
+    const loader = document.querySelector(".loader");
+    const loadingScreen = document.getElementById("loading-screen");
+    const mainContent = document.getElementById("main-content");
+
+    // Check if user has already seen loading screen in this session
+    const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
+
+    if (hasSeenLoading) {
+      // Skip loading, show content immediately
+      loadingScreen.style.display = "none";
+      document.body.style.overflow = "auto";
+      mainContent.classList.add("visible");
+    } else {
+      // Show loading animation (first time only)
+      let count = 0;
+      let pageLoaded = false;
+
+      // Check if page is fully loaded
+      window.addEventListener('load', () => {
+        pageLoaded = true;
+      });
+
+      const interval = setInterval(() => {
+        if (count < 100) {
+          count++;
+          counter.innerText = count + "%";
+          counter.setAttribute('aria-label', `Loading progress ${count} percent`);
+        } else {
+          clearInterval(interval);
+          
+          // Wait for page to be fully loaded before proceeding
+          const checkAndProceed = () => {
+            if (pageLoaded) {
+              counter.style.display = "none";
+              loader.style.display = "flex";
+
               setTimeout(() => {
-                loadingScreen.style.display = "none";
-                mainContent.classList.add("visible");
-                sessionStorage.setItem('hasSeenLoading', 'true');
-              }, 500);
-            }, 1500);
-          }
-        }, 20);
-      }
-      
-      if (typeof particlesJS !== 'undefined') {
-        particlesJS("particles-js", {
-          "particles": {
-            "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#ffffff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3 } },
-            "size": { "value": 2, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.3 } },
-            "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-          },
-          "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
-            "modes": { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } }
-          },
-          "retina_detect": true
-        });
-      }
+                loadingScreen.style.opacity = "0";
+                loadingScreen.setAttribute('aria-hidden', 'true');
+                
+                setTimeout(() => {
+                  loadingScreen.style.display = "none";
+                  mainContent.classList.add("visible");
+                  mainContent.focus();
+                  
+                  // Mark that user has seen loading
+                  sessionStorage.setItem('hasSeenLoading', 'true');
+                }, 500);
+              }, 1500);
+            } else {
+              setTimeout(checkAndProceed, 100);
+            }
+          };
+          
+          checkAndProceed();
+        }
+      }, 20);
+    }
+
+    // --- Initialize Particles ---
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { 
+          "value": 100, 
+          "density": { "enable": true, "value_area": 800 } 
+        },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { 
+          "value": 0.8, 
+          "random": true,
+          "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3 }
+        },
+        "size": { 
+          "value": 2, 
+          "random": true,
+          "anim": { "enable": true, "speed": 2, "size_min": 0.3 }
+        },
+        "line_linked": { "enable": false },
+        "move": { 
+          "enable": true, 
+          "speed": 0.5, 
+          "direction": "none", 
+          "random": true, 
+          "straight": false, 
+          "out_mode": "out" 
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": { 
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "repulse": { "distance": 100, "duration": 0.4 },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
     });
   </script>
 </body>
 </html>
+
+
