@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nawa's Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
-  
-  <!-- Link to CSS -->
-  <link rel="stylesheet" href="css/index.css">
-  
-  <!-- Particles.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&family=Archivo+Black&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Accessibility: Skip to main content -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <!-- Particles Background -->
-  <div id="particles-js" aria-hidden="true"></div>
+  <div id="particles-js"></div>
 
   <!-- Loading Screen -->
-  <div id="loading-screen" role="status" aria-live="polite">
-    <div id="counter" aria-label="Loading progress">0%</div>
-    <div class="loader" aria-label="Loading">
+  <div id="loading-screen">
+    <div id="counter">0%</div>
+    <div class="loader">
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
@@ -31,17 +22,21 @@
   </div>
 
   <!-- Main Content -->
-  <main id="main-content">
-    <h1>Welcome to my profile!</h1>
+  <div id="main-content">
+    <h1>WELCOME TO MY PROFILE!</h1>
     <p>Built on dreams, shaped by purpose.</p>
+    <a href="#" class="button">ENTER</a>
+  </div>
 
-    <a href="page2.html" class="button" aria-label="Navigate to next page">
-      <span class="btn-txt">ENTER</span>
-    </a>
-  </main>
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
 
   <!-- Link to JavaScript -->
   <script src="js/index.js"></script>
 </body>
 </html>
+
 
