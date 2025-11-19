@@ -112,6 +112,114 @@
     .tip-item h4 { font-family: "Righteous", sans-serif; color: #feca57; margin-bottom: 10px; font-size: 1.1em; }
     .tip-item p { color: #a7c7e7; font-size: 0.95em; line-height: 1.6; }
     
+    /* TIKTOK INSPIRATION SECTION */
+    .tiktok-inspiration {
+      background: rgba(99, 142, 203, 0.1);
+      border: 2px solid rgba(99, 142, 203, 0.3);
+      border-radius: 25px;
+      padding: 50px 40px;
+      margin-top: 80px;
+    }
+    
+    .tiktok-inspiration .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .tiktok-inspiration h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5em;
+      color: #638ECB;
+      margin-bottom: 15px;
+    }
+    
+    .tiktok-inspiration .section-subtitle {
+      font-size: 1.1em;
+      color: #a7c7e7;
+      line-height: 1.6;
+    }
+    
+    .tiktok-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+      justify-items: center;
+    }
+    
+    .tiktok-card {
+      background: rgba(1, 22, 43, 0.6);
+      border: 2px solid rgba(99, 142, 203, 0.3);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      width: 100%;
+      max-width: 320px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .tiktok-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(99, 142, 203, 0.4);
+      border-color: #638ECB;
+    }
+    
+    .tiktok-thumbnail {
+      position: relative;
+      width: 100%;
+      padding-top: 177.78%; /* 9:16 aspect ratio */
+      background: #000;
+      overflow: hidden;
+    }
+    
+    .tiktok-thumbnail video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .tiktok-info {
+      padding: 20px;
+    }
+    
+    .tiktok-username {
+      font-size: 1.2em;
+      color: #638ECB;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-family: "Righteous", sans-serif;
+    }
+    
+    .tiktok-title {
+      font-size: 1em;
+      color: #feca57;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+    
+    .tiktok-description {
+      font-size: 0.9em;
+      color: #a7c7e7;
+      line-height: 1.5;
+    }
+    
+    .tiktok-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      background: linear-gradient(135deg, #ff0050, #00f2ea);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.75em;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
     @media (max-width: 1024px) {
       .recipe-card { width: 700px; height: 500px; }
       .recipe-card.left { transform: translateX(-750px) scale(0.75); }
@@ -134,6 +242,24 @@
       .nav-dot { width: 8px; height: 8px; }
       .prev-btn { left: 10px; top: 80px; }
       .next-btn { right: 10px; top: 80px; }
+      
+      .tiktok-inspiration {
+        padding: 30px 20px;
+      }
+      
+      .tiktok-inspiration h2 {
+        font-size: 2em;
+      }
+      
+      .tiktok-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .tiktok-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -232,15 +358,297 @@
                     <li>Season with salt to taste. Serve hot with rice!</li>
                   </ol>
                 </div>
+                <p class="flip-hint">Click to see recipe →</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 3: Sambal Udang -->
+        <div class="recipe-card hidden" data-index="2" onclick="flipCard(this)">
+          <div class="card-inner">
+            <!-- FRONT -->
+            <div class="card-face card-front">
+              <div class="recipe-image">
+                <img src="images/udang.jpg" alt="Sambal Udang">
+              </div>
+              <div class="recipe-content">
+                <h3>Sambal Udang</h3>
+                <div class="recipe-meta">
+                  <div class="meta-item"><span>⏱️</span> 25 mins</div>
+                  <div class="meta-item"><span>👥</span> 4 servings</div>
+                  <div class="meta-item"><span>🌶️</span> Very Spicy</div>
+                </div>
+                <p>Succulent prawns stir-fried in homemade fiery sambal with hints of tamarind sweetness.</p>
+                <div class="ingredients-list">
+                  <h4>Ingredients:</h4>
+                  <ul>
+                    <li>500g fresh prawns (cleaned and deveined)</li>
+                    <li>15 dried chilies (soaked)</li>
+                    <li>1 tbsp belacan (shrimp paste)</li>
+                    <li>3 tbsp tamarind juice</li>
+                    <li>2 tbsp palm sugar</li>
+                    <li>2 tomatoes (cut into wedges)</li>
+                    <li>5 shallots</li>
+                    <li>3 cloves garlic</li>
+                    <li>Salt to taste</li>
+                    <li>Cooking oil</li>
+                  </ul>
+                </div>
+                <div class="recipe-steps">
+                  <h4>Steps:</h4>
+                  <ol>
+                    <li>Blend soaked chilies, shallots, garlic, and belacan into a smooth paste.</li>
+                    <li>Heat oil in a wok. Fry the paste over medium heat until fragrant and oil separates.</li>
+                    <li>Add tamarind juice and palm sugar. Stir well.</li>
+                    <li>Add tomatoes and cook until soft.</li>
+                    <li>Add prawns and stir-fry until cooked (about 3-5 minutes).</li>
+                    <li>Season with salt to taste. Serve immediately with steamed rice!</li>
+                  </ol>
+                </div>
                 <p class="flip-hint">Click to see the story behind this dish →</p>
+              </div>
+            </div>
+            <!-- BACK -->
+            <div class="card-face card-back">
+              <div class="memory-icon">🦐</div>
+              <h3>A Flavor That Always Leads Me Back to Abah</h3>
+              <p class="memory-text">Every time I eat prawns, it brings me back to my childhood. I used to be allergic to seafood, which means yes… I was allergic to prawns!
+But my love for prawns was something I just couldn't give up. Even though I had to deal with painful flare-ups, I still ate them anyway.
+
+My dad eventually stopped trying to remind me not to. Instead, he became my biggest supporter by peeling the prawns for me and piling them onto my plate, leaving only the prawn heads on his. Oh, how sweet he was to his only daughter.
+
+And now, whenever I eat sambal udang or anything with prawns, I always think of him.
+Anyway… I'm officially free from my seafood allergy now, hehe.</p>
+              <p class="flip-hint">Click to see recipe →</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- NAVIGATION -->
+      <div class="carousel-nav">
+        <div class="carousel-arrow" onclick="previousCard()">←</div>
+        <div class="carousel-arrow" onclick="nextCard()">→</div>
+      </div>
+      
+      <!-- INDICATORS -->
+      <div class="carousel-indicators">
+        <div class="indicator-dot active" onclick="goToCard(0)"></div>
+        <div class="indicator-dot" onclick="goToCard(1)"></div>
+        <div class="indicator-dot" onclick="goToCard(2)"></div>
+      </div>
+    </div>
+    
+    <!-- COOKING TIPS -->
+    <div class="cooking-tips">
+      <h2>💡 My Kitchen Secrets</h2>
+      <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 20px;">Tips and tricks I've learned along the way</p>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <div class="icon">🔥</div>
+          <h4>Perfect Heat Control</h4>
+          <p>Master your stove settings. Low and slow for complex flavors, high heat for that perfect char.</p>
+        </div>
+        <div class="tip-item">
+          <div class="icon">🧂</div>
+          <h4>Season in Layers</h4>
+          <p>Don't wait until the end! Season at each stage of cooking for deeper, more balanced flavors.</p>
+        </div>
+        <div class="tip-item">
+          <div class="icon">⚖️</div>
+          <h4>Trust Your Taste</h4>
+          <p>Recipes are guides, not rules. Adjust to your preference and don't be afraid to experiment!</p>
+        </div>
+        <div class="tip-item">
+          <div class="icon">🥘</div>
+          <h4>Prep is Everything</h4>
+          <p>Having everything ready before you start cooking makes the process smooth and stress-free.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TIKTOK INSPIRATION SECTION -->
+    <div class="tiktok-inspiration">
+      <div class="section-header">
+        <h2>📱 Cooking Inspiration from TikTok</h2>
+        <p class="section-subtitle">Get inspired by these amazing cooking influencers! From traditional recipes to modern fusion, learn new techniques and discover delicious dishes.</p>
+      </div>
+      
+      <div class="tiktok-grid">
+        
+        <!-- Video 1 -->
+        <div class="tiktok-card">
+          <div class="tiktok-thumbnail">
+            <video controls>
+              <source src="videos/video1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="tiktok-info">
+            <div class="tiktok-username">@khairulaming</div>
+            <div class="tiktok-title">Sambal Nyet Recipe</div>
+            <div class="tiktok-description">King of viral recipes! His famous sambal nyet yang buat semua orang tergila-gila.</div>
+            <span class="tiktok-badge">TikTok</span>
+          </div>
+        </div>
+        
+        <!-- Video 2 -->
+        <div class="tiktok-card">
+          <div class="tiktok-thumbnail">
+            <video controls>
+              <source src="videos/video2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="tiktok-info">
+            <div class="tiktok-username">@aminramlee</div>
+            <div class="tiktok-title">Quick & Easy Recipes</div>
+            <div class="tiktok-description">Simple recipes dengan tips masak yang senang dan sedap!</div>
+            <span class="tiktok-badge">TikTok</span>
+          </div>
+        </div>
+        
+        <!-- Video 3 -->
+        <div class="tiktok-card">
+          <div class="tiktok-thumbnail">
+            <video controls>
+              <source src="videos/video3.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="tiktok-info">
+            <div class="tiktok-username">@cookingwithsheila</div>
+            <div class="tiktok-title">Masakan Melayu Simple</div>
+            <div class="tiktok-description">Traditional Malay cooking made easy untuk sesiapa je!</div>
+            <span class="tiktok-badge">TikTok</span>
+          </div>
+        </div>
+        
+        <!-- Video 4 -->
+        <div class="tiktok-card">
+          <div class="tiktok-thumbnail">
+            <video controls>
+              <source src="videos/video4.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="tiktok-info">
+            <div class="tiktok-username">@chefammar</div>
+            <div class="tiktok-title">Western Fusion Dishes</div>
+            <div class="tiktok-description">Western cuisine dengan Malaysian twist yang best!</div>
+            <span class="tiktok-badge">TikTok</span>
+          </div>
+        </div>
+        
+        <!-- Video 5 -->
+        <div class="tiktok-card">
+          <div class="tiktok-thumbnail">
+            <video controls>
+              <source src="videos/video5.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="tiktok-info">
+            <div class="tiktok-username">@mamafami</div>
+            <div class="tiktok-title">Resepi Viral Budget</div>
+            <div class="tiktok-description">Masakan sedap dengan budget yang jimat, perfect untuk students!</div>
+            <span class="tiktok-badge">TikTok</span>
+          </div>
+        </div>
+        
+        <!-- Video 6 -->
+        <div class="tiktok-card">
+          <div class="tiktok-thumbnail">
+            <video controls>
+              <source src="videos/video6.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="tiktok-info">
+            <div class="tiktok-username">@dapurtanpasempadan</div>
+            <div class="tiktok-title">Asian Street Food</div>
+            <div class="tiktok-description">Recreate your favorite street food at home dengan mudah!</div>
+            <span class="tiktok-badge">TikTok</span>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+  
+  <script>
+    let currentIndex = 0;
+    const totalCards = 3;
+    
+    function updateCarousel() {
+      const cards = document.querySelectorAll('.recipe-card');
+      const indicators = document.querySelectorAll('.indicator-dot');
+      
+      cards.forEach((card, index) => {
+        card.classList.remove('left', 'center', 'right', 'hidden', 'flipped');
+        
+        if (index === currentIndex) {
+          card.classList.add('center');
+        } else if (index === (currentIndex - 1 + totalCards) % totalCards) {
+          card.classList.add('left');
+        } else if (index === (currentIndex + 1) % totalCards) {
+          card.classList.add('right');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      indicators.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+    
+    function nextCard() {
+      currentIndex = (currentIndex + 1) % totalCards;
+      updateCarousel();
+    }
+    
+    function previousCard() {
+      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+      updateCarousel();
+    }
+    
+    function goToCard(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+    
+    function flipCard(card) {
+      if (card.classList.contains('center')) {
+        card.classList.toggle('flipped');
+      }
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') previousCard();
+      if (e.key === 'ArrowRight') nextCard();
+    });
+    
+    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
+    
+    // Particles
+    particlesJS("particles-js",{"particles":{"number":{"value":60,"density":{"enable":true,"value_area":800}},"color":{"value":"#feca57"},"shape":{"type":"circle"},"opacity":{"value":0.4,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1}},"size":{"value":4,"random":true,"anim":{"enable":true,"speed":2,"size_min":1}},"line_linked":{"enable":false},"move":{"enable":true,"speed":1.5,"direction":"top","random":true,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"push"}},"modes":{"bubble":{"distance":150,"size":6,"duration":2},"push":{"particles_nb":3}}},"retina_detect":true});
+  </script>
+  
+</body>
+</html>">Click to see the story behind this dish →</p>
               </div>
             </div>
             <!-- BACK -->
             <div class="card-face card-back">
               <div class="memory-icon">💛</div>
               <h3>A Comfort Memory</h3>
-              <p class="memory-text">This was one of the first dishes I learned from my mother. I remember standing beside her in the kitchen, watching her expertly balance the spices while telling stories about her own mother. This is the dish that, every time we cook it, my mom will remind me of how her mother-in-law (my grandmother) used to say, “If you want it to taste good, don’t stop stirring.”
-Even now, my mom still reminds me of the same thing, so every time I cook this dish, I’m reminded of both her and my late Tokmek.
+              <p class="memory-text">This was one of the first dishes I learned from my mother. I remember standing beside her in the kitchen, watching her expertly balance the spices while telling stories about her own mother. This is the dish that, every time we cook it, my mom will remind me of how her mother-in-law (my grandmother) used to say, "If you want it to taste good, don't stop stirring."
+Even now, my mom still reminds me of the same thing, so every time I cook this dish, I'm reminded of both her and my late Tokmek.
 
 My family absolutely loves this dish, so much that whenever I see it being sold anywhere outside our home, I immediately think of them.This dish absolutely feels like home.</p>
               <p class="flip-hint">Click to see recipe →</p>
@@ -297,143 +705,7 @@ My family absolutely loves this dish, so much that whenever I see it being sold 
               <div class="memory-icon">🥩</div>
               <h3>Patience & Tradition</h3>
               <p class="memory-text">Dendeng taught me the virtue of patience. The first time I attempted this recipe, I rushed through the process and ended up with burnt, tough pieces. My grandmother laughed gently and said, "Good things take time, sayang." We started over together, and she showed me how to wait for each stage, how to listen to the sizzle, and how to trust the process. Now, every time I make dendeng, I remember her wisdom, that the best things in life, whether it's food or relationships, require patience and care.</p>
-              <p class="flip-hint">Click to see recipe →</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Card 3: Sambal Udang -->
-        <div class="recipe-card hidden" data-index="2" onclick="flipCard(this)">
-          <div class="card-inner">
-            <!-- FRONT -->
-            <div class="card-face card-front">
-              <div class="recipe-image">
-                <img src="images/udang.jpg" alt="Sambal Udang">
-              </div>
-              <div class="recipe-content">
-                <h3>Sambal Udang</h3>
-                <div class="recipe-meta">
-                  <div class="meta-item"><span>⏱️</span> 25 mins</div>
-                  <div class="meta-item"><span>👥</span> 4 servings</div>
-                  <div class="meta-item"><span>🌶️</span> Very Spicy</div>
-                </div>
-                <p>Succulent prawns stir-fried in homemade fiery sambal with hints of tamarind sweetness.</p>
-                <div class="ingredients-list">
-                  <h4>Ingredients:</h4>
-                  <ul>
-                    <li>500g fresh prawns (cleaned and deveined)</li>
-                    <li>15 dried chilies (soaked)</li>
-                    <li>1 tbsp belacan (shrimp paste)</li>
-                    <li>3 tbsp tamarind juice</li>
-                    <li>2 tbsp palm sugar</li>
-                    <li>2 tomatoes (cut into wedges)</li>
-                    <li>5 shallots</li>
-                    <li>3 cloves garlic</li>
-                    <li>Salt to taste</li>
-                    <li>Cooking oil</li>
-                  </ul>
-                </div>
-                <div class="recipe-steps">
-                  <h4>Steps:</h4>
-                  <ol>
-                    <li>Blend soaked chilies, shallots, garlic, and belacan into a smooth paste.</li>
-                    <li>Heat oil in a wok. Fry the paste over medium heat until fragrant and oil separates.</li>
-                    <li>Add tamarind juice and palm sugar. Stir well.</li>
-                    <li>Add tomatoes and cook until soft.</li>
-                    <li>Add prawns and stir-fry until cooked (about 3-5 minutes).</li>
-                    <li>Season with salt to taste. Serve immediately with steamed rice!</li>
-                  </ol>
-                </div>
-                <p class="flip-hint">Click to see the story behind this dish →</p>
-              </div>
-            </div>
-            <!-- BACK -->
-            <div class="card-face card-back">
-              <div class="memory-icon">🦐</div>
-              <h3>A Flavor That Always Leads Me Back to Abah</h3>
-              <p class="memory-text">Every time I eat prawns, it brings me back to my childhood. I used to be allergic to seafood, which means yes… I was allergic to prawns!
-But my love for prawns was something I just couldn’t give up. Even though I had to deal with painful flare-ups, I still ate them anyway.
-
-My dad eventually stopped trying to remind me not to. Instead, he became my biggest supporter by peeling the prawns for me and piling them onto my plate, leaving only the prawn heads on his. Oh, how sweet he was to his only daughter.
-
-And now, whenever I eat sambal udang or anything with prawns, I always think of him.
-Anyway… I’m officially free from my seafood allergy now, hehe.</p>
-              <p class="flip-hint">Click to see recipe →</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      
-      <!-- NAVIGATION -->
-      <div class="carousel-nav">
-        <div class="carousel-arrow" onclick="previousCard()">←</div>
-        <div class="carousel-arrow" onclick="nextCard()">→</div>
-      </div>
-      
-      <!-- INDICATORS -->
-      <div class="carousel-indicators">
-        <div class="indicator-dot active" onclick="goToCard(0)"></div>
-        <div class="indicator-dot" onclick="goToCard(1)"></div>
-        <div class="indicator-dot" onclick="goToCard(2)"></div>
-      </div>
-    </div>
-    
-    <!-- COOKING TIPS -->
-    <div class="cooking-tips">
-      <h2>💡 My Kitchen Secrets</h2>
-      <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 20px;">Tips and tricks I've learned along the way</p>
-      <div class="tips-grid">
-        <div class="tip-item">
-          <div class="icon">🔥</div>
-          <h4>Perfect Heat Control</h4>
-          <p>Master your stove settings. Low and slow for complex flavors, high heat for that perfect char.</p>
-        </div>
-        <div class="tip-item">
-          <div class="icon">🧂</div>
-          <h4>Season in Layers</h4>
-          <p>Don't wait until the end! Season at each stage of cooking for deeper, more balanced flavors.</p>
-        </div>
-        <div class="tip-item">
-          <div class="icon">⚖️</div>
-          <h4>Trust Your Taste</h4>
-          <p>Recipes are guides, not rules. Adjust to your preference and don't be afraid to experiment!</p>
-        </div>
-        <div class="tip-item">
-          <div class="icon">🥘</div>
-          <h4>Prep is Everything</h4>
-          <p> Having everything ready before you start cooking makes the process smooth and stress-free.</p>
-        </div>
-      </div>
-    </div>
-    
-  </div>
-  
-  <script>
-    let currentIndex = 0;
-    const totalCards = 3;
-    
-    function updateCarousel() {
-      const cards = document.querySelectorAll('.recipe-card');
-      const indicators = document.querySelectorAll('.indicator-dot');
-      
-      cards.forEach((card, index) => {
-        card.classList.remove('left', 'center', 'right', 'hidden', 'flipped');
-        
-        if (index === currentIndex) {
-          card.classList.add('center');
-        } else if (index === (currentIndex - 1 + totalCards) % totalCards) {
-          card.classList.add('left');
-        } else if (index === (currentIndex + 1) % totalCards) {
-          card.classList.add('right');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-      
-      indicators.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
-      });
+              <p class="flip-hint
     }
     
     function nextCard() {
