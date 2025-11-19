@@ -1,78 +1,405 @@
-<!-- TIKTOK INSPIRATIONS SECTION -->
-<div class="tiktok-section">
-  <h2>🎬 Cooking Inspirations in TikTok</h2>
-  <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 30px;">Short videos that inspire my cooking journey!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Kitchen - Nawa's Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Satisfy&family=Quicksand:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
+      color: white;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      margin-bottom: 60px;
+    }
+
+    .subtitle {
+      font-family: 'Satisfy', cursive;
+      font-size: 1.5em;
+      color: #feca57;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      color: #feca57;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(254, 202, 87, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      color: #a7c7e7;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Intro Section */
+    .intro-section {
+      background: rgba(255, 107, 107, 0.1);
+      border: 2px solid rgba(255, 107, 107, 0.3);
+      border-radius: 25px;
+      padding: 40px;
+      margin-bottom: 80px;
+      text-align: center;
+    }
+
+    .intro-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      color: #feca57;
+      margin-bottom: 20px;
+    }
+
+    .intro-section p {
+      font-size: 1.2em;
+      color: #a7c7e7;
+      line-height: 1.8;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Cooking Tips */
+    .cooking-tips {
+      background: rgba(254, 202, 87, 0.1);
+      border: 2px solid rgba(254, 202, 87, 0.3);
+      border-radius: 25px;
+      padding: 50px 40px;
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .cooking-tips h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      color: #feca57;
+      margin-bottom: 15px;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .tip-item {
+      background: rgba(1, 22, 43, 0.8);
+      border: 2px solid rgba(254, 202, 87, 0.3);
+      border-radius: 15px;
+      padding: 30px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .tip-item:hover {
+      transform: translateY(-5px);
+      border-color: #feca57;
+      box-shadow: 0 10px 25px rgba(254, 202, 87, 0.3);
+    }
+
+    .tip-item .icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    .tip-item h4 {
+      font-family: 'Righteous', sans-serif;
+      font-size: 1.3em;
+      color: #ff6b6b;
+      margin-bottom: 12px;
+    }
+
+    .tip-item p {
+      color: #a7c7e7;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    /* TIKTOK INSPIRATIONS SECTION */
+    .tiktok-section {
+      background: rgba(255, 107, 107, 0.1);
+      border: 2px solid rgba(255, 107, 107, 0.3);
+      border-radius: 25px;
+      padding: 40px;
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .tiktok-section h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5em;
+      color: #feca57;
+      margin-bottom: 20px;
+    }
+
+    .tiktok-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .tiktok-video {
+      background: rgba(1, 22, 43, 0.8);
+      border: 2px solid rgba(254, 202, 87, 0.3);
+      border-radius: 15px;
+      padding: 15px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tiktok-video:hover {
+      transform: translateY(-5px);
+      border-color: #feca57;
+      box-shadow: 0 10px 25px rgba(254, 202, 87, 0.3);
+    }
+
+    .tiktok-video video {
+      width: 100%;
+      max-width: 280px;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 107, 107, 0.3);
+    }
+
+    .video-caption {
+      color: #feca57;
+      font-family: "Righteous", sans-serif;
+      font-size: 1.1em;
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: rgba(255, 107, 107, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid #ff6b6b;
+      text-align: center;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5em;
+      }
+
+      .intro-section, .cooking-tips, .tiktok-section {
+        padding: 30px 20px;
+      }
+
+      .tips-grid, .tiktok-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .tiktok-video video {
+        max-width: 250px;
+        height: 440px;
+      }
+
+      .video-caption {
+        max-width: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .tiktok-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tiktok-section {
+        padding: 25px;
+      }
+
+      .tiktok-video video {
+        max-width: 100%;
+        height: 500px;
+      }
+
+      .video-caption {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
   
-  <div class="tiktok-grid">
-    <!-- Video 1 -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Quick & Easy Breakfast Ideas</div>
+  <div id="particles-js"></div>
+  
+  <div class="container">
+    
+    <div class="hero">
+      <div class="subtitle">Welcome to</div>
+      <h1>Nawa's Kitchen Diary!</h1>
+      <p>I find peace while cooking for my loved ones. It may be simple but filled with warmth ^^</p>
     </div>
     
-    <!-- Video 2 -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Spicy Noodle Challenge</div>
+    <!-- COOKING PHILOSOPHY SECTION -->
+    <div class="intro-section">
+      <h2>🍳 My Cooking Philosophy</h2>
+      <p>For me, cooking is more than just following recipes, it's about pouring love into every ingredient, experimenting with various flavors, and creating memories around the dining table and the kitchen. Here, I will be sharing 3 of my favourite menus, which are actually special to me because of the memories tied to the moments I prepared them.</p>
     </div>
     
-    <!-- Video 3 -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok3.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Traditional Dessert Magic</div>
-    </div>
-    
-    <!-- Video 4 -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok4.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">5-Minute Lunch Hacks</div>
-    </div>
-    
-    <!-- Video 5 -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok5.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Street Food Adventures</div>
-    </div>
-    
-    <!-- Video 6 -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok6.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Healthy Snack Ideas</div>
+    <!-- COOKING TIPS -->
+    <div class="cooking-tips">
+      <h2>💡 My Kitchen Secrets</h2>
+      <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 20px;">Tips and tricks I've learned along the way</p>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <div class="icon">🔥</div>
+          <h4>Perfect Heat Control</h4>
+          <p>Master your stove settings. Low and slow for complex flavors, high heat for that perfect char.</p>
+        </div>
+        <div class="tip-item">
+          <div class="icon">🧂</div>
+          <h4>Season in Layers</h4>
+          <p>Don't wait until the end! Season at each stage of cooking for deeper, more balanced flavors.</p>
+        </div>
+        <div class="tip-item">
+          <div class="icon">⚖️</div>
+          <h4>Trust Your Taste</h4>
+          <p>Recipes are guides, not rules. Adjust to your preference and don't be afraid to experiment!</p>
+        </div>
+        <div class="tip-item">
+          <div class="icon">🥘</div>
+          <h4>Prep is Everything</h4>
+          <p>Mise en place! Having everything ready before you start cooking makes the process smooth and stress-free.</p>
+        </div>
+      </div>
     </div>
 
-    <!-- VIDEO BARU - TAMBAH DI SINI -->
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok7.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Asian Street Food Tour</div>
+    <!-- TIKTOK INSPIRATIONS SECTION -->
+    <div class="tiktok-section">
+      <h2>🎬 Cooking Inspirations in TikTok</h2>
+      <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 30px;">Short videos that inspire my cooking journey!</p>
+      
+      <div class="tiktok-grid">
+        <!-- Video 1 -->
+        <div class="tiktok-video">
+          <video controls muted loop>
+            <source src="videos/tiktok1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">Quick & Easy Breakfast Ideas</div>
+        </div>
+        
+        <!-- Video 2 -->
+        <div class="tiktok-video">
+          <video controls muted loop>
+            <source src="videos/tiktok2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">Spicy Noodle Challenge</div>
+        </div>
+        
+        <!-- Video 3 -->
+        <div class="tiktok-video">
+          <video controls muted loop>
+            <source src="videos/tiktok3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">Traditional Dessert Magic</div>
+        </div>
+        
+        <!-- Video 4 -->
+        <div class="tiktok-video">
+          <video controls muted loop>
+            <source src="videos/tiktok4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">5-Minute Lunch Hacks</div>
+        </div>
+        
+        <!-- Video 5 -->
+        <div class="tiktok-video">
+          <video controls muted loop>
+            <source src="videos/tiktok5.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">Street Food Adventures</div>
+        </div>
+        
+        <!-- Video 6 -->
+        <div class="tiktok-video">
+          <video controls muted loop>
+            <source src="videos/tiktok6.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">Healthy Snack Ideas</div>
+        </div>
+      </div>
     </div>
     
-    <div class="tiktok-video">
-      <video controls muted loop>
-        <source src="videos/tiktok8.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="video-caption">Dessert Making Tutorial</div>
-    </div>
   </div>
-</div>
+  
+  <script>
+    // Particles
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {"value": 60, "density": {"enable": true, "value_area": 800}},
+        "color": {"value": "#feca57"},
+        "shape": {"type": "circle"},
+        "opacity": {"value": 0.4, "random": true, "anim": {"enable": true, "speed": 1, "opacity_min": 0.1}},
+        "size": {"value": 4, "random": true, "anim": {"enable": true, "speed": 2, "size_min": 1}},
+        "line_linked": {"enable": false},
+        "move": {"enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out"}
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {"enable": true, "mode": "bubble"},
+          "onclick": {"enable": true, "mode": "push"}
+        },
+        "modes": {
+          "bubble": {"distance": 150, "size": 6, "duration": 2},
+          "push": {"particles_nb": 3}
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+  
+</body>
+</html>
