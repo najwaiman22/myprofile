@@ -6,43 +6,11 @@
   <title>My Kitchen - Nawa's Space</title>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Satisfy&family=Quicksand:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <!-- UPDATE PATH CSS DI SINI -->
-  <link rel="stylesheet" href="https://najwaimannn.github.io/css/page4.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   
   <div id="particles-js"></div>
-  
-  <button class="page-nav-btn prev-btn" onclick="location.href='page3.html'">← Previous</button>
-  <button class="page-nav-btn next-btn" onclick="location.href='page5.html'">Next →</button>
-  
-  <nav class="nav-menu">
-    <div class="nav-item" onclick="location.href='index.html'">
-      <div class="nav-dot"></div>
-      <span class="nav-label">Homepage</span>
-    </div>
-    <div class="nav-item" onclick="location.href='page2.html'">
-      <div class="nav-dot"></div>
-      <span class="nav-label">About Me</span>
-    </div>
-    <div class="nav-item" onclick="location.href='page3.html'">
-      <div class="nav-dot"></div>
-      <span class="nav-label">Game</span>
-    </div>
-    <div class="nav-item active">
-      <div class="nav-dot"></div>
-      <span class="nav-label">Hobbies</span>
-    </div>
-    <div class="nav-item" onclick="location.href='page5.html'">
-      <div class="nav-dot"></div>
-      <span class="nav-label">Contact</span>
-    </div>
-  </nav>
-  
-  <div class="scroll-controls">
-    <div class="scroll-btn" onclick="scrollToTop()">↑</div>
-    <div class="scroll-btn" onclick="scrollToBottom()">↓</div>
-  </div>
   
   <div class="container">
     
@@ -56,190 +24,6 @@
     <div class="intro-section">
       <h2>🍳 My Cooking Philosophy</h2>
       <p>For me, cooking is more than just following recipes, it's about pouring love into every ingredient, experimenting with various flavors, and creating memories around the dining table and the kitchen. Here, I will be sharing 3 of my favourite menus, which are actually special to me because of the memories tied to the moments I prepared them.</p>
-    </div>
-    
-    <!-- CAROUSEL SECTION -->
-    <div class="carousel-section">
-      <div class="carousel-container" id="carouselContainer">
-        
-        <!-- Card 1: Masak Lemak -->
-        <div class="recipe-card center" data-index="0" onclick="flipCard(this)">
-          <div class="card-inner">
-            <!-- FRONT -->
-            <div class="card-face card-front">
-              <div class="recipe-image">
-                <img src="images/kuning.jpg" alt="Masak Lemak Cili Api Ayam">
-              </div>
-              <div class="recipe-content">
-                <h3>Masak Lemak Cili Api Ayam</h3>
-                <div class="recipe-meta">
-                  <div class="meta-item"><span>⏱️</span> 40 mins</div>
-                  <div class="meta-item"><span>👥</span> 4 servings</div>
-                  <div class="meta-item"><span>🌶️</span> Spicy</div>
-                </div>
-                <p>Rich, creamy, and fiery! Traditional Malay curry with tender chicken in coconut milk and bird's eye chili.</p>
-                <div class="ingredients-list">
-                  <h4>Ingredients:</h4>
-                  <ul>
-                    <li>500g chicken pieces (cut into chunks)</li>
-                    <li>400ml coconut milk</li>
-                    <li>10-15 cili api (bird's eye chili)</li>
-                    <li>2 tsp turmeric powder</li>
-                    <li>2 stalks lemongrass (bruised)</li>
-                    <li>5 shallots (sliced)</li>
-                    <li>3 cloves garlic (minced)</li>
-                    <li>1 tomato (quartered)</li>
-                    <li>Salt to taste</li>
-                    <li>Cooking oil</li>
-                  </ul>
-                </div>
-                <div class="recipe-steps">
-                  <h4>Steps:</h4>
-                  <ol>
-                    <li>Heat oil in a pot. Sauté shallots, garlic, and lemongrass until fragrant.</li>
-                    <li>Add turmeric powder and stir for 1 minute.</li>
-                    <li>Add chicken pieces and cook until slightly browned.</li>
-                    <li>Pour in coconut milk and bring to a gentle boil.</li>
-                    <li>Add cili api and tomato. Simmer for 20 minutes until chicken is tender.</li>
-                    <li>Season with salt to taste. Serve hot with rice!</li>
-                  </ol>
-                </div>
-                <p class="flip-hint">Click to see the story behind this dish →</p>
-              </div>
-            </div>
-            <!-- BACK -->
-            <div class="card-face card-back">
-              <div class="memory-icon">💛</div>
-              <h3>A Comfort Memory</h3>
-              <p class="memory-text">This was one of the first dishes I learned from my mother. I remember standing beside her in the kitchen, watching her expertly balance the spices while telling stories about her own mother. The aroma of coconut milk simmering with fresh turmeric always brings me back to those warm afternoons. Now, whenever I cook this, I feel her presence guiding my hands, and it reminds me that cooking is more than just feeding people—it's about passing down love through generations.</p>
-              <p class="flip-hint">Click to see recipe →</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Card 2: Dendeng -->
-        <div class="recipe-card right" data-index="1" onclick="flipCard(this)">
-          <div class="card-inner">
-            <!-- FRONT -->
-            <div class="card-face card-front">
-              <div class="recipe-image">
-                <img src="images/dendeng.jpg" alt="Dendeng Daging">
-              </div>
-              <div class="recipe-content">
-                <h3>Dendeng Daging</h3>
-                <div class="recipe-meta">
-                  <div class="meta-item"><span>⏱️</span> 2 hours</div>
-                  <div class="meta-item"><span>👥</span> 6 servings</div>
-                  <div class="meta-item"><span>🌶️</span> Sweet & Spicy</div>
-                </div>
-                <p>Slow-cooked sweet and savory beef jerky, caramelized to perfection with a hint of spice.</p>
-                <div class="ingredients-list">
-                  <h4>Ingredients:</h4>
-                  <ul>
-                    <li>500g beef (thinly sliced)</li>
-                    <li>100g brown sugar</li>
-                    <li>3 tbsp tamarind paste</li>
-                    <li>2 tsp coriander powder</li>
-                    <li>1 tsp fennel seeds</li>
-                    <li>5 shallots (blended)</li>
-                    <li>3 cloves garlic (blended)</li>
-                    <li>1 tsp salt</li>
-                    <li>Cooking oil for deep frying</li>
-                  </ul>
-                </div>
-                <div class="recipe-steps">
-                  <h4>Steps:</h4>
-                  <ol>
-                    <li>Marinate beef with blended shallots, garlic, coriander, fennel, and salt for 2 hours.</li>
-                    <li>Heat a pan with a little oil. Add marinated beef and cook over low heat, stirring occasionally.</li>
-                    <li>Add brown sugar and tamarind paste. Continue cooking until liquid evaporates.</li>
-                    <li>Once dry, heat oil in a separate pan for deep frying.</li>
-                    <li>Fry the beef until crispy and caramelized.</li>
-                    <li>Drain excess oil and let cool. Store in airtight container.</li>
-                  </ol>
-                </div>
-                <p class="flip-hint">Click to see the story behind this dish →</p>
-              </div>
-            </div>
-            <!-- BACK -->
-            <div class="card-face card-back">
-              <div class="memory-icon">🥩</div>
-              <h3>Patience & Tradition</h3>
-              <p class="memory-text">Dendeng taught me the virtue of patience. The first time I attempted this recipe, I rushed through the process and ended up with burnt, tough pieces. My grandmother laughed gently and said, "Good things take time, sayang." We started over together, and she showed me how to wait for each stage, how to listen to the sizzle, and how to trust the process. Now, every time I make dendeng, I remember her wisdom—that the best things in life, whether it's food or relationships, require patience and care.</p>
-              <p class="flip-hint">Click to see recipe →</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Card 3: Sambal Udang -->
-        <div class="recipe-card hidden" data-index="2" onclick="flipCard(this)">
-          <div class="card-inner">
-            <!-- FRONT -->
-            <div class="card-face card-front">
-              <div class="recipe-image">
-                <img src="images/udang.jpg" alt="Sambal Udang">
-              </div>
-              <div class="recipe-content">
-                <h3>Sambal Udang</h3>
-                <div class="recipe-meta">
-                  <div class="meta-item"><span>⏱️</span> 25 mins</div>
-                  <div class="meta-item"><span>👥</span> 4 servings</div>
-                  <div class="meta-item"><span>🌶️</span> Very Spicy</div>
-                </div>
-                <p>Succulent prawns stir-fried in homemade fiery sambal with hints of tamarind sweetness.</p>
-                <div class="ingredients-list">
-                  <h4>Ingredients:</h4>
-                  <ul>
-                    <li>500g fresh prawns (cleaned and deveined)</li>
-                    <li>15 dried chilies (soaked)</li>
-                    <li>1 tbsp belacan (shrimp paste)</li>
-                    <li>3 tbsp tamarind juice</li>
-                    <li>2 tbsp palm sugar</li>
-                    <li>2 tomatoes (cut into wedges)</li>
-                    <li>5 shallots</li>
-                    <li>3 cloves garlic</li>
-                    <li>Salt to taste</li>
-                    <li>Cooking oil</li>
-                  </ul>
-                </div>
-                <div class="recipe-steps">
-                  <h4>Steps:</h4>
-                  <ol>
-                    <li>Blend soaked chilies, shallots, garlic, and belacan into a smooth paste.</li>
-                    <li>Heat oil in a wok. Fry the paste over medium heat until fragrant and oil separates.</li>
-                    <li>Add tamarind juice and palm sugar. Stir well.</li>
-                    <li>Add tomatoes and cook until soft.</li>
-                    <li>Add prawns and stir-fry until cooked (about 3-5 minutes).</li>
-                    <li>Season with salt to taste. Serve immediately with steamed rice!</li>
-                  </ol>
-                </div>
-                <p class="flip-hint">Click to see the story behind this dish →</p>
-              </div>
-            </div>
-            <!-- BACK -->
-            <div class="card-face card-back">
-              <div class="memory-icon">🦐</div>
-              <h3>A Celebration Dish</h3>
-              <p class="memory-text">Sambal Udang holds a special place in my heart because it was the first dish I ever cooked for a celebration. When my family gathered for Hari Raya, I volunteered to prepare this, despite my nervousness. I spent the morning grinding spices, and when I finally served it, the silence at the table made my heart sink—until my father smiled and said it tasted just like home. That moment taught me that food has the power to bring people together and create joy, and it gave me the confidence to keep exploring my culinary journey.</p>
-              <p class="flip-hint">Click to see recipe →</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      
-      <!-- NAVIGATION -->
-      <div class="carousel-nav">
-        <div class="carousel-arrow" onclick="previousCard()">←</div>
-        <div class="carousel-arrow" onclick="nextCard()">→</div>
-      </div>
-      
-      <!-- INDICATORS -->
-      <div class="carousel-indicators">
-        <div class="indicator-dot active" onclick="goToCard(0)"></div>
-        <div class="indicator-dot" onclick="goToCard(1)"></div>
-        <div class="indicator-dot" onclick="goToCard(2)"></div>
-      </div>
     </div>
     
     <!-- COOKING TIPS -->
@@ -273,7 +57,7 @@
     <!-- TIKTOK INSPIRATIONS SECTION -->
     <div class="tiktok-section">
       <h2>🎬 Cooking Inspirations in TikTok</h2>
-      <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 30px; text-align: center;">Short videos that inspire my cooking journey!</p>
+      <p style="color: #a7c7e7; font-size: 1.1em; margin-bottom: 30px;">Short videos that inspire my cooking journey!</p>
       
       <div class="tiktok-grid">
         <!-- Video 1 -->
@@ -334,8 +118,7 @@
     
   </div>
   
-  <!-- UPDATE PATH JAVASCRIPT DI SINI -->
-  <script src="https://najwaimannn.github.io/js/page4.js"></script>
+  <script src="script.js"></script>
   
 </body>
 </html>
