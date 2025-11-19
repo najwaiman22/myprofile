@@ -69,12 +69,22 @@ body {
   animation: bounce 1.4s infinite ease-in-out both;
 }
 
-.dot:nth-child(1) { animation-delay: -0.32s; }
-.dot:nth-child(2) { animation-delay: -0.16s; }
+.dot:nth-child(1) { 
+  animation-delay: -0.32s; 
+}
+
+.dot:nth-child(2) { 
+  animation-delay: -0.16s; 
+}
 
 @keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); opacity: 1; }
+  0%, 80%, 100% { 
+    transform: scale(0); 
+  }
+  40% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
 }
 
 /* --- Main Content --- */
@@ -153,5 +163,21 @@ body {
 }
 
 .button:focus {
-  outline: 2px solid
+  outline: 2px solid #a7c7e7;
+  outline-offset: 2px;
+}
 
+/* Responsive */
+@media (max-width: 768px) {
+  #main-content h1 {
+    font-size: 2em;
+  }
+  
+  #main-content p {
+    font-size: 1em;
+  }
+  
+  #counter {
+    font-size: 3em;
+  }
+}
