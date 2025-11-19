@@ -103,26 +103,90 @@ body { font-family: "Quicksand", sans-serif; background: radial-gradient(circle 
 .tip-item h4 { font-family: "Righteous", sans-serif; color: #feca57; margin-bottom: 10px; font-size: 1.1em; }
 .tip-item p { color: #a7c7e7; font-size: 0.95em; line-height: 1.6; }
 
-@media (max-width: 1024px) {
-  .recipe-card { width: 700px; height: 500px; }
-  .recipe-card.left { transform: translateX(-750px) scale(0.75); }
-  .recipe-card.right { transform: translateX(750px) scale(0.75); }
+/* TIKTOK INSPIRATIONS SECTION */
+.tiktok-section {
+  background: rgba(255, 107, 107, 0.1);
+  border: 2px solid rgba(255, 107, 107, 0.3);
+  border-radius: 25px;
+  padding: 40px;
+  margin-top: 80px;
+  text-align: center;
 }
 
-@media (max-width: 768px) {
-  .container { padding: 100px 20px 60px; }
-  .hero h1 { font-size: 3em; }
-  .hero .subtitle { font-size: 1.5em; }
-  .carousel-container { height: 650px; }
-  .recipe-card { width: 340px; height: 580px; }
-  .card-front { flex-direction: column; }
-  .recipe-image { width: 100%; height: 200px; }
-  .recipe-content { padding: 20px; }
-  .recipe-card.left, .recipe-card.right { display: none; }
-  .recipe-card.center { transform: scale(0.95); }
-  .carousel-arrow { width: 50px; height: 50px; font-size: 1.5em; }
-  .nav-menu { padding: 8px 15px; gap: 10px; }
-  .nav-dot { width: 8px; height: 8px; }
-  .prev-btn { left: 10px; top: 80px; }
-  .next-btn { right: 10px; top: 80px; }
+.tiktok-section h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5em;
+  color: #feca57;
+  margin-bottom: 20px;
 }
+
+.tiktok-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.tiktok-video {
+  background: rgba(1, 22, 43, 0.8);
+  border: 2px solid rgba(254, 202, 87, 0.3);
+  border-radius: 15px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.tiktok-video:hover {
+  transform: translateY(-5px);
+  border-color: #feca57;
+  box-shadow: 0 10px 25px rgba(254, 202, 87, 0.3);
+}
+
+.tiktok-video video {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 107, 107, 0.3);
+}
+
+.video-caption {
+  color: #feca57;
+  font-family: "Righteous", sans-serif;
+  font-size: 1.1em;
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid #ff6b6b;
+}
+
+/* Responsive Design for TikTok Section */
+@media (max-width: 768px) {
+  .tiktok-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .tiktok-video video {
+    height: 250px;
+  }
+  
+  .tiktok-section h2 {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .tiktok-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tiktok-section {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .recipe-card { width: 700px; height: 500px; }
+  .recipe-card.left { transform: translateX(-750px) scale(0
